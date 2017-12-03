@@ -1,0 +1,129 @@
+/**index.wxss**/
+.index-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.index-banner{
+  width: 100%;
+  height: 360rpx;
+}
+.index-business {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 240rpx;
+  align-items: center;
+  background: #fff;
+}
+.business-box{
+  display: flex;
+  flex-direction: column;
+  width:748rpx;
+  text-align: center;
+}
+.business-box .img{
+  width: 92rpx;
+  height: 76rpx;
+  margin-left: 140rpx;
+}
+.business-box .txt{
+  margin-top: 16rpx;
+  font-size: 30rpx;
+}
+.index-business .line{
+  width: 1px;
+  height: 110rpx;
+  background-color: #ddd;
+}
+.index-four-type{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 220rpx;
+  margin: 20rpx 0;
+  align-items: center; 
+  background: #fff;
+}
+.index-four-type .four-type{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%; 
+  text-align: center; 
+     
+}
+.index-four-type .four-type-img{
+  width: 90rpx;
+  height: 90rpx;
+}
+.index-four-type .four-type-txt{
+  margin-top: 16rpx;
+  font-size: 28rpx;
+}
+.index-newest-message{
+  background-color: #fff;
+  width: 100%;
+}
+.index-newest-message .newest-my-express{
+  margin-left: 36rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #999;
+}
+.index-newest-message .my-express-box{
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  padding: 0 30rpx 0 0;
+  justify-content: space-between;
+  box-sizing: border-box;
+  
+}
+.index-newest-message .express-date{
+  margin-top: 30rpx; 
+  font-size: 24rpx;
+  color: #999;
+}
+.index-newest-message .express-title-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.index-newest-message .express-title-box .icon{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 16rpx;
+}
+.index-newest-message .express-title-box .title{
+  font-size: 28rpx;
+}
+.index-newest-message .my-express-txt{
+  margin: 0 0 10rpx 44rpx;
+  font-size: 30rpx;
+}
+.index-newest-message .my-express-txt .take-num{
+  font-size: 30rpx;
+  color: orange;
+  font-weight: bold;
+}
+.index-newest-message .my-express-info{
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  margin: 0 0 0 44rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+.index-newest-message .my-express-info .company{
+  width: 80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  color: #999;
+  border: 1px solid #999;
+  border-radius: 20rpx;
+}
+.index-newest-message .my-express-info .num{
+  color: #999;
+  margin-left: 10px;
+}

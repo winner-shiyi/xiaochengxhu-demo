@@ -1,0 +1,115 @@
+/* pages/expressOrder/expressOrder.wxss */
+
+.navigation-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  line-height: 60px;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  font-size: 32rpx;
+  color: #999;
+}
+.navigation-item{
+  height: 57px;
+  padding: 0 11px;
+  border-bottom: 3px solid #fff;
+}
+.navigation-select{
+  color: #333;
+  border-bottom-color: #FFDB08;
+}
+.expressOrder-tpl{
+  width: 100%;
+}
+.pickup-container{
+  display: flex;
+  flex-direction: column;
+}
+.order-list-item{
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.item-box{
+  padding: 0 30rpx;
+  border-bottom: 1px solid #F7F7F7;
+}
+.item-head{
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.item-head .back{
+  width: 136rpx;
+  height: 102rpx;
+}
+.my-express-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24rpx;
+}
+.my-express-info .company{
+  width: 80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  color: #999;
+  border: 1px solid #999;
+  border-radius: 20rpx;
+}
+.my-express-info .num{
+  color: #999;
+  margin-left: 10px;
+}
+.order-status{
+  font-size: 30rpx;
+}
+.item-middle{
+  font-size: 28rpx;
+}
+.item-middle .txt{
+  margin: 36rpx 0 14rpx;
+}
+
+.item-middle .num{
+  margin-bottom: 36rpx;
+}
+.item-middle .orange{
+  font-size: 30rpx;
+  color: orange;
+  font-weight: bold; 
+}
+.item-middle .phone{
+  margin: 0 3px;
+  color: blue;
+}
+.item-bottom{
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 22rpx 0;
+}
+.item-bottom .btn{
+  width: 160rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  border-radius: 100px;
+  font-size: 28rpx;
+}
+.item-bottom .order{
+  background-color: #FFDB08;
+}
+.item-bottom .gray{
+  background-color: #eee;
+}
+.item-bottom .pay{
+  border: 1px solid #ff5e5a;
+  color: #ff5e5a;
+}

@@ -1,0 +1,33 @@
+<!--pages/expressOrder/pickUp/pickUp.wxml-->
+
+<template name="pickUpTpl">
+  <view class="pickup-container">
+    <view class="order-list-item">
+      <view class="item-box">
+        <view class="item-head">
+          <view class="my-express-info">
+            <view class="company">顺丰</view>
+            <text class="num">278438651904673454</text>
+          </view>
+          <text class="order-status">待支付</text>
+        </view>
+      </view>
+      <view class="item-box">
+        <view class="item-middle">
+          <view class="txt">锦江时代店已入库</view>
+          <view class="num">自提码：
+            <text class="orange">3839924</text>
+          </view>
+        </view>
+      </view>
+      <view class="item-box">
+        <view class="item-bottom">
+          <view class="btn order">预约配送</view>
+          <!-- <view class="btn order gray">预约配送</view>  -->
+          <!-- <view class="btn pay">立即支付</view> -->
+        </view>
+      </view>
+
+    </view>
+  </view>
+</template>

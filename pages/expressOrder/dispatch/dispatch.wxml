@@ -1,0 +1,30 @@
+<!--pages/expressOrder/dispatch/dispatch.wxml-->
+<template name="dispatchTpl">
+  <view class="dispatch-container">
+    <view class="order-list-item">
+      <view class="item-box">
+        <view class="item-head">
+          <view class="my-express-info">
+            <view class="company">顺丰</view>
+            <text class="num">278438651904673454</text>
+          </view>
+          <!-- <text class="order-status">待接单</text> -->
+          <!-- <text class="order-status">待取货</text> -->
+          <text class="order-status">待送货</text>
+        </view>
+      </view>
+      <view class="item-box">
+        <view class="item-middle">
+          <!-- <view class="txt">您已成功提交订单，清耐心等候</view> -->
+          <!-- <view class="txt">配送员王小二<text class="phone">15880274595</text>已接单</view> -->
+          <view class="txt">配送员王小二
+            <text class="phone">15880274595</text>已取货</view>
+          <view class="num">收货码：
+            <text class="orange">3839924</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</template>

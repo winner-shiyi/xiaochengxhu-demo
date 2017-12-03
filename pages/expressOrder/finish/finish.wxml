@@ -1,0 +1,23 @@
+<!--pages/expressOrder/finish/finish.wxml-->
+<template name="finishTpl">
+  <view class="dispatch-container">
+    <view class="order-list-item">
+      <view class="item-box">
+        <view class="item-head">
+          <view class="my-express-info">
+            <view class="company">顺丰</view>
+            <text class="num">278438651904673454</text>
+          </view>
+          <image class="back" src="/images/list/tuihuijian@2x.png"></image>
+        </view>
+      </view>
+      <view class="item-box">
+        <view class="item-middle">
+          <!-- <view class="txt">您的快递已被签收</view> -->
+          <view class="txt">您的快递已被退回</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</template>

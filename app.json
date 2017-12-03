@@ -1,0 +1,17 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/expressOrder/expressOrder",
+    "pages/expressOrder/pickUp/pickUp",
+    "pages/expressOrder/dispatch/dispatch",
+    "pages/expressOrder/finish/finish",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "兔波波",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#F7F7F7"
+  }
+}

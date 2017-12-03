@@ -1,0 +1,61 @@
+<!--index.wxml 首页-->
+<view class="index-container">
+  <!-- banner -->
+  <image class="index-banner" src="/images/index/banner@2x.png"></image>
+  <!-- 帮我跑腿 和 我要寄件 -->
+  <view class="index-business">
+    <view class="business-box">
+      <image class="img" src="/images/index/bigpaotui@2x.png"></image>
+      <text class="txt">帮我跑腿</text>
+    </view>
+    <text class="line"></text>
+    <view class="business-box">
+      <image class="img" src="/images/index/bigjijian@2x.png"></image>
+      <text class="txt">我要寄件</text>
+    </view>
+
+  
+  </view>
+  <!-- 4个子页面 -->
+  <view class="index-four-type">
+    <view class="four-type" catchtap="onMyExpressTap">
+      <image class="four-type-img" src="/images/index/kuaidi@2x.png"></image>
+      <text class="four-type-txt">我的快递</text>
+    </view>
+    <view class="four-type">
+      <image class="four-type-img" src="/images/index/paotui@2x.png"></image>
+      <text class="four-type-txt">跑腿订单</text>
+    </view>
+    <view class="four-type">
+      <image class="four-type-img" src="/images/index/jijian@2x.png"></image>
+      <text class="four-type-txt">寄件订单</text>
+    </view>
+    <view class="four-type">
+      <image class="four-type-img" src="/images/index/gerenzhongxin@2x.png"></image>
+      <text class="four-type-txt">个人中心</text>
+    </view>
+  </view>
+  <!-- 最新一条信息 -->
+  <view class="index-newest-message">
+    <view class="newest-my-express">
+      <view class="my-express-box">
+      <view class="express-title-box">
+        <image class="icon" src="/images/index/orange@2x.png"></image>
+        <text class="title">我的快递</text>
+      </view>
+        <text class="express-date">11-23</text>
+      </view>
+      <view class="my-express-txt">自提码：<text class="take-num">23456789</text></view>
+      <view class="my-express-txt">自提门店：锦江时代大厦11011</view>
+      <view class="my-express-info">
+        <view class="company">顺丰</view>
+        <text class="num">278438651904673454</text>
+      </view>
+
+      <!-- <view class="my-express-txt">收货码：<text class="take-num">23456789</text></view>
+      <view class="my-express-txt">您的预约配送订单已被配送员xxxx接单，正在赶往取货地，请耐心等待哦</view> -->
+
+      <!-- <view class="my-express-txt">您预约配送的快递021578439498由于骑手原因被取消，您可通过自提码<text class="take-num">3454232</text>前往门店取件</view> -->
+    </view>
+  </view>
+</view>

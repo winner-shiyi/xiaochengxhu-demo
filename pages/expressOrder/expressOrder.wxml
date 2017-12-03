@@ -1,0 +1,30 @@
+<!--pages/expressOrder/expressOrder.wxml-->
+
+
+<view class="expressOrder-container">
+  <view class="navigation-box">
+    <view class="navigation-item navigation-select">
+      <view class="item-title">待自提</view>
+    </view>
+    <view class="navigation-item">
+      <view class="item-title">配送中</view>
+    </view>
+    <view class="navigation-item">
+      <view class="item-title">已完成</view>
+    </view>
+  </view>
+
+  <view class="expressOrder-tpl">
+    
+    <!-- 待自提 -->
+    <import src="pickUp/pickUp.wxml" />  
+    <template is="pickUpTpl" data="{{...inTheaters}}" />  
+    <!-- 配送中 -->
+    <import src="dispatch/dispatch.wxml" />  
+    <!-- <template is="dispatchTpl" data="{{...inTheaters}}" />  -->
+    <!-- 已完成 -->
+    <import src="finish/finish.wxml" />  
+    <!-- <template is="finishTpl" data="{{...inTheaters}}" />  -->
+  </view>
+
+</view>
