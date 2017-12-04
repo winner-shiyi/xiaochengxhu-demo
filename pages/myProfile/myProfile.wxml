@@ -5,7 +5,7 @@
     <view class="profile-info">
       <view class="name-box">
         <text class="name">陈志朋</text>
-        <view class="edit-btn" bindtap="onEditName">修改</view>
+        <view class="edit-btn" bindtap="showModal">修改</view>
       </view>
       <text class="phone">绑定手机：15880274595</text>
     </view>
@@ -17,5 +17,25 @@
       <text class="txt">优惠券</text>
     </view>
     <image class="arrow" src="/images/profile/xiaoyoujiantou@2x.png"></image>
+  </view>
+
+  <view class="custom-modal-container">
+    <view class="modal-mask" catchtouchmove="preventTouchMove" bindtap="hideModal" wx:if="{{modalVisible}}"></view>
+    <view class="modal-dialog" wx:if="{{modalVisible}}">
+      <view class="modal-head">
+        <view class="modal-title">修改昵称</view> 
+        <view bindtap="hideModal" class="close-box"><icon type="cancel" size="20" color="#666" /></view>
+      </view>
+      <view class="modal-content">
+        <form bindsubmit="bindFormSubmit">
+          <textarea class="modal-input" placeholder="form 中的 textarea" name="textarea" maxlength="15" />
+          <view class="max-num">12/15</view>
+          <button class="submit-btn" form-type="submit">保存</button>
+        </form>
+      </view>
+
+
+    </view>
+
   </view>
 </view>

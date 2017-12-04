@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    modalVisible: false
   },
 
   /**
@@ -22,13 +22,26 @@ Page({
   
   },
   /**
+   * 显示之定义模态框
+   */
+  showModal: function () {
+    this.setData({
+      modalVisible: true
+    });
+  },
+  hideModal: function () {
+    this.setData({
+      modalVisible: false
+    });
+  },
+  /**
    * 修改姓名
    */
   onEditName: function () {
-    wx.showModal({
-      title: 'aaa',
-      content: '<input value="aaaa" />'
-    })
+    
+  },
+  preventTouchMove: function () {
+    console.log(111)
   },
 
   /**
