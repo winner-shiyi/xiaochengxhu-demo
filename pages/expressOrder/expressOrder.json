@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "快递订单"
+  "navigationBarTitleText": "快递订单",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

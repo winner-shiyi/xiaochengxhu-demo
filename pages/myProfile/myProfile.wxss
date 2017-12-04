@@ -1,0 +1,71 @@
+/* pages/myProfile/myProfile.wxss */
+.profile-box{
+  display: flex;
+  flex-direction: row;
+  height: 240rpx;
+  background-color: #fff;
+  align-items: center;
+  padding-left: 30rpx;
+}
+.avatar{
+  width: 120rpx;
+  height: 120rpx;
+}
+.profile-info{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.name-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.name-box .name{
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.edit-btn{
+  width:80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border: 1px solid #38ADFF;
+  margin-left: 16rpx;
+  color: #38ADFF;
+  font-size: 24rpx;
+  border-radius: 100px;
+}
+.phone{
+  font-size: 26rpx;
+  color:#999;
+}
+.myProfile-coupon{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 110rpx;
+  margin-top: 20rpx;
+  padding: 0 30rpx;
+  background-color: #fff;
+
+}
+.coupon-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.coupon-box .coupon{
+  width: 44rpx;
+  height: 36rpx;
+  margin-right: 20rpx;
+}
+.coupon-box .txt{
+  font-size: 32rpx;
+}
+.myProfile-coupon .arrow{
+  width: 32rpx;
+  height: 32rpx;
+}

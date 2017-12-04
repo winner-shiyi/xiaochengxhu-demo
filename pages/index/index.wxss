@@ -30,6 +30,7 @@
 .business-box .txt{
   margin-top: 16rpx;
   font-size: 30rpx;
+  font-weight: bold;
 }
 .index-business .line{
   width: 1px;
@@ -65,12 +66,19 @@
   background-color: #fff;
   width: 100%;
 }
-.index-newest-message .newest-my-express{
+.index-newest-message .message-item{
   margin-left: 36rpx;
-  padding-bottom: 20rpx;
+  padding: 30rpx 0 60rpx;
   border-bottom: 1px solid #999;
 }
-.index-newest-message .my-express-box{
+.message-item:first-child{
+  border-bottom: 1px solid #ddd;
+}
+.message-item:last-child{
+  border-bottom: 1px solid #fff;
+}
+
+.index-newest-message .message-item-box{
   display: flex;
   flex-direction: row;
   height: 100rpx;
@@ -96,25 +104,27 @@
 }
 .index-newest-message .express-title-box .title{
   font-size: 28rpx;
+  font-weight: bold;
 }
-.index-newest-message .my-express-txt{
-  margin: 0 0 10rpx 44rpx;
+.index-newest-message .message-item-txt{
+  margin: 0 0 16rpx 44rpx;
   font-size: 30rpx;
 }
-.index-newest-message .my-express-txt .take-num{
+.index-newest-message .message-item-txt .take-num{
   font-size: 30rpx;
   color: orange;
   font-weight: bold;
 }
-.index-newest-message .my-express-info{
+.index-newest-message .message-item-info{
   display: flex;
   flex-direction: row; 
   align-items: center;
   margin: 0 0 0 44rpx;
+  padding-top: 4rpx;
   color: #999;
   font-size: 26rpx;
 }
-.index-newest-message .my-express-info .company{
+.index-newest-message .message-item-info .company{
   width: 80rpx;
   height: 40rpx;
   line-height: 40rpx;
@@ -123,7 +133,7 @@
   border: 1px solid #999;
   border-radius: 20rpx;
 }
-.index-newest-message .my-express-info .num{
+.index-newest-message .message-item-info .num{
   color: #999;
   margin-left: 10px;
 }

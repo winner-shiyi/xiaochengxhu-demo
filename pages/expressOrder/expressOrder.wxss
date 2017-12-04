@@ -21,7 +21,7 @@
   border-bottom-color: #FFDB08;
 }
 .expressOrder-tpl{
-  width: 100%;
+   width: 100%; 
 }
 .pickup-container{
   display: flex;
@@ -83,12 +83,12 @@
 }
 .item-middle .orange{
   font-size: 30rpx;
-  color: orange;
+  color: #FF8919;
   font-weight: bold; 
 }
 .item-middle .phone{
   margin: 0 3px;
-  color: blue;
+  color: #1D61F0;
 }
 .item-bottom{
   display: flex;

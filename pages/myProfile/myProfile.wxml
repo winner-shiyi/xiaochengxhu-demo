@@ -1,0 +1,21 @@
+<!--pages/myProfile/myProfile.wxml-->
+<view class="myProfile-container">
+  <view class="profile-box">
+    <image class="avatar" src="/images/profile/gerentouxiang@2x.png"></image>
+    <view class="profile-info">
+      <view class="name-box">
+        <text class="name">陈志朋</text>
+        <view class="edit-btn" bindtap="onEditName">修改</view>
+      </view>
+      <text class="phone">绑定手机：15880274595</text>
+    </view>
+  </view>
+  <!-- 优惠券 -->
+  <view class="myProfile-coupon">
+    <view class="coupon-box">
+      <image class="coupon" src="/images/profile/youhuiquan@2x.png"></image>
+      <text class="txt">优惠券</text>
+    </view>
+    <image class="arrow" src="/images/profile/xiaoyoujiantou@2x.png"></image>
+  </view>
+</view>

@@ -1,30 +1,36 @@
 <!--pages/expressOrder/expressOrder.wxml-->
+<import src="pickUp/pickUp.wxml" />
+<import src="dispatch/dispatch.wxml" />
+<import src="finish/finish.wxml" />
 
 
 <view class="expressOrder-container">
   <view class="navigation-box">
-    <view class="navigation-item navigation-select">
-      <view class="item-title">待自提</view>
-    </view>
-    <view class="navigation-item">
-      <view class="item-title">配送中</view>
-    </view>
-    <view class="navigation-item">
-      <view class="item-title">已完成</view>
-    </view>
+    <block wx:for="{{categoryTypeArr}}" wx:key="{{index}}">
+      <view class="navigation-item {{currentMenuIndex === index ? 'navigation-select' : ''}}" bindtap="changeOrderList" data-index="{{index}}">
+        <view class="item-title">{{item.name}}</view>
+      </view>
+    </block>
   </view>
 
   <view class="expressOrder-tpl">
-    
     <!-- 待自提 -->
-    <import src="pickUp/pickUp.wxml" />  
-    <template is="pickUpTpl" data="{{...inTheaters}}" />  
+    <view class="tpl-box" hidden="{{currentMenuIndex !== 0}}">     
+      <template is="pickUpTpl" data="{{...inTheaters}}" />
+    </view>
     <!-- 配送中 -->
-    <import src="dispatch/dispatch.wxml" />  
-    <!-- <template is="dispatchTpl" data="{{...inTheaters}}" />  -->
+    <view class="tpl-box" hidden="{{currentMenuIndex !== 1}}">
+      <template is="dispatchTpl" data="{{...inTheaters}}" />
+    </view>
     <!-- 已完成 -->
-    <import src="finish/finish.wxml" />  
-    <!-- <template is="finishTpl" data="{{...inTheaters}}" />  -->
+    <view class="tpl-box" hidden="{{currentMenuIndex !== 2}}">
+      <template is="finishTpl" data="{{...inTheaters}}" />
+    </view>
   </view>
+  <view class="loading" hidden="{{!movieLoading}}">正在加载更多...</view>
+  <view class="loading complete" hidden="{{!moiveLoadingComplete}}">已加载全部</view>
 
+  <loading hidden="{{loadingHidden}}">
+    加载中...
+  </loading>
 </view>

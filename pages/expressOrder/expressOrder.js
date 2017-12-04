@@ -5,7 +5,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    categoryTypeArr: [
+      { name: '待自提' },
+      { name: '配送中' },
+      { name: '已完成' },
+    ],
+    currentMenuIndex: 0,
+    loadingHidden: true,
+    expressOrderList: [],
+    isLoadedAll: false,
+    movieLoading: false, // 上拉加载的变量，默认false，隐藏
+    moiveLoadingComplete: false //“没有数据”的变量，默认false，隐藏
   },
 
   /**
@@ -13,6 +23,16 @@ Page({
    */
   onLoad: function (options) {
   
+  },
+  /**
+   * 模拟tab切换
+   */
+  changeOrderList: function(event) {
+    const index = event.currentTarget.dataset.index;
+    this.setData({
+      currentMenuIndex: index
+    })
+
   },
 
   /**
@@ -42,19 +62,35 @@ Page({
   onUnload: function () {
   
   },
+  /**
+   * 接口获取列表数据 todo
+   */
+  getExpressOrderData: function () {
+    // 
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function (event) {
+    var that = this;
+    this.data.expressOrderList = [];
+    this.getExpressOrderData(() => {
+      that.data.isLoadedAll = false;  //是否加载完全
+      that.data.pageNo = 1;
+      wx.stopPullDownRefresh();
+    })
+    
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    if (!this.data.isLoadedAll) {
+      this.data.pageN += 1;
+      this.getExpressOrderData();
+    }
   },
 
   /**
