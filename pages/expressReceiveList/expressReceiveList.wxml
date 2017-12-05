@@ -1,10 +1,10 @@
-<!--pages/expressOrder/expressOrder.wxml-->
+
 <import src="pickUp/pickUp.wxml" />
 <import src="dispatch/dispatch.wxml" />
 <import src="finish/finish.wxml" />
 
 
-<view class="expressOrder-container">
+<view class="expressReceiveList-container">
   <view class="navigation-box">
     <block wx:for="{{categoryTypeArr}}" wx:key="{{index}}">
       <view class="navigation-item {{currentMenuIndex === index ? 'navigation-select' : ''}}" bindtap="changeOrderList" data-index="{{index}}">
@@ -13,7 +13,7 @@
     </block>
   </view>
 
-  <view class="expressOrder-tpl">
+  <view class="expressReceiveList-tpl">
     <!-- 待自提 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 0}}">     
       <template is="pickUpTpl" data="{{...inTheaters}}" />

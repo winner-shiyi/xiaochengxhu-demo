@@ -13,7 +13,7 @@ Page({
   onMyExpressTap: function() {
     console.log(111);
     wx.navigateTo({
-      url: '../expressOrder/expressOrder'
+      url: '../expressReceiveList/expressReceiveList'
     })
   },
   onLoad: function () {

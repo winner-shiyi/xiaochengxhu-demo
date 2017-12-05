@@ -1,9 +1,9 @@
-<!--pages/expressOrder/pickUp/pickUp.wxml-->
+
 
 <template name="pickUpTpl">
   <view class="pickup-container">
-    <!-- <block wx:for="{{}}" wx:key="{{}}"> -->
-      <view class="order-list-item">
+    <block wx:if="{{true}}">
+      <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{123}}">
         <view class="item-box">
           <view class="item-head">
             <view class="my-express-info">
@@ -23,14 +23,18 @@
         </view>
         <view class="item-box">
           <view class="item-bottom">
-            <view class="btn order">预约配送</view>
+            <view class="btn order" catchtap="orderDispatch" data-id="{{123}}">预约配送</view>
             <!-- <view class="btn order gray">预约配送</view>  -->
-            <!-- <view class="btn pay">立即支付</view> -->
+            <!-- <view class="btn pay" bindtap="带id跳转到订单详情">立即支付</view> -->
           </view>
         </view>
 
       </view>
-    <!-- </block> -->
+    </block>
 
+    <view wx:if="{{false}}" class="blank-page">
+      <image class="blank-img" src="/images/list/dingdankong@2x.png"></image>
+      <text class="blank-txt">您还没有待自提的订单哦~</text>
+    </view>
   </view>
 </template>

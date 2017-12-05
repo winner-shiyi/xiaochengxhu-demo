@@ -1,4 +1,4 @@
-/* pages/expressOrder/expressOrder.wxss */
+
 
 .navigation-box{
   display: flex;
@@ -20,7 +20,7 @@
   color: #333;
   border-bottom-color: #FFDB08;
 }
-.expressOrder-tpl{
+.expressReceiveList-tpl{
    width: 100%; 
 }
 .pickup-container{
@@ -112,4 +112,19 @@
 .item-bottom .pay{
   border: 1px solid #ff5e5a;
   color: #ff5e5a;
+}
+.blank-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  margin-top: 164rpx;
+}
+.blank-img{
+  width: 238rpx;
+  height: 254rpx;
+  margin-bottom: 52rpx;
+}
+.blank-txt{
+  font-size: 28rpx;
+  color: #999;
 }
