@@ -1,6 +1,8 @@
-import { ExpressReceiveList } from 'ExpressReceiveListModal.js';
+// import { ExpressReceiveList } from 'ExpressReceiveListModal.js';
 
-const expressReceiveList = new ExpressReceiveList();
+import promiseAjax from '../../utils/PromiseAjax.js';
+
+// const expressReceiveList = new ExpressReceiveList();
 
 Page({
 
@@ -14,7 +16,7 @@ Page({
       { name: '已完成' },
     ],
     currentMenuIndex: 0,
-    loadingHidden: false,
+    loadingHidden: true,
     expressOrderList: [],
     isLoadedAll: false,
     movieLoading: false, // 上拉加载的变量，默认false，隐藏
@@ -30,7 +32,9 @@ Page({
   },
   _loadData: function (callback) {
     const that = this;
-    expressReceiveList.getOrderData(id, (data) => {
+    const params = {id: '1111'};
+    promiseAjax.post('order/list', params).then((data) => {
+      console.log('data----', data);
       that.setData({
         expressOrderList: data,
         loadingHidden: true,
@@ -38,6 +42,8 @@ Page({
         pageNo: 1
       });
       callback && callback();
+    }).catch((err) => {
+      console.log(err);
     });
   },
   /**

@@ -4,7 +4,6 @@ const app = getApp();
 
 class ExpressReceiveList {
   constructor() {
-    "use strict";
   }
 
   /**
@@ -31,7 +30,7 @@ class ExpressReceiveList {
         console.log(arguments);
       }
     };
-    app.RequestUtil.fetch(params);
+    // app.RequestUtil.fetch(params);
   }
 
   /*获得元素上的绑定的值*/
