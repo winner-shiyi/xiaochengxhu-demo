@@ -1,28 +1,27 @@
-
 <template name="finishTpl">
   <view class="dispatch-container">
-    <block wx:if="{{false}}">
-      <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{id}}">
-        <view class="item-box">
-          <view class="item-head">
-            <view class="my-express-info">
-              <view class="company">顺丰</view>
-              <text class="num">278438651904673454</text>
+    <view wx:if="{{orderArr.length}}" class="list-box">
+      <block wx:for="{{orderArr}}" wx:key="{{item.expressId}}">
+        <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{item.expressId}}">
+          <view class="item-box">
+            <view class="item-head">
+              <view class="my-express-info">
+                <view class="company">{{item.expressCompanyName}}</view>
+                <text class="num">{{item.waybillNo}}</text>
+              </view>
+              <image wx:if="{{item.distributionStatus === 'CANCEL'}}" class="back" src="/images/list/tuihuijian@2x.png"></image>
             </view>
-            <image class="back" src="/images/list/tuihuijian@2x.png"></image>
+          </view>
+          <view class="item-box">
+            <view class="item-middle item-finish">
+              <view class="txt" wx:if="{{item.distributionStatus === 'CANCEL'}}">您的快递已被退回</view>
+              <view class="txt" wx:else>您的快递已被签收</view>
+            </view>
           </view>
         </view>
-        <view class="item-box">
-          <view class="item-middle">
-            <!-- <view class="txt">您的快递已被签收</view> -->
-            <view class="txt">您的快递已被退回</view>
-          </view>
-        </view>
-
-      </view>
-    </block>
-
-    <view wx:if="{{true}}" class="blank-page">
+      </block>
+    </view>
+    <view wx:else class="blank-page">
       <image class="blank-img" src="/images/list/dingdankong@2x.png"></image>
       <text class="blank-txt">您还没有已完成的订单哦~</text>
     </view>

@@ -1,38 +1,37 @@
-
-
 <template name="pickUpTpl">
   <view class="pickup-container">
-    <block wx:if="{{true}}">
-      <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{123}}">
-        <view class="item-box">
-          <view class="item-head">
-            <view class="my-express-info">
-              <view class="company">顺丰</view>
-              <text class="num">278438651904673454</text>
-            </view>
-            <text class="order-status">待支付</text>
-          </view>
-        </view>
-        <view class="item-box">
-          <view class="item-middle">
-            <view class="txt">锦江时代店已入库</view>
-            <view class="num">自提码：
-              <text class="orange">3839924</text>
+    <view wx:if="{{orderArr.length}}" class="list-box">
+      <block wx:for="{{orderArr}}" wx:key="{{item.expressId}}">
+        <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{item.expressId}}">
+          <view class="item-box">
+            <view class="item-head">
+              <view class="my-express-info">
+                <view class="company">{{item.expressCompanyName}}</view>
+                <text class="num">{{item.waybillNo}}</text>
+              </view>
+              <text class="order-status">{{item.distributionType === 'APPOINT' && !item.payFlag ? '待支付' : ''}}</text>
             </view>
           </view>
-        </view>
-        <view class="item-box">
-          <view class="item-bottom">
-            <view class="btn order" catchtap="orderDispatch" data-id="{{123}}">预约配送</view>
-            <!-- <view class="btn order gray">预约配送</view>  -->
-            <!-- <view class="btn pay" bindtap="带id跳转到订单详情">立即支付</view> -->
+          <view class="item-box">
+            <view class="item-middle">
+              <view class="txt">{{item.storeName}}已入库</view>
+              <view class="num">自提码：
+                <text class="orange">3839924</text>
+              </view>
+            </view>
           </view>
+          <view class="item-box">
+            <view class="item-bottom">
+              <view class="btn order" catchtap="dispatchOrder" data-id="{{item.expressId}}" wx:if="{{item.distributionType === 'SELF' && item.dispatchFlag}}">预约配送</view>
+              <view class="btn order gray" catchtap="noDispatch" wx:elif="{{item.distributionType === 'SELF' && !item.dispatchFlag}}">预约配送</view>
+              <view class="btn pay" bindtap="onExpressItemTap" wx:elif="{{item.distributionType === 'APPOINT' && !item.payFlag}}">立即支付</view>
+            </view>
+          </view>
+
         </view>
-
-      </view>
-    </block>
-
-    <view wx:if="{{false}}" class="blank-page">
+      </block>
+    </view>
+    <view wx:else class="blank-page">
       <image class="blank-img" src="/images/list/dingdankong@2x.png"></image>
       <text class="blank-txt">您还没有待自提的订单哦~</text>
     </view>

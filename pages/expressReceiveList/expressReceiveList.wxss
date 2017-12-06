@@ -77,6 +77,9 @@
 .item-middle .txt{
   margin: 36rpx 0 14rpx;
 }
+.item-finish .txt{
+  margin-bottom:36rpx;
+}
 
 .item-middle .num{
   margin-bottom: 36rpx;

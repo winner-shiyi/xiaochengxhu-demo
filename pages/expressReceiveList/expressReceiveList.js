@@ -2,7 +2,6 @@
 
 import promiseAjax from '../../utils/PromiseAjax.js';
 
-// const expressReceiveList = new ExpressReceiveList();
 
 Page({
 
@@ -15,9 +14,16 @@ Page({
       { name: '配送中' },
       { name: '已完成' },
     ],
+    statusData: {
+      RECEIVE: '待接单',
+      PICKUP: '待取货',
+      DISTRIBUTION: '配送中',
+      FINISH: '已完成',
+      CANCEL: '已退回'
+    },
     currentMenuIndex: 0,
     loadingHidden: true,
-    expressOrderList: [],
+    orderData: {},
     isLoadedAll: false,
     movieLoading: false, // 上拉加载的变量，默认false，隐藏
     moiveLoadingComplete: false //“没有数据”的变量，默认false，隐藏
@@ -27,16 +33,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options----', options);
+    // console.log('options----', options);
     this._loadData();
   },
   _loadData: function (callback) {
-    const that = this;
-    const params = {id: '1111'};
-    promiseAjax.post('order/list', params).then((data) => {
+    const params = {
+      pageSize: 10,
+      pageNo: 1,
+      status: 0
+    };
+    promiseAjax.post('wxcx/express/receive/list', params).then((data) => {
       console.log('data----', data);
-      that.setData({
-        expressOrderList: data,
+      this.setData({
+        orderData: data.resultData,
         loadingHidden: true,
         isLoadedAll: false, // 是否加载完全
         pageNo: 1
@@ -63,7 +72,7 @@ Page({
   onReady: function () {
   
   },
-  orderDispatch: function (event) {
+  dispatchOrder: function (event) {
     wx.showModal({
       content: '预约配送将有快递小哥送货上门并收取一定的配送费哦',
       success: function (res) {
@@ -78,7 +87,14 @@ Page({
           console.log('用户点击取消');
         }
       }
-    })
+    });
+  },
+  noDispatch: function () {
+    wx.showModal({
+      content: "该门店暂不支持预约配送哦",
+      showCancel: false,
+      confirmText: '知道了'
+    });
   },
   /**
    * 跳转到订单详情

@@ -16,15 +16,15 @@
   <view class="expressReceiveList-tpl">
     <!-- 待自提 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 0}}">     
-      <template is="pickUpTpl" data="{{...inTheaters}}" />
+      <template is="pickUpTpl" data="{{orderArr:orderData.list}}" />
     </view>
     <!-- 配送中 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 1}}">
-      <template is="dispatchTpl" data="{{...inTheaters}}" />
+      <template is="dispatchTpl" data="{{statusData:statusData,orderArr:orderData.list}}" />
     </view>
     <!-- 已完成 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 2}}">
-      <template is="finishTpl" data="{{...inTheaters}}" />
+      <template is="finishTpl" data="{{orderArr:orderData.list}}" />
     </view>
   </view>
   <view class="loading" hidden="{{!movieLoading}}">正在加载更多...</view>

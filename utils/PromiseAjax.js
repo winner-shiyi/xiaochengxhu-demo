@@ -1,6 +1,6 @@
 class PromiseAjax {
   constructor() {
-    this.baseUrl = 'http://127.0.0.1:8888/';
+    this.baseUrl = 'http://172.16.2.71:8068/mockjsdata/24/';
     this.headers = {
       'content-type': 'application/json',
       'token': wx.getStorageSync('token'),

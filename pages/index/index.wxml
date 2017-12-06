@@ -44,15 +44,15 @@
           <image class="icon" src="/images/index/orange@2x.png"></image>
           <text class="title">我的快递</text>
         </view>
-        <text class="express-date">11-23</text>
+        <text class="express-date">{{myExpressData.inTime}}</text>
       </view>
       <view class="message-item-txt">自提码：
-        <text class="take-num">23456789</text>
+        <text class="take-num">{{myExpressData.areaNum}}</text>
       </view>
-      <view class="message-item-txt">自提门店：锦江时代大厦11011</view>
+      <view class="message-item-txt">自提门店：{{myExpressData.storeName}}{{myExpressData.storeAddressDetail}}</view>
       <view class="message-item-info">
-        <view class="company">顺丰</view>
-        <text class="num">278438651904673454</text>
+        <view class="company">{{myExpressData.expressCompanyName}}</view>
+        <text class="num">{{myExpressData.waybillNo}}</text>
       </view>
 
       <!-- <view class="message-item-txt">收货码：<text class="take-num">23456789</text></view>

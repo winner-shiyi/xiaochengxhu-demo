@@ -1,55 +1,55 @@
-//index.js
-//获取应用实例
+import promiseAjax from '../../utils/PromiseAjax.js';
 const app = getApp();
 
+const cancelReason = {
+  GRAB_OVERTIME_CANCEL: "超时未接单取消",
+  GRAB_SENDER_CANCEL: "未接单时主动取消",
+  PAY_OVERTIME_CANCEL: "支付超时取消",
+  ADMIN_CANCEL: "后台取消",
+  PAY_SENDER_CANCEL: "未支付主动取消",
+  PICK_RIDER_CANCEL: "骑手主动取消",
+  PICK_SENDER_CANCEL: "接单后主动取消"
+}
+
+// wxcx/search/message
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    loadingHidden: true,
+    myExpressData: {}
   },
   //事件处理函数
   onMyExpressTap: function() {
-    console.log(111);
     wx.navigateTo({
       url: '../expressReceiveList/expressReceiveList'
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    this._loadData();
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+  _loadData: function (callback) {
+    const params = {
+      pageSize: 10,
+      pageNo: 1,
+      status: 0
+    };
+    promiseAjax.post('wxcx/search/message', params).then((data) => {
+      console.log('data----', data);
+      this.setData({
+        myExpressData: data.resultData.myExpress,
+        loadingHidden: true,
+      });
+      callback && callback();
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function (event) {
+    this._loadData(() => {
+      wx.stopPullDownRefresh();
+    });
+
+  },
 })
