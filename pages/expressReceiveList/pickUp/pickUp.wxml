@@ -23,8 +23,8 @@
           <view class="item-box">
             <view class="item-bottom">
               <view class="btn order" catchtap="dispatchOrder" data-id="{{item.expressId}}" wx:if="{{item.distributionType === 'SELF' && item.dispatchFlag}}">预约配送</view>
-              <view class="btn order gray" catchtap="noDispatch" wx:elif="{{item.distributionType === 'SELF' && !item.dispatchFlag}}">预约配送</view>
-              <view class="btn pay" bindtap="onExpressItemTap" wx:elif="{{item.distributionType === 'APPOINT' && !item.payFlag}}">立即支付</view>
+              <view class="btn order gray" catchtap="noDispatch" wx:if="{{item.distributionType === 'SELF' && !item.dispatchFlag}}">预约配送</view>
+              <view class="btn pay" bindtap="onExpressItemTap" wx:if="{{item.distributionType === 'APPOINT' && !item.payFlag}}">立即支付</view>
             </view>
           </view>
 
