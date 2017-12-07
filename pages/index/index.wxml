@@ -38,27 +38,41 @@
   <!-- 最新一条信息 -->
   <view class="index-newest-message">
     <!-- 我的快递 -->
-    <view class="message-item my-express">
+    <view class="message-item my-express" bindtap="onExpressItemTap" data-id="{{myExpressData.expressId}}">
       <view class="message-item-box">
         <view class="express-title-box">
           <image class="icon" src="/images/index/orange@2x.png"></image>
           <text class="title">我的快递</text>
         </view>
-        <text class="express-date">{{myExpressData.inTime}}</text>
-      </view>
-      <view class="message-item-txt">自提码：
-        <text class="take-num">{{myExpressData.areaNum}}</text>
-      </view>
-      <view class="message-item-txt">自提门店：{{myExpressData.storeName}}{{myExpressData.storeAddressDetail}}</view>
-      <view class="message-item-info">
-        <view class="company">{{myExpressData.expressCompanyName}}</view>
-        <text class="num">{{myExpressData.waybillNo}}</text>
+        <text class="express-date">{{myExpressData.date}}</text>
       </view>
 
-      <!-- <view class="message-item-txt">收货码：<text class="take-num">23456789</text></view>
-      <view class="message-item-txt">您的预约配送订单已被配送员xxxx接单，正在赶往取货地，请耐心等待哦</view> -->
+      <view class="newst-pickup" wx:if="{{myExpressData.distributionType === 'SELF' && myExpressData.distributionStatus === ''}}">
+        <view class="message-item-txt">自提码：
+          <text class="take-num">{{myExpressData.areaNum}}</text>
+        </view>
+        <view class="message-item-txt">自提门店：{{myExpressData.storeAddressDetail}}</view>
+        <view class="message-item-info">
+          <view class="company">{{myExpressData.expressCompanyName}}</view>
+          <text class="num">{{myExpressData.waybillNo}}</text>
+        </view>
+      </view>
 
-      <!-- <view class="message-item-txt">您预约配送的快递021578439498由于骑手原因被取消，您可通过自提码<text class="take-num">3454232</text>前往门店取件</view> -->
+      <view class="newst-dispatch" wx:if="{{myExpressData.distributionType === 'APPOINT' && myExpressData.distributionStatus === 'PICKUP'}}">
+        <view class="message-item-txt">收货码：
+          <text class="take-num">{{myExpressData. pickupCode}}</text>
+        </view>
+        <view class="message-item-txt">您的预约配送订单已被配送员{{myExpressData.riderName}}接单，正在赶往取货地，请耐心等待哦</view>
+      </view>
+
+      <view class="newst-cancel" wx:if="{{myExpressData.distributionType === 'SELF' && myExpressData.distributionStatus === 'CANCEL'}}">
+        <view class="message-item-txt">
+          {{myExpressData.cancelText}}，您可通过自提码
+          <text class="take-num">{{myExpressData.areaNum}}</text> 前往门店取件
+          <text wx:if="{{myExpressData.cancelReason === 'ADMIN_CANCEL'}}">，如有疑问请联系客服4006006700</text>
+        </view>
+      </view>
+
     </view>
     <!-- 跑腿订单 -->
     <!-- <view class="message-item my-leg">

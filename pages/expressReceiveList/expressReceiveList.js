@@ -2,7 +2,6 @@
 
 import promiseAjax from '../../utils/PromiseAjax.js';
 
-
 Page({
 
   /**
@@ -33,23 +32,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log('options----', options);
-    this._loadData();
-  },
-  _loadData: function (callback) {
     const params = {
       pageSize: 10,
       pageNo: 1,
-      status: 0
+      status: this.data.currentMenuIndex
     };
+    this._loadData(() => {},params);
+  },
+  /**
+   * 接口获取列表数据
+   * callback：function 数据渲染完成后的回调
+   * params：object 请求接口参数
+   */
+  _loadData: function (callback, params) {  
+    console.log('params111---', params);
     promiseAjax.post('wxcx/express/receive/list', params).then((data) => {
-      console.log('data----', data);
+      console.log('data111----', data);
+      const { totalSize, pageNo, pageSize } = data.resultData;
+
       this.setData({
         orderData: data.resultData,
         loadingHidden: true,
-        isLoadedAll: false, // 是否加载完全
-        pageNo: 1
+        isLoadedAll: totalSize < (pageNo * pageSize) // 是否加载完全
       });
+      
       callback && callback();
     }).catch((err) => {
       console.log(err);
@@ -63,7 +69,12 @@ Page({
     this.setData({
       currentMenuIndex: index
     });
-
+    const params = {
+      pageSize: 10,
+      pageNo: 1,
+      status: this.data.currentMenuIndex
+    };
+    this._loadData(() => {}, params);
   },
 
   /**
@@ -104,30 +115,20 @@ Page({
     wx.navigateTo({
       url: `../expressReceiveDetail/expressReceiveDetail?id=${id}`,
     });
-
-  },
-
-  /**
-   * 接口获取列表数据 todo
-   */
-  getExpressOrderData: function () {
-    // 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function (event) {
-    var that = this;
-    // this.data.expressOrderList = [];
-    // this.getExpressOrderData(() => {
-    //   that.data.isLoadedAll = false;  //是否加载完全
-    //   that.data.pageNo = 1;
-    //   wx.stopPullDownRefresh();
-    // })
+    const params = {
+      pageSize: 10,
+      pageNo: 1,
+      status: this.data.currentMenuIndex
+    };
     this._loadData(() => {
       wx.stopPullDownRefresh();
-    });
+    }, params);
     
   },
 
@@ -135,10 +136,23 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (!this.data.isLoadedAll) {
-      this.data.pageN += 1;
-      this.getExpressOrderData();
-    }
+
+    // if (!this.data.isLoadedAll) {
+    //   // console.log(2545344);
+    //   this.data.pageNo += 1;
+    //   this._loadData();
+    // }
+    
+    
+    let pageNo = 1;
+    pageNo += 1;
+    const params = {
+      pageSize: 10,
+      pageNo,
+      status: this.data.currentMenuIndex
+    };
+    this._loadData(() => { }, params);
+
   },
 
   /**

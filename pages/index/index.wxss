@@ -107,7 +107,7 @@
   font-weight: bold;
 }
 .index-newest-message .message-item-txt{
-  margin: 0 0 16rpx 44rpx;
+  margin: 0 30rpx 16rpx 44rpx;
   font-size: 30rpx;
 }
 .index-newest-message .message-item-txt .take-num{

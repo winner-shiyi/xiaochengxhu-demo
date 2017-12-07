@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/expressReceiveList/expressReceiveList",
     
-    
     "pages/myProfile/myProfile",
     "pages/logs/logs"
   ],

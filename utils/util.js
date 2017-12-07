@@ -1,19 +1,28 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+export function formatDate(value, format) {
+  function fix(dTemp) {
+    let d = dTemp;
+    d = `${d}`;
+    if (d.length <= 1) {
+      d = `0${d}`;
+    }
+    return d;
+  }
+  const maps = {
+    yyyy(d) { return d.getFullYear(); },
+    MM(d) { return fix(d.getMonth() + 1); },
+    dd(d) { return fix(d.getDate()); },
+    HH(d) { return fix(d.getHours()); },
+    mm(d) { return fix(d.getMinutes()); },
+    ss(d) { return fix(d.getSeconds()); },
+  };
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
+  const chunk = new RegExp(Object.keys(maps).join('|'), 'g');
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
+  function formatDateInside(valueTemp, formatTemp) {
+    const formatTempvalue = formatTemp || 'yyyy-MM-dd HH:mm:ss';
+    const valueTempValue = new Date(valueTemp);
+    return formatTempvalue.replace(chunk, (capture) => (maps[capture] ? maps[capture](valueTempValue) : ''));
+  }
 
-module.exports = {
-  formatTime: formatTime
+  return formatDateInside(value, format);
 }
