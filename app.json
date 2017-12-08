@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/expressReceiveList/expressReceiveList",
     
+    "pages/expressReceiveList/expressReceiveList",
+    "pages/index/index",
     "pages/myProfile/myProfile",
     "pages/logs/logs"
   ],

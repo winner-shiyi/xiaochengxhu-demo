@@ -16,19 +16,19 @@
   <view class="expressReceiveList-tpl">
     <!-- 待自提 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 0}}">     
-      <template is="pickUpTpl" data="{{orderArr:orderData.list}}" />
+      <template is="pickUpTpl" data="{{orderArr:orderList}}" />
     </view>
     <!-- 配送中 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 1}}">
-      <template is="dispatchTpl" data="{{statusData:statusData,orderArr:orderData.list}}" />
+      <template is="dispatchTpl" data="{{statusData:statusData,orderArr:orderList}}" />
     </view>
     <!-- 已完成 -->
     <view class="tpl-box" hidden="{{currentMenuIndex !== 2}}">
-      <template is="finishTpl" data="{{orderArr:orderData.list}}" />
+      <template is="finishTpl" data="{{orderArr:orderList}}" />
     </view>
   </view>
-  <view class="loading" hidden="{{!movieLoading}}">正在加载更多...</view>
-  <view class="loading complete" hidden="{{!moiveLoadingComplete}}">已加载全部</view>
+  <view class="loading" wx:if="{{orderList.length && LoadingMore}}">正在加载更多数据...</view>
+  <view class="loading" wx:if="{{orderList.length && isLoadedAll}}">哎呀，你竟然看完了</view>
 
   <loading hidden="{{loadingHidden}}">
     加载中...

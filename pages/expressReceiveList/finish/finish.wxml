@@ -9,12 +9,12 @@
                 <view class="company">{{item.expressCompanyName}}</view>
                 <text class="num">{{item.waybillNo}}</text>
               </view>
-              <image wx:if="{{item.distributionStatus === 'CANCEL'}}" class="back" src="/images/list/tuihuijian@2x.png"></image>
+              <image wx:if="{{item.waybillStatus === 5}}" class="back" src="/images/list/tuihuijian@2x.png"></image>
             </view>
           </view>
           <view class="item-box">
             <view class="item-middle item-finish">
-              <view class="txt" wx:if="{{item.distributionStatus === 'CANCEL'}}">您的快递已被退回</view>
+              <view class="txt" wx:if="{{item.waybillStatus === 5}}">您的快递已被退回</view>
               <view class="txt" wx:else>您的快递已被签收</view>
             </view>
           </view>

@@ -21,11 +21,12 @@ Page({
       CANCEL: '已退回'
     },
     currentMenuIndex: 0,
+    orderList: [],
+    pageNo: 1,
     loadingHidden: true,
-    orderData: {},
     isLoadedAll: false,
-    movieLoading: false, // 上拉加载的变量，默认false，隐藏
-    moiveLoadingComplete: false //“没有数据”的变量，默认false，隐藏
+    LoadingMore: false, // 还有更多数据，默认false，隐藏
+    isLoadedAll: false // 没有更多数据，默认false，隐藏
   },
 
   /**
@@ -37,23 +38,37 @@ Page({
       pageNo: 1,
       status: this.data.currentMenuIndex
     };
-    this._loadData(() => {},params);
+    this._loadData(() => {}, params, 'down');
   },
   /**
    * 接口获取列表数据
-   * callback：function 数据渲染完成后的回调
-   * params：object 请求接口参数
+   * callback:function 数据渲染完成后的回调
+   * params:object 请求接口参数
+   * type:string ['up'表示上拉加载，'down'表示下拉刷新]
    */
-  _loadData: function (callback, params) {  
+  _loadData: function (callback, params, type) {
     console.log('params111---', params);
     promiseAjax.post('wxcx/express/receive/list', params).then((data) => {
-      console.log('data111----', data);
-      const { totalSize, pageNo, pageSize } = data.resultData;
+      // console.log('data111----', data);
+      
+      const { totalSize, pageNo, pageSize, list } = data.resultData;
 
+      const flag = totalSize <= (this.data.pageNo * pageSize);
+
+      console.log('flag---', flag);
+
+      let totalList;
+      if (type === 'up') {
+        totalList = this.data.orderList.concat(list);
+      } else {
+        totalList = list;
+      }
+      
       this.setData({
-        orderData: data.resultData,
+        orderList: totalList,
         loadingHidden: true,
-        isLoadedAll: totalSize < (pageNo * pageSize) // 是否加载完全
+        isLoadedAll: flag, // 是否加载完全部数据
+        LoadingMore: !flag
       });
       
       callback && callback();
@@ -67,14 +82,15 @@ Page({
   changeOrderList: function(event) {
     const index = event.currentTarget.dataset.index;
     this.setData({
-      currentMenuIndex: index
+      currentMenuIndex: index,
+      pageNo: 1
     });
     const params = {
       pageSize: 10,
       pageNo: 1,
       status: this.data.currentMenuIndex
     };
-    this._loadData(() => {}, params);
+    this._loadData(() => {}, params, 'down');
   },
 
   /**
@@ -121,14 +137,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function (event) {
+    this.setData({
+      pageNo: 1
+    });
     const params = {
       pageSize: 10,
-      pageNo: 1,
+      pageNo: this.data.pageNo,
       status: this.data.currentMenuIndex
     };
     this._loadData(() => {
       wx.stopPullDownRefresh();
-    }, params);
+    }, params, 'down');
     
   },
 
@@ -136,23 +155,18 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
-    // if (!this.data.isLoadedAll) {
-    //   // console.log(2545344);
-    //   this.data.pageNo += 1;
-    //   this._loadData();
-    // }
     
-    
-    let pageNo = 1;
-    pageNo += 1;
-    const params = {
-      pageSize: 10,
-      pageNo,
-      status: this.data.currentMenuIndex
-    };
-    this._loadData(() => { }, params);
-
+    if (!this.data.isLoadedAll) {;
+      this.setData({
+        pageNo: this.data.pageNo += 1
+      });
+      const params = {
+        pageSize: 10,
+        pageNo: this.data.pageNo,
+        status: this.data.currentMenuIndex
+      };
+      this._loadData(() => {}, params, 'up');
+    }
   },
 
   /**

@@ -35,7 +35,7 @@
 }
 .item-box{
   padding: 0 30rpx;
-  border-bottom: 1px solid #F7F7F7;
+  border-bottom: 1rpx solid #f7f7f7;
 }
 .item-head{
   display: flex;
@@ -61,7 +61,7 @@
   line-height: 40rpx;
   text-align: center;
   color: #999;
-  border: 1px solid #999;
+  border: 1rpx solid #999;
   border-radius: 20rpx;
 }
 .my-express-info .num{
@@ -113,7 +113,7 @@
   background-color: #eee;
 }
 .item-bottom .pay{
-  border: 1px solid #ff5e5a;
+  border: 1rpx solid #ff5e5a;
   color: #ff5e5a;
 }
 .blank-page{
@@ -130,4 +130,10 @@
 .blank-txt{
   font-size: 28rpx;
   color: #999;
+}
+.loading{
+  font-size: 28rpx;
+  text-align: center;
+  padding: 0 0 20rpx;
+  letter-spacing: 2px;
 }
