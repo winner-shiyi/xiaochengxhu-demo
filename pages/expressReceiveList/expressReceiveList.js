@@ -24,9 +24,9 @@ Page({
     orderList: [],
     pageNo: 1,
     loadingHidden: true,
-    isLoadedAll: false,
-    LoadingMore: false, // 还有更多数据，默认false，隐藏
-    isLoadedAll: false // 没有更多数据，默认false，隐藏
+    LoadingMore: false, // 还有更多数据
+    isLoadedAll: false, // 没有更多数据
+    isConnectOk: false // 网络状态 或者 服务器返回是否正常
   },
 
   /**
@@ -67,15 +67,61 @@ Page({
       this.setData({
         orderList: totalList,
         loadingHidden: true,
-        isLoadedAll: flag, // 是否加载完全部数据
-        LoadingMore: !flag
+        isLoadedAll: flag,
+        LoadingMore: !flag,
+        isConnectOk: true
       });
       
       callback && callback();
     }).catch((err) => {
-      console.log(err);
+      console.log('err---', err);
+      if (err) {
+        if (!this.getCurrentNetwork()) {
+          // 非网络问题，而是服务器请求出错的处理
+          this.setData({
+            isConnectOk: false,
+            LoadingMore: false,
+            isLoadedAll: false,
+          });
+          // 浩南toast 提示
+          wx.showModal({
+            title: '服务器开小差了',
+            content: '',
+          });
+        }
+         
+      }
     });
   },
+  /**
+   * 获取当前网络状态
+   */
+  getCurrentNetwork: function() {
+    const that = this;
+    let badNet = false;
+    wx.getNetworkType({
+      success: function (res) {
+        const networkType = res.networkType;
+        console.log('networkType---', networkType);
+        if (networkType === 'none' || networkType === 'unknown') {
+          that.setData({
+            isConnectOk: false,
+            LoadingMore: false,
+            isLoadedAll: false,
+          });
+          // 浩南toast 提示
+          badNet = true;
+          wx.showModal({
+            title: '网络不给力',
+            content: '',
+          });
+        }
+      }
+    });
+    return badNet;
+    
+  },
+
   /**
    * 模拟tab切换
    */
@@ -83,7 +129,8 @@ Page({
     const index = event.currentTarget.dataset.index;
     this.setData({
       currentMenuIndex: index,
-      pageNo: 1
+      pageNo: 1,
+      loadingHidden: true,
     });
     const params = {
       pageSize: 10,
@@ -138,11 +185,13 @@ Page({
    */
   onPullDownRefresh: function (event) {
     this.setData({
-      pageNo: 1
+      pageNo: 1,
+      LoadingMore: false,
+      isLoadedAll: false,
     });
     const params = {
       pageSize: 10,
-      pageNo: this.data.pageNo,
+      pageNo: 1,
       status: this.data.currentMenuIndex
     };
     this._loadData(() => {

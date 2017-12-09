@@ -1,37 +1,51 @@
-// pages/myProfile/myProfile.js
+import promiseAjax from '../../utils/PromiseAjax.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    modalVisible: false
+    modalVisible: false,
+    userInfoData: {},
+    userName: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this._loadData();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  _loadData: function () {
+    const params = {};
+    promiseAjax.post('wx/tuboboUser/userInfo', params).then((data) => {
+      console.log('data----', data);
+
+      this.setData({
+        userInfoData: data.resultData,
+        userName: data.resultData.nickName,
+        loadingHidden: true,
+      });
+      // callback && callback();
+    }).catch((err) => {
+      console.log('请求出错啦3333');
+
+    });
   },
   /**
    * 显示之定义模态框
    */
-  showModal: function () {
+  showModal: function (event) {
     this.setData({
-      modalVisible: true
+      modalVisible: true,
     });
+
+
   },
   hideModal: function () {
     this.setData({
-      modalVisible: false
+      modalVisible: false,
     });
   },
   /**
@@ -41,42 +55,35 @@ Page({
     
   },
   preventTouchMove: function () {
-    console.log(111)
+    console.log(111);
   },
-
   /**
-   * 生命周期函数--监听页面显示
+   * 实时输入
    */
-  onShow: function () {
-  
+  changeName: function (event) {
+
+    let newName = event.detail.value;
+    this.setData({
+      userName: newName,
+    });
+    console.log(event.detail);
   },
-
   /**
-   * 生命周期函数--监听页面隐藏
+   * 查看优惠券
    */
-  onHide: function () {
-  
+  onCouponTap: function () {
+    // 浩南toast
+    wx.showModal({
+      title: '暂不支持',
+      content: '',
+    })
   },
-
   /**
-   * 生命周期函数--监听页面卸载
+   * 提交修改后的昵称
    */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
+  bindFormSubmit: function (event) {
+    // 发送保存接口，然后关闭弹窗todo
+    console.log("e.detail.value.textarea----", event.detail.value.textarea);
   },
 
   /**

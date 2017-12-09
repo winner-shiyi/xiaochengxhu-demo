@@ -137,3 +137,22 @@
   padding: 0 0 20rpx;
   letter-spacing: 2px;
 }
+.weak-network{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 320rpx;
+}
+.reload-btn{
+  width: 240rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  margin-top: 40rpx;
+  border-radius: 4px;
+  background-color:#FFDB08;
+  color: #474747;
+  font-size: 13px;
+}

@@ -11,8 +11,8 @@
       </view>
       <view class="modal-content">
         <form bindsubmit="bindFormSubmit">
-          <textarea class="modal-input" placeholder="form 中的 textarea" name="textarea" maxlength="15" />
-          <view class="max-num">12/15</view>
+          <textarea class="modal-input" placeholder="昵称啊啊啊" name="textarea" maxlength="15" bindinput="changeName" value="{{nickName}}"/>
+          <view class="max-num">{{nickName.length}}/15</view>
           <button class="submit-btn" form-type="submit">保存</button>
         </form>
       </view>
