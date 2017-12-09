@@ -217,11 +217,4 @@ Page({
       this._loadData(() => {}, params, 'up');
     }
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

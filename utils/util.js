@@ -26,3 +26,7 @@ export function formatDate(value, format) {
 
   return formatDateInside(value, format);
 }
+export function utilTrim(str) {
+  return str.replace(/^(\s|\u00A0)+/, '').replace(/(\s|\u00A0)+$/, '');
+}
+

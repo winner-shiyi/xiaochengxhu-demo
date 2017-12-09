@@ -1,4 +1,6 @@
 import promiseAjax from '../../utils/PromiseAjax.js';
+import { utilTrim } from '../../utils/util.js';
+
 Page({
 
   /**
@@ -8,6 +10,7 @@ Page({
     modalVisible: false,
     userInfoData: {},
     userName: '',
+    canSubmit: true,
   },
 
   /**
@@ -40,19 +43,12 @@ Page({
     this.setData({
       modalVisible: true,
     });
-
-
   },
   hideModal: function () {
     this.setData({
       modalVisible: false,
+      canSubmit: true,
     });
-  },
-  /**
-   * 修改姓名
-   */
-  onEditName: function () {
-    
   },
   preventTouchMove: function () {
     console.log(111);
@@ -61,12 +57,57 @@ Page({
    * 实时输入
    */
   changeName: function (event) {
-
     let newName = event.detail.value;
     this.setData({
       userName: newName,
     });
-    console.log(event.detail);
+    if (!newName.length) {
+      this.setData({
+        canSubmit: false,
+      });
+    } else {
+      this.setData({
+        canSubmit: true,
+      });
+    }
+    console.log("event.detail---", );
+  },
+  
+  /**
+   * 提交修改后的昵称
+   */
+  bindFormSubmit: function (event) {
+    const newName = event.detail.value.textarea;
+    const params = {
+      nickName: utilTrim(newName),
+    };
+    if (!utilTrim(newName)) {
+      this.setData({
+        canSubmit: false,
+      });
+      // 浩南toat提示
+      wx.showModal({
+        title: '修改失败，请输入昵称',
+        content: '',
+      });
+
+    } else {
+      console.log('params----', params);
+      promiseAjax.post('wx/tuboboUser/updateNickName', params).then((data) => {
+        console.log('data----', data);
+
+        this.setData({
+          modalVisible: false,
+        });
+        this._loadData();
+
+      }).catch((err) => {
+        console.log('请求出错啦3333');
+
+      });
+    }
+    
+    
   },
   /**
    * 查看优惠券
@@ -78,18 +119,4 @@ Page({
       content: '',
     })
   },
-  /**
-   * 提交修改后的昵称
-   */
-  bindFormSubmit: function (event) {
-    // 发送保存接口，然后关闭弹窗todo
-    console.log("e.detail.value.textarea----", event.detail.value.textarea);
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })
