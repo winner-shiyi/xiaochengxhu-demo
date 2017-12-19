@@ -1,41 +1,114 @@
-/* pages/myProfile/myProfile.wxss */
-@import "customModal/customModal.wxss";
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .6;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff; }
 
-.profile-box{
+.modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 9999;
+  width: 540rpx;
+  margin: -180rpx 105rpx;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden; }
+
+.modal-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+  padding-left: 30rpx;
+  background: #eee; }
+
+.modal-title {
+  width: 430rpx;
+  color: #666;
+  font-size: 34rpx;
+  text-align: center; }
+
+.close-box {
+  display: flex;
+  flex-direction: row;
+  width: 60rpx;
+  align-items: center;
+  height: 90rpx; }
+
+.modal-content {
+  background: #fff; }
+
+.modal-input {
+  width: 540rpx;
+  height: 200rpx;
+  padding: 50rpx 30rpx;
+  box-sizing: border-box;
+  color: #666;
+  font-size: 28rpx; }
+
+.max-num {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0 30rpx 20rpx;
+  font-size: 30rpx;
+  color: #666; }
+
+.submit-btn {
+  width: 480rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  background-color: #FFDB08;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  letter-spacing: 10px;
+  color: #333; }
+
+.gray-btn {
+  opacity: .5; }
+
+.profile-box {
   display: flex;
   flex-direction: row;
   height: 240rpx;
   background-color: #fff;
   align-items: center;
-  padding-left: 30rpx;
-}
-.avatar{
+  padding-left: 30rpx; }
+
+.avatar {
   width: 120rpx;
-  height: 120rpx;
-}
-.profile-info{
+  height: 120rpx; }
+
+.profile-info {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
-}
-.name-box{
+  margin-left: 20px; }
+
+.name-box {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 8rpx;
-}
-.name-box .overflow{
+  margin-bottom: 8rpx; }
+
+.name-box .overflow {
   max-width: 420rpx;
   overflow: hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-.name-box .name{
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.name-box .name {
   font-size: 36rpx;
-  font-weight: bold;
-}
-.edit-btn{
-  width:80rpx;
+  font-weight: bold; }
+
+.edit-btn {
+  width: 80rpx;
   height: 40rpx;
   line-height: 40rpx;
   text-align: center;
@@ -43,13 +116,13 @@
   margin: 4rpx 0 0 16rpx;
   color: #38ADFF;
   font-size: 24rpx;
-  border-radius: 100px;
-}
-.phone{
+  border-radius: 100px; }
+
+.phone {
   font-size: 26rpx;
-  color:#999;
-}
-.myProfile-coupon{
+  color: #999; }
+
+.myProfile-coupon {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -57,23 +130,21 @@
   height: 110rpx;
   margin-top: 20rpx;
   padding: 0 30rpx;
-  background-color: #fff;
+  background-color: #fff; }
 
-}
-.coupon-box{
+.coupon-box {
   display: flex;
   flex-direction: row;
-  align-items: center;
-}
-.coupon-box .coupon{
+  align-items: center; }
+
+.coupon-box .coupon {
   width: 44rpx;
   height: 36rpx;
-  margin-right: 20rpx;
-}
-.coupon-box .txt{
-  font-size: 32rpx;
-}
-.myProfile-coupon .arrow{
+  margin-right: 20rpx; }
+
+.coupon-box .txt {
+  font-size: 32rpx; }
+
+.myProfile-coupon .arrow {
   width: 32rpx;
-  height: 32rpx;
-}
+  height: 32rpx; }

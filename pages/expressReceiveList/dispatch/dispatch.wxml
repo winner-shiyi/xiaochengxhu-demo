@@ -1,6 +1,6 @@
 <template name="dispatchTpl">
   <view class="dispatch-container">
-    <view wx:if="{{orderArr.length}}" class="list-box">
+    <view hidden="{{!orderArr.length}}" class="list-box">
       <block wx:for="{{orderArr}}" wx:key="{{item.expressId}}">
         <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{item.expressId}}">
           <view class="item-box">
@@ -28,8 +28,8 @@
         </view>
       </block>
     </view>
-    <view wx:else class="blank-page">
-      <image class="blank-img" src="/images/list/dingdankong@2x.png"></image>
+    <view hidden="{{orderArr.length}}" class="blank-page">
+      <image class="blank-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/list/dingdankong%402x.png"></image>
       <text class="blank-txt">您还没有配送中的订单哦~</text>
     </view>
   </view>

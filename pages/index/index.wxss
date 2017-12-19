@@ -1,139 +1,109 @@
 /**index.wxss**/
-.index-container{
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.index-banner{
+  align-items: center; }
+
+.index-banner {
   width: 100%;
-  height: 360rpx;
-}
+  height: 360rpx; }
+
 .index-business {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 240rpx;
+  height: 360rpx;
+  box-sizing: border-box;
+  padding: 0 106rpx;
+  margin-bottom: 20rpx;
+  justify-content: space-between;
   align-items: center;
-  background: #fff;
-}
-.business-box{
+  background: #fff; }
+
+.business-box {
   display: flex;
   flex-direction: column;
-  width:748rpx;
-  text-align: center;
-}
-.business-box .img{
-  width: 92rpx;
-  height: 76rpx;
-  margin-left: 140rpx;
-}
-.business-box .txt{
-  margin-top: 16rpx;
+  width: 188rpx;
+  text-align: center; }
+
+.business-box .img {
+  width: 188rpx;
+  height: 188rpx; }
+
+.business-box .txt {
+  margin-top: 10rpx;
   font-size: 30rpx;
-  font-weight: bold;
-}
-.index-business .line{
-  width: 1px;
-  height: 110rpx;
-  background-color: #ddd;
-}
-.index-four-type{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 220rpx;
-  margin: 20rpx 0;
-  align-items: center; 
-  background: #fff;
-}
-.index-four-type .four-type{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 25%; 
-  text-align: center; 
-     
-}
-.index-four-type .four-type-img{
-  width: 90rpx;
-  height: 90rpx;
-}
-.index-four-type .four-type-txt{
-  margin-top: 16rpx;
-  font-size: 28rpx;
-}
-.index-newest-message{
+  font-weight: bold; }
+
+.index-newest-message {
   background-color: #fff;
-  width: 100%;
-}
-.index-newest-message .message-item{
+  width: 100%; }
+
+.index-newest-message .message-item {
   margin-left: 36rpx;
   padding: 30rpx 0 60rpx;
-  border-bottom: 1px solid #999;
-}
-.message-item:first-child{
-  border-bottom: 1px solid #ddd;
-}
-.message-item:last-child{
-  border-bottom: 1px solid #fff;
-}
+  border-bottom: 1px solid #999; }
 
-.index-newest-message .message-item-box{
+.message-item:first-child {
+  border-bottom: 1px solid #ddd; }
+
+.message-item:last-child {
+  border-bottom: 1px solid #fff; }
+
+.index-newest-message .message-item-box {
   display: flex;
   flex-direction: row;
   height: 100rpx;
   padding: 0 30rpx 0 0;
   justify-content: space-between;
-  box-sizing: border-box;
-  
-}
-.index-newest-message .express-date{
-  margin-top: 30rpx; 
+  box-sizing: border-box; }
+
+.index-newest-message .express-date {
+  margin-top: 30rpx;
   font-size: 24rpx;
-  color: #999;
-}
-.index-newest-message .express-title-box{
+  color: #999; }
+
+.index-newest-message .express-title-box {
   display: flex;
   flex-direction: row;
-  align-items: center;
-}
-.index-newest-message .express-title-box .icon{
+  align-items: center; }
+
+.index-newest-message .express-title-box .icon {
   width: 30rpx;
   height: 30rpx;
-  margin-right: 16rpx;
-}
-.index-newest-message .express-title-box .title{
+  margin-right: 16rpx; }
+
+.index-newest-message .express-title-box .title {
   font-size: 28rpx;
-  font-weight: bold;
-}
-.index-newest-message .message-item-txt{
+  font-weight: bold; }
+
+.index-newest-message .message-item-txt {
   margin: 0 30rpx 16rpx 44rpx;
-  font-size: 30rpx;
-}
-.index-newest-message .message-item-txt .take-num{
+  font-size: 30rpx; }
+
+.index-newest-message .message-item-txt .take-num {
   font-size: 30rpx;
   color: orange;
-  font-weight: bold;
-}
-.index-newest-message .message-item-info{
+  font-weight: bold; }
+
+.index-newest-message .message-item-info {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   align-items: center;
   margin: 0 0 0 44rpx;
   padding-top: 4rpx;
   color: #999;
-  font-size: 26rpx;
-}
-.index-newest-message .message-item-info .company{
+  font-size: 26rpx; }
+
+.index-newest-message .message-item-info .company {
   width: 80rpx;
   height: 40rpx;
   line-height: 40rpx;
   text-align: center;
   color: #999;
   border: 1px solid #999;
-  border-radius: 20rpx;
-}
-.index-newest-message .message-item-info .num{
+  border-radius: 20rpx; }
+
+.index-newest-message .message-item-info .num {
   color: #999;
-  margin-left: 10px;
-}
+  margin-left: 10px; }

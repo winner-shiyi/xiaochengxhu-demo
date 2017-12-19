@@ -1,5 +1,11 @@
-import promiseAjax from '../../utils/PromiseAjax.js';
-import { utilTrim } from '../../utils/util.js';
+'use strict';
+
+var _util = require('../../utils/util.js');
+
+var _RequestUtil = require('../../utils/RequestUtil.js');
+
+// 获取全局应用程序实例对象
+var app = getApp();
 
 Page({
 
@@ -10,113 +16,163 @@ Page({
     modalVisible: false,
     userInfoData: {},
     userName: '',
-    canSubmit: true,
+    canSubmit: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this._loadData();
+  onLoad: function onLoad(options) {
+    var _this = this;
+
+    app.ToastPanel();
+    if (wx.getStorageSync('token')) {
+      this._loadData();
+    } else {
+      app.tokenReadyCallback = function (data) {
+        console.log('token---', data.resultData.token);
+        if (data.resultData.token) {
+          _this._loadData();
+        }
+      };
+    }
   },
 
-  _loadData: function () {
-    const params = {};
-    promiseAjax.post('wx/tuboboUser/userInfo', params).then((data) => {
-      console.log('data----', data);
-
-      this.setData({
-        userInfoData: data.resultData,
-        userName: data.resultData.nickName,
-        loadingHidden: true,
-      });
-      // callback && callback();
-    }).catch((err) => {
-      console.log('请求出错啦3333');
-
-    });
-  },
   /**
-   * 显示之定义模态框
+   * 接口获取数据
    */
-  showModal: function (event) {
-    this.setData({
-      modalVisible: true,
+  _loadData: function _loadData() {
+    var _this2 = this;
+
+    var that = this;
+    (0, _RequestUtil.doRequestWithRefreshingToken)({
+      // url: 'http://172.16.2.71:8068/mockjsdata/24/wx/tuboboUser/userInfo',
+      // isAbsolute: true,
+      // absUrl: 'http://tubobo-wxserver.dev.ops.com/wx/tuboboUser/userInfo',
+      mode: 'wxserver',
+      url: 'wx/tuboboUser/userInfo',
+      success: function success(data) {
+        console.log('不惑的库data-userinfo---', data);
+        var resultData = data.resultData,
+            resultCode = data.resultCode,
+            resultDesc = data.resultDesc;
+
+        if (resultCode === '0') {
+          _this2.setData({
+            userInfoData: resultData,
+            userName: resultData.nickName
+          });
+        } else {
+          that.showToast(resultDesc);
+        }
+      }
     });
   },
-  hideModal: function () {
+
+  /**
+   * 显示自定义模态框
+   */
+  showModal: function showModal(event) {
+    var _this3 = this;
+
+    this.getNetWorkFn(function () {
+      if (!wx.getStorageSync('token')) return;
+      _this3.setData({
+        modalVisible: true
+      });
+    });
+  },
+
+  /**
+   * 隐藏自定义模态框
+   */
+  hideModal: function hideModal() {
     this.setData({
       modalVisible: false,
-      canSubmit: true,
+      canSubmit: true
     });
   },
-  preventTouchMove: function () {
+
+  /**
+   * todo textarea怎么阻止touchmove
+   */
+  preventTouchMove: function preventTouchMove() {
     console.log(111);
   },
+
   /**
-   * 实时输入
+   * 修改昵称，监听输入变化
    */
-  changeName: function (event) {
-    let newName = event.detail.value;
+  changeName: function changeName(event) {
+    var newName = event.detail.value;
     this.setData({
-      userName: newName,
+      userName: newName
     });
     if (!newName.length) {
       this.setData({
-        canSubmit: false,
+        canSubmit: false
       });
     } else {
       this.setData({
-        canSubmit: true,
+        canSubmit: true
       });
     }
-    console.log("event.detail---", );
   },
-  
+
   /**
    * 提交修改后的昵称
    */
-  bindFormSubmit: function (event) {
-    const newName = event.detail.value.textarea;
-    const params = {
-      nickName: utilTrim(newName),
-    };
-    if (!utilTrim(newName)) {
-      this.setData({
-        canSubmit: false,
-      });
-      // 浩南toat提示
-      wx.showModal({
-        title: '修改失败，请输入昵称',
-        content: '',
-      });
+  bindFormSubmit: function bindFormSubmit(event) {
+    var _this4 = this;
 
-    } else {
-      console.log('params----', params);
-      promiseAjax.post('wx/tuboboUser/updateNickName', params).then((data) => {
-        console.log('data----', data);
-
-        this.setData({
-          modalVisible: false,
+    this.getNetWorkFn(function () {
+      var newName = event.detail.value.textarea;
+      if (!(0, _util.utilTrim)(newName)) {
+        _this4.setData({
+          canSubmit: false
         });
-        this._loadData();
-
-      }).catch((err) => {
-        console.log('请求出错啦3333');
-
-      });
-    }
-    
-    
+        _this4.showToast('修改失败，请输入昵称');
+      } else {
+        (0, _RequestUtil.doRequestWithRefreshingToken)({
+          // url: 'http://172.16.2.71:8068/mockjsdata/24/wx/tuboboUser/updateNickName',
+          // url: 'http://tubobo-wxserver.dev.ops.com/wx/tuboboUser/updateNickName',
+          mode: 'wxserver',
+          url: 'wx/tuboboUser/updateNickName',
+          data: { nickName: (0, _util.utilTrim)(newName) },
+          success: function success(data) {
+            console.log('不惑的库data-updateNickName---', data);
+            _this4.setData({
+              modalVisible: false
+            });
+            _this4._loadData();
+          }
+        });
+      }
+    });
   },
+
   /**
    * 查看优惠券
    */
-  onCouponTap: function () {
-    // 浩南toast
-    wx.showModal({
-      title: '暂不支持',
-      content: '',
-    })
+  onCouponTap: function onCouponTap() {
+    this.showToast('即将上线，敬请期待');
   },
-})
+
+  /**
+   * 获取当前网络状态
+   */
+  getNetWorkFn: function getNetWorkFn(callback) {
+    var that = this;
+    wx.getNetworkType({
+      success: function success(res) {
+        var networkType = res.networkType;
+        console.log('networkType---', networkType);
+        if (networkType === 'none' || networkType === 'unknown') {
+          that.showToast('网络错误，请检查网络后重试');
+        } else {
+          callback();
+        }
+      }
+    });
+  }
+});
