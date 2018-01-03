@@ -28,11 +28,14 @@
     color: #ff908d;
     background: #FFFAf4;
     padding: 0 30rpx;
+    margin-top: -20rpx;
   }
   .form-top{
     padding-left: 30rpx;
     background: #fff;
-    
+    .arrow{
+      padding-right: 30rpx;
+    }
   }
   .top-item{
     height: 110rpx;
@@ -52,7 +55,6 @@
   .form-box{
     width: 650rpx;
     height: 100%;
-    padding-right: 30rpx;
     box-sizing: border-box;
     border-bottom: 1rpx solid #eee;
     display: flex;
@@ -60,9 +62,59 @@
     justify-content: space-between;
     align-items: center;
   }
+  .empty-box{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .address-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .info{
+      width: 490rpx;
+      height: 80rpx;
+      box-sizing: border-box;
+      .top{
+        font-size: 34rpx;
+        color: #333;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .phone{
+        padding-left: 10rpx;
+      }
+      .address{
+        font-size: 28rpx;
+        color: #999;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+    .edit{
+      width: 160rpx;
+      height: 80rpx;
+      line-height: 80rpx;
+      font-size: 28rpx;
+      color: #1D61F0;
+      text-align: center;
+      box-sizing: border-box;
+      border-left: 1rpx solid #eee;
+    }
+  }
   .store-img{
     width: 40rpx;
     height: 40rpx;
+    margin-right: 33rpx;
+  }
+  .address-img{
+    width: 40rpx;
+    height: 48rpx;
     margin-right: 33rpx;
   }
   .sel-store{
@@ -71,6 +123,9 @@
   }
   .com-store{
     color: #333;
+    .time{
+      margin-left: 220rpx;
+    }
   }
   .arrow{
     width: 34rpx;
@@ -116,12 +171,12 @@
     .remark-box{
       .remark{
         width: 100%;
-        height: 110rpx;
+        height: 140rpx;
         padding: 20rpx;
         box-sizing: border-box;
-        line-height: 30rpx;
-        color: #666;
-        font-size: 24rpx;
+        line-height: 36rpx;
+        color: #333;
+        font-size: 28rpx;
       }
     }
   }
@@ -140,8 +195,7 @@
     font-size: 0;
     .left{
       display: inline-block;
-      line-height: 100rpx;
-      width: 450rpx;
+      width: 60%;
       color: #999;
       padding-left: 30rpx;
       font-size: 24rpx;
@@ -149,10 +203,7 @@
     }
     .right{
       display: inline-block;
-      width: 300rpx;
-    }
-    .txt{
-      vertical-align: middle;
+      width: 40%;
     }
     .price-icon{
       margin: 0 16rpx;
@@ -179,11 +230,14 @@
     }
   }
   .rule{
-    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     padding-right: 30rpx;
     font-size: 24rpx;
     color: #1D61F0;
-    margin-top: 5rpx;
+    margin-top: 20rpx;
+    padding-bottom: 120rpx;
   }
   .margin{
     height: 100rpx;

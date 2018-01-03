@@ -7,96 +7,15 @@
     </block>
   </view>
   <view class="send-body">
-    <view wx:if="{{false}}" class="no-store">附近没有兔波波门店，暂不支持寄件服务哦</view>
-    <view class="form-top">
-      <view class="top-item sotre-item" bindtap="selectStore">
-        <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
-        <view class="form-box">
-          <text wx:if="{{false}}" class="sel-store">请选择门店</text>
-          <text wx:else class="com-store">兔波波3号店</text>
-          <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/profile/xiaoyoujiantou%402x.png"></image>
-        </view>
-      </view>
-       <view class="top-item sotre-item" bindtap="selectTime">
-        <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
-        <view class="form-box">
-          <text wx:if="{{false}}" class="sel-store">预约时间</text>
-          <text wx:else class="com-store">明天</text>
-          <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/profile/xiaoyoujiantou%402x.png"></image>
-        </view>
-      </view> 
-      <view class="top-item address-item" bindtap="selectSendAdd">
-        <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
-        <view class="form-box">
-          <text wx:if="{{true}}" class="sel-store">请填写发货地址</text>
-          <text wx:else class="com-store">兔波波3号店</text>
-          <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/profile/xiaoyoujiantou%402x.png"></image>
-        </view>
-      </view>
-      <view class="top-item address-item" bindtap="selectReceiveAdd">
-        <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
-        <view class="form-box">
-          <text wx:if="{{true}}" class="sel-store">请填写收货地址</text>
-          <text wx:else class="com-store">兔波波3号店</text>
-          <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/profile/xiaoyoujiantou%402x.png"></image>
-        </view>
-      </view>
+    <!-- 去门店寄件 -->
+    <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
+      <import src="storeSend/storeSend.wxml" />   
+      <template is="storeSendTpl" data="{{...judgeObject, orderArr:orderList}}" />
     </view>
-    <view class="form-middle">
-      <view class="middle-item" bindtap="selectGoodType">
-        <view class="label">物品类型</view>
-        <view class="middle-box">
-          <text wx:if="{{true}}" class="sel-store">请选择物品类型</text>
-          <text wx:else class="com-store">兔波波3号店</text>
-          <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/profile/xiaoyoujiantou%402x.png"></image>
-        </view>
-      </view>
-      <view class="middle-item" bindtap="selectGoodType">
-        <view class="label">物品重量</view>
-        <view class="middle-box">
-          <input
-            placeholder="请填写您的物品重量"
-            maxlength="4"
-            type="number"
-            placeholder-style="color:#ccc;font-size: 28rpx;"
-            value="{{good}}"
-            bindinput="goodChange"
-            bindblur="goodeBlur"
-          />
-          <view>公斤</view>
-        </view>
-      </view>
-      <view class="mark-item" bindtap="selectGoodType">
-        <view class="remark-box">
-          <textarea
-            class="remark"
-            placeholder-class="setcolor"
-            placeholder="备注(选填)"
-            name="textarea"
-            maxlength="50"
-            bindinput="changeMark"
-            bindblur="getRemarkValue"
-            value="{{remark}}"
-          />
-        </view>
-          
-      </view>
+    <!-- 快递员上门 -->
+    <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
+      <import src="doorSend/doorSend.wxml" />   
+      <template is="doorSendTpl" data="{{...judgeObject, orderArr:orderList}}" />
     </view>
-    <view class="rule">《快递运单契约条款》</view>
-    <!-- <view class="margin"></view>  -->
-    <view class="form-bottom">
-      <view class="left">
-        <text class="txt">运费预估</text>
-        <text class="price-icon">¥</text>
-        <text class="price">8.00</text>
-      </view>
-      <view class="right">
-        <view class="{{ !canSubmit ? 'btn-save.canSubmit' : 'btn-save' }}" bindtap="sumbit">提交订单</view>
-      </view>
-    </view>
-
   </view>
-
-
-
 </view>
