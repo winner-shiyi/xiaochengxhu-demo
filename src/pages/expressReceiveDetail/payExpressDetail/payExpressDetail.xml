@@ -1,0 +1,56 @@
+<!-- 预约配送待支付详情页模块 -->
+<template name="payExpressDetail">
+  <view class="m-payExpressDetail" wx:if = "{{ resultData.expressInfo.payFlag === '1' }}">
+    <!-- 待支付详情页头部模块 -->
+    <view class="m-pay-header">
+      <view class="detail-status">
+        <image class="detail-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/daizhifu%402x.png"></image>
+        <text class="detail-title">待支付</text>
+        <text class="detail-time">{{ countTime }}</text>
+      </view>
+    </view>
+    <!-- 待支付详情页快递信息模块 -->
+    <view class="pay-express-info">
+      <view class="info-left">
+        <image class="express-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/xiaobaoguo%402x.png"></image>
+      </view>
+      <view class="info-right">
+        <text class="express-companyName">{{ resultData.expressInfo.expressCompanyName }}</text>
+        <text class="express-id">{{ resultData.expressInfo.waybillNo }}</text>
+        <text class="express-name">{{ resultData.expressInfo.storeName }}</text>
+      </view>
+    </view>
+    <!-- 待支付详情页（预约时间和详细地址加备注）模块 -->
+    <view class="m-pay-detail">
+      <view class="appoint-time">
+        <image class="time-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
+        <text class="appoint-text">预约时间</text>
+        <text class="appoint-date">{{ resultData.taskInfo.appointTime }}</text>
+      </view>
+      <view class="appoint-address">
+        <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dingwei%402x.png"></image>
+        <view  class="receive-detail">
+          <view class="receive-place">{{ resultData.taskInfo.receiverAddress }}</view>
+          <view class="receive-person">{{ resultData.taskInfo.receiverName }}  {{resultData.taskInfo.receiverPhone}}</view>
+        </view>
+      </view>
+      <view wx:if = "{{resultData.taskInfo.remark !== ''}}" class="appoint-remark">{{ resultData.taskInfo.remark }}</view>
+    </view>
+     <!-- 预约配送待支付详情页--总共价格模块和底部按钮-->
+    <view wx:if = "{{ resultData.expressInfo.payFlag === '1'}}">
+      <view class="pay-detail-price">
+        <view class="total-price">总计：¥ {{ resultData.taskInfo.totalPrice }}</view>
+        <view class="total-tip">（含配送费{{ resultData.taskInfo.deliveryFee }}元，大件费{{ resultData.taskInfo.bigParcelFee }}元）</view>
+      </view>
+      <view class="placeholder"></view>
+      <view class="m-pay-footer">
+        <view class="pay-info">
+            <button class="btn-cancel" type="default" bindtap="showCancel">取消订单</button>  
+            <button class="btn-pay" type="default" bindtap="doPay">立即支付</button>  
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+

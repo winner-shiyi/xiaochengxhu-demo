@@ -1,0 +1,308 @@
+.m-appointExpressDetail{
+  height: 100%;
+  width: 100%;
+  background: #F7F7F7;
+  .m-appoint-header{
+    .m-rider{
+      position: relative;
+      background: #FFF;
+      width: 100%;
+      height: 110rpx;
+      line-height: 110rpx;
+      border-top: 1rpx solid #dddddd;
+      .rider-img{
+        margin-left: 34rpx;
+        width: 60rpx;
+        height: 60rpx;
+        vertical-align: middle;
+      }
+      .rider-name{
+        margin-left: 26rpx;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+        vertical-align: middle;
+      }
+      .rider-iphone{
+        position: absolute;
+        right: 30rpx;
+        top: 34rpx;
+        width: 44rpx;
+        height: 44rpx;
+        vertical-align: middle;
+      }
+    }
+    .appoint-status{
+      display: flex;
+      width: 100%;
+      height: 400rpx;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      background: url('https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dabeijing%402x.png');
+      background-size: 100%;
+      background-repeat: no-repeat;
+      border-bottom: 20rpx solid #F7F7F7;
+      border-top: 1rpx solid #dddddd;
+      .detail-status{
+        .detail-text{
+          width: 462rpx;
+          .detail-img{
+            width: 40rpx;
+            height: 40rpx;
+            padding-right:22rpx;
+            vertical-align: middle;
+          }
+          .detail-title{
+            font-family: PingFang-SC-Medium;
+            font-size: 40rpx;
+            color: #333333;
+            vertical-align: middle;
+          }
+        }
+        .process-img{
+          width: 408rpx;
+          height: 28rpx;
+          padding: 20rpx 0 10rpx 0;
+        }
+        .status-time{
+          display: flex;
+          justify-content:space-between;
+          align-items: center;
+          text-align: center;
+          font-size: 28rpx;
+          font-family: PingFang-SC-Regular;
+          color: #999999;
+          height: 80rpx;
+          .accept-time{
+            height: 80rpx;
+            .showColor{
+              color: #333333;
+            }
+            .acceptTime{
+              display: block;
+              color: #999999;
+            }
+          }
+          .pick-time{
+            height: 80rpx;
+            .showColor{
+              color: #333333;
+            }
+            .pickTime{
+              display: block;
+              color: #999999;
+            }
+          }
+          .finish-time{
+            height: 80rpx;
+            .showColor{
+              color: #333333;
+            }
+            .finishTime{
+              display: block;
+              color: #999999;
+            }
+          }
+        }
+        .detail-time{
+          font-family: PingFang-SC-Regular;
+          font-size: 40rpx;
+          color: #1D61F0;
+          margin-left: 10rpx;
+          vertical-align: middle;
+        }
+      }
+      .detail-code{
+        display: block;
+        font-family: PingFang-SC-Regular;
+        font-size: 30rpx;
+        color: #333333;
+        margin-top: 12rpx;
+        .code-text{
+          font-family: PingFang-SC-Medium;
+          font-size: 30rpx;
+          color: #FF8919;
+          line-height: 42rpx;
+        }
+      }
+      .detail-cancel{
+        display: inline;
+        .cancel-text{
+          display: inline;
+          font-family: PingFang-SC-Regular;
+          font-size: 24rpx;
+          line-height: 20rpx;
+          color: #999999;
+          min-width: 386rpx;
+        }
+        .cancel-reason{
+          display: inline;
+          font-family: PingFang-SC-Regular;
+          font-size: 24rpx;
+          line-height: 20rpx;
+          color: #1D61F0;
+        }
+      }
+    }
+  }
+
+  .m-appoint-body{
+    background: #FFFFFF;
+    .express-detail{
+      width: 100%;
+      height: 156rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 26rpx;
+      color: #333333;
+      border-bottom: 1rpx solid #eee;
+      box-shadow: inset 0 0 0 0 #FFFFFF;
+      box-sizing: border-box;
+      padding-top: 40rpx;
+      .express-name{
+        margin-left: 30rpx;
+        border: 1rpx solid #333333;
+        border-radius: 200rpx;
+        margin-right: 20rpx;
+        text-align: center;
+        padding: 0 12rpx;
+      }
+      .express-storeName{
+        display: block;
+        margin-left: 30rpx;
+        padding-top: 16rpx;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+      }
+    }
+    .express-detail-code{
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      .express-code-text{
+        font-family:PingFang-SC-Medium;
+        font-size:30rpx;
+        color:#333333;
+        margin:20rpx 0 20rpx 30rpx;
+        height:60rpx;
+        line-height:60rpx;
+        .express-code{
+          font-family: PingFang-SC-Medium;
+          color: #FF8919;
+          line-height: 21px;
+        }
+      }
+    }
+    .m-appoint-detail{
+      border-top: 20rpx solid #F7F7F7;
+      .appoint-time{
+        display: flex;
+        position: relative;
+        align-items: center;
+        background: #FFF;
+        width: 100%;
+        height: 110rpx;
+        border-bottom: 1rpx solid #eeeeee;
+        font-family: PingFang-SC-Regular;
+        color: #333333;
+        .time-img{
+          width: 48rpx;
+          height: 48rpx;
+          margin: 0 30rpx;
+        }
+        .appoint-text{
+          font-size: 28rpx;
+        }
+        .appoint-date{
+          position: absolute;
+          right: 30rpx;
+          font-size: 28rpx;
+          top: 36rpx;        
+        }
+      }
+      .appoint-address{
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: #FFF;
+        width: 100%;
+        min-height: 110rpx;
+        .address-img{
+          position: absolute;
+          width: 40rpx;
+          height: 56rpx;
+          margin: 0 34rpx;
+          top: 32rpx;        
+        }
+        .receive-detail{
+          display: inline-block;
+          position: relative;
+          padding: 30rpx 50rpx 30rpx 0;
+          margin-left: 108rpx;
+          font-family: PingFang-SC-Regular;
+          border-bottom: 1rpx solid #eeeeee;
+          .receive-place{
+            padding-bottom: 14rpx;
+            font-size: 28rpx;
+            line-height: 40rpx;
+            color: #333333;
+          }
+          .receive-person{
+            font-size: 26rpx;
+            color: #999999;
+          }
+        }
+      }
+      .appoint-remark{
+        background: #FFFFFF;
+        padding: 30rpx 34rpx 30rpx 108rpx;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+        border-bottom: 1rpx solid #F7F7F7;
+      }
+    }
+  }
+
+  .placeholder{
+    width:100%;
+    height:100rpx;    
+  }
+
+  .m-appoint-footer{
+    .express-btn-cancel{
+      background-color: #FFF;
+      margin: 60rpx 30rpx;
+      width: 92%;
+      height: 108rpx;
+      line-height: 108rpx;
+      border: 1px solid #333333;
+      border-radius: 16rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 32rpx;
+      color: #474747;
+    }
+    .btn-evaluate{
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      height: 100rpx;
+      background-color: #FFDB08;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: PingFang-SC-Regular;
+      font-size: 32rpx;
+      color: #474747;
+      border-radius: 0;
+      font-weight: 300;
+      &::after{
+        border: none;
+      }
+    }
+  }
+}

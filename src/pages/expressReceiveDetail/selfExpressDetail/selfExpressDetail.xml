@@ -1,0 +1,54 @@
+<!-- 待自提加取消详情页模块 -->
+<template name="selfExpressDetail">
+  <!-- 待自提加取消头部状态样式 -->
+  <view class="m-selfExpressDetail">
+    <view class="m-self-header">
+      <view class="detail-status">
+        <view wx:if = "{{ resultData.expressInfo.pickupType === 'SELF' && resultData.expressInfo.waybillStatus !== 3 }}" class="detail-text">
+          <image class="detail-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/daiziti%402x.png"></image>
+          <text wx:if = "{{ resultData.expressInfo.waybillStatus === 5 }}" class="detail-title">已退回</text>
+          <text wx:else class="detail-title">待自提</text>
+          <image wx:if = "{{ resultData.expressInfo.waybillStatus === 5 }}" class="return-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/datuihuijian%402x.png"></image>
+        </view>
+        <view wx:if = "{{ resultData.expressInfo.pickupType === 'SELF' && resultData.expressInfo.waybillStatus === 3 }}" class="detail-text">
+          <image class="detail-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/yiziti%402x.png"></image>
+          <text class="detail-title">已自提</text>
+        </view>
+      </view>
+      <view wx:if = "{{ resultData.expressInfo.waybillStatus !== 3 && resultData.expressInfo.waybillStatus !== 5 }}">
+        <text class="detail-code">自提码：<text class="code-text">{{ resultData.expressInfo.areaNum }}</text></text>
+      </view>
+      <view class="detail-cancel" wx:if = "{{ resultData.taskInfo.distributionStatus === 'CANCEL' }}">
+        <text class="cancel-text">{{ textDesc }}</text>
+        <view wx:if = "{{ resultData.taskInfo.cancelReason === 'ADMIN_CANCEL' }}" class="cancel-reason" bindtap="makePhoneCall">4006006700</view>
+      </view>
+    </view>
+    <!-- 待自提加取消中间物流信息样式 -->
+    <view class="m-self-body">
+      <!-- 快递信息 -->
+      <view class="express-detail">
+        <text class="express-name">{{ resultData.expressInfo.expressCompanyName }}</text>
+        <text class="express-id">{{ resultData.expressInfo.waybillNo }}</text>
+      </view>
+      <!-- 物流信息 -->
+      <view class="express-track-list">
+        <view class="express-track" wx:for="{{ resultData.expressList }}" wx:for-item="item" wx:key="key">
+          <text wx:if = "{{ resultData.expressList.length > 1 }}" class="express-dot-gray"></text>          
+          <text class="express-dec">{{ item.desc }}</text>
+          <text class="express-time">{{ item.time }}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 待自提加取消尾部按钮样式 -->
+    <view class="m-self-footer">
+      <view wx:if = "{{ resultData.expressInfo.waybillStatus === 3 && !resultData.evaluationInfo.evaluationFlag }}">
+        <button class="btn-evaluate" type="default" bindtap="showEvaluate">立即评价</button>  
+      </view>
+      <view wx:if = "{{ resultData.expressInfo.waybillStatus !== 3 && resultData.expressInfo.waybillStatus !== 5 }}">
+        <button class="btn-appoint {{ canAppoint ? 'canAppoint' : '' }}" type="default" bindtap="showModal">预约配送</button>  
+      </view>
+      <view wx:elif = "{{ resultData.expressInfo.waybillStatus !== 3 && resultData.evaluationInfo.evaluationFlag || resultData.expressInfo.waybillStatus === 5 }}">
+      </view>
+    </view>
+  </view>
+</template>

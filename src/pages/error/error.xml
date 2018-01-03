@@ -1,0 +1,4 @@
+<view class="container">
+  <text class="title">哎呀，兔波波无法获取您的微信信息，需要同意授权才能正常使用哦~</text>
+  <button type="primary" bindtap="again" class="btn">重新授权</button>
+</view>

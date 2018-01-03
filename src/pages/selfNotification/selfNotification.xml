@@ -1,0 +1,18 @@
+<!-- 自提通知页面 -->
+<view class="m-notification">
+  <view class="m-header">
+    <text class="notification-text">自提通知</text>
+    <text class="notification-dec">您的好友给您发了一个自提件，请您帮忙拿一下哦~如有任何疑问，请及时联系兔波波快门店的快递小哥。</text>
+    <text class="notification-code">自提码：<text class="code-text">{{ areaNum }}</text></text>
+  </view>
+  <view class="m-body">
+    <view class="express-detail">
+      <text class="express-name">{{ expressCompanyName }}</text>
+      <text class="express-id">{{ waybillNo }}</text>
+    </view>
+    <view class="express-address">
+      <text class="address">取件地址：{{ storeName }}</text>
+    </view>
+  </view>
+</view>
+

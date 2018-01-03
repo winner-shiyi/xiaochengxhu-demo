@@ -1,0 +1,25 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <import src="../../components/customizedToast/customizedToast.wxml" />
+  <template is="customizedToast" data="{{..._toast_ }}" />
+  <view 
+    class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" 
+    data-index="{{index}}" 
+    bindtouchstart="touchstart" 
+    bindtouchmove="touchmove" 
+    bindtap="handleAddrTap"
+    wx:for="{{items}}"
+    wx:key="*this"
+  >
+    <view class="content">
+      <view class="address">{{item.province}}{{item.city}}{{item.district}}{{item.street}}{{item.detailAddress}}{{item.roomNo}}</view>
+      <view class="person">
+        <text class="name">{{item.name}}</text>
+        <text class="phone">{{item.phone}}</text>
+      </view>
+    </view>
+    <view class="del" catchtap="del" data-index="{{index}}">删除</view>
+  </view>
+  <view class="empty"></view>
+  <button class="add" bindtap="addAddress"><image class="add-icon" src="http://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/xinzengdizhi%402x.png"></image>新增地址</button>
+</view>

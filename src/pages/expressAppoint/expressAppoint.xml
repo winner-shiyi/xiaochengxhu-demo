@@ -1,0 +1,68 @@
+<import src="../../components/customizedToast/customizedToast.wxml" />
+<!-- 预约配送发单页面 -->
+<view class="container m-expressAppoint">
+  <template is="customizedToast" data="{{..._toast_ }}" />
+  <view class="m-header">
+    <view class="express-info">
+      <view class="info-left">
+        <image class="express-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/xiaobaoguo%402x.png"></image>
+      </view>
+      <view class="info-right">
+        <text class="express-companyName">{{ expressCompanyName }}</text>
+        <text class="express-id">{{ waybillNo }}</text>
+        <text class="express-name">{{ storeName }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="m-body">
+    <view class="appoint-time">
+      <image class="time-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
+      <text class="appoint-text">预约时间</text>
+      <view class="appoint-picker">
+        <picker class="picker" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{ multiIndex }}" range="{{multiArray}}">
+            {{multiArrayTime[multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}
+        </picker>
+        <image class="img-arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/youjiantou%402x.png"></image>
+      </view>
+    </view>
+    <view wx:if="{{ isEmptyAddr }}" class="appoint-address" bindtap="selectAddress">
+      <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dingwei%402x.png"></image>
+      <text class="address-empty">请填写收货地址</text>
+    </view>
+    <view wx:else class="appoint-address">
+      <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dingwei%402x.png"></image>
+      <view  class="receive-left" bindtap="selectAddress">
+        <view class="receive-place">{{ receiveAddr.detailAddress }}</view>
+        <view class="receive-person">{{ receiveAddr.name }}  {{ receiveAddr.phone }}</view>
+      </view>
+      <view class="receive-right" bindtap="editAddress">
+        <text class="receive-edit">编辑</text>
+      </view>
+    </view>
+    <view class="appoint-remark">
+      <textarea placeholder-class="setcolor" value="{{ remark }}" class="remark" maxlength="50" bindblur="getRemarkValue"  placeholder="备注（选填）" />
+    </view>
+  </view>
+  <view class="m-footer">
+    <view class="m-left">
+      <view wx:if="{{ !deliveryRange }}" class="m-range">
+        <text class="range-text">超出配送范围</text>
+      </view>
+      <view wx:else class="m-price">
+        <text class="price-icon">¥</text>
+        <text>{{ totalPrice }}</text>
+      </view>
+      <view class="m-rule" bindtap="showModal">
+        <image  class="img-rules" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/gantan%402x.png"></image>
+        <text class="rules">计价规则</text>
+      </view>
+    </view>
+    <view class="m-right">
+        <button class="{{ canSubmit ? 'btn-save.canSubmit' : 'btn-save' }}" bindtap="sumbit">提交订单</button>
+    </view>
+  </view>
+
+  <!-- 自定义模态框 -->
+  <import src="rulesModal/rulesModal.wxml" />
+  <template is="rulesModal" data="{{ modalVisible }}" />
+</view>

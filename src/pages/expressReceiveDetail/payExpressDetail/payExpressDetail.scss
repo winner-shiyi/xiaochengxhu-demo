@@ -1,0 +1,207 @@
+.m-payExpressDetail{
+  height: 100%;
+  .m-pay-header{
+    display: flex;
+    width: 100%;
+    height: 320rpx;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: url('https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dabeijing%402x.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-bottom: 20rpx solid #F7F7F7;
+    border-top:1rpx solid #DDD;
+    .detail-status{
+        .detail-img{
+          width: 40rpx;
+          height: 40rpx;
+          padding-right:22rpx;
+          vertical-align: middle;
+        }
+        .detail-title{
+          font-family: PingFang-SC-Medium;
+          font-size: 40rpx;
+          color: #333333;
+          vertical-align: middle;
+        }
+        .detail-time{
+          font-family: PingFang-SC-Regular;
+          font-size: 40rpx;
+          color: #1D61F0;
+          margin-left: 10rpx;
+          vertical-align: middle;
+        }
+    }
+  }
+  .pay-express-info{
+    background: #FFF;
+    width: 100%;
+    height: 200rpx;
+    border-bottom: 20rpx solid #F7F7F7;
+    .info-left{
+      float: left;
+      margin: 0 40rpx;
+      margin-top: 64rpx;
+      .express-img{
+        display: block;
+        width: 78rpx;
+        height: 72rpx;
+      }
+    }
+    .info-right{
+      float: left;
+      font-family: PingFang-SC-Regular;
+      font-size: 26rpx;
+      color: #333333;
+      margin-top: 60rpx;
+      .express-companyName{
+        border: 1rpx solid #333333;
+        border-radius: 200rpx;
+        text-align: center;
+        padding: 0 12rpx;
+        margin-right: 20rpx;
+      }
+      .express-name{
+        display: block;
+        font-size: 28rpx;
+        margin-top: 18rpx;
+      }
+    }
+  }
+  .m-pay-detail{
+    .appoint-time{
+      display: flex;
+      position: relative;
+      align-items: center;
+      background: #FFF;
+      width: 100%;
+      height: 110rpx;
+      border-bottom: 1rpx solid #eee;
+      font-family: PingFang-SC-Regular;
+      color: #333333;
+      .time-img{
+        width: 48rpx;
+        height: 48rpx;
+        margin: 0 30rpx;
+      }
+      .appoint-text{
+        font-size: 28rpx;
+      }
+      .appoint-date{
+        position: absolute;
+        right: 30rpx;
+        font-size: 28rpx;
+        top: 36rpx;        
+      }
+    }
+    .appoint-address{
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: #FFF;
+      width: 100%;
+      min-height: 110rpx;
+      .address-img{
+        position: absolute;
+        width: 40rpx;
+        height: 56rpx;
+        margin: 0 34rpx;
+        top: 32rpx;        
+      }
+      .receive-detail{
+        display: inline-block;
+        position: relative;
+        padding: 30rpx 50rpx 30rpx 0;
+        margin-left: 108rpx;
+        font-family: PingFang-SC-Regular;
+        border-bottom: 1rpx solid #eee;
+        .receive-place{
+          padding-bottom: 14rpx;
+          font-size: 28rpx;
+          line-height: 40rpx;
+          color: #333333;
+        }
+        .receive-person{
+          font-size: 26rpx;
+          color: #999999;;
+        }
+      }
+    }
+    .appoint-remark{
+      background: #FFFFFF;
+      padding: 30rpx 34rpx 30rpx 108rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 28rpx;
+      color: #333333;
+      border-bottom: 1rpx solid #F7F7F7;
+    }
+  }
+  .pay-detail-price{
+    width: 100%;
+    height: 170rpx;
+    position: relative;
+    .total-price{
+      position: absolute;
+      right: 32rpx;
+      top: 42rpx;
+      font-family: PingFang-SC-Medium;
+      font-size: 30rpx;
+      color: #333333;
+    }
+    .total-tip{
+      display: block;
+      position: absolute;
+      right: 14rpx;
+      top: 94rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 26rpx;
+      color: #999999;
+    }
+  }
+  .m-pay-footer{
+    .pay-info{
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      height: 100rpx;
+      .btn-cancel{
+        border-top: 1rpx solid #eee;
+        display: inline-block;
+        width: 40%;
+        height: 100rpx;
+        line-height:100rpx;
+        background-color: #FFF;
+        font-family: PingFang-SC-Regular;
+        font-size: 32rpx;
+        color: #474747;
+        border-radius: 0;
+        font-weight: 300;
+        &::after{
+          border: none;
+        }
+      }
+      .btn-pay{
+        display: inline-block;
+        width: 60%;
+        height: 100rpx;
+        line-height:100rpx;
+        background-color: #FFDB08;
+        font-family: PingFang-SC-Regular;
+        font-size: 32rpx;
+        color: #474747;
+        border-radius: 0;
+        font-weight: 300;
+        &::after{
+          border: none;
+        }
+      }
+    }
+  }
+  .placeholder{
+    width:100%;
+    height:100rpx;    
+  }
+}

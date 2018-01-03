@@ -1,0 +1,50 @@
+<!-- 我的快递详情页面 -->
+<import src="../../components/evaluateComponent/evaluateComponent.wxml" />
+<import src="./selfExpressDetail/selfExpressDetail.wxml" />
+<import src="./payExpressDetail/payExpressDetail.wxml" />
+<import src="./appointExpressDetail/appointExpressDetail.wxml" />
+<import src="../../components/evaluateComponent/evaluateComponent.wxml" />
+<view class="container" >
+  <import src="../../components/customizedToast/customizedToast.wxml" />
+  <template is="customizedToast" data="{{..._toast_ }}" />
+  <!-- 待自提加取消详情页 -->
+  <view wx:if = "{{ (resultData.expressInfo.pickupType === 'SELF' &&  resultData.expressInfo.payFlag === '0') || resultData.expressInfo.pickupType === 'SELF' &&  resultData.expressInfo.payFlag === ''}}">
+      <template is="selfExpressDetail" data="{{ resultData, textDesc, canAppoint }}" />
+      <!-- 待自提已自提页面详情页评价样式 -->
+      <view class="m-evaluate" wx:if = "{{ resultData.expressInfo.waybillStatus === 3 && resultData.evaluationInfo.evaluationFlag }}">
+        <view class="evalEfficiency-star">
+          <text class="evalEfficiency-text">配送时效</text>
+          <template is="evaluateComponent" data="{{ ...effi }}"  />
+        </view>
+        <view class="evalAttitude-star">
+          <text class="evalAttitude-text">服务态度</text>
+          <template is="evaluateComponent" data="{{ ...atti }}"  />
+        </view>
+        <view wx:if = "{{resultData.evaluationInfo.evalComment !== ''}}" class="evalComment">{{ resultData.evaluationInfo.evalComment }}</view>
+      </view>
+  </view>
+
+  <!-- 预约配送待支付详情页 -->
+  <view wx:elif = "{{ resultData.expressInfo.pickupType === 'SELF' && resultData.expressInfo.payFlag === '1' }}">
+    <template is="payExpressDetail" data="{{ resultData , countTime }}" />
+  </view>
+
+  <!-- 预约配送详情页（待接单，待取货，待送货，已完成） -->
+  <view wx:elif = "{{ resultData.expressInfo.pickupType === 'APPOINT' }}">
+    <!-- 预约配送详情页（待接单，待取货，待送货，完成） -->
+    <template is="appointExpressDetail" data="{{ resultData , ...appointStatus }}" />
+    <!-- 预约配送完成页面详情页评价样式 -->
+    <view class="m-evaluate" wx:if = "{{ resultData.taskInfo.distributionStatus === 'FINISH' && resultData.evaluationInfo.evaluationFlag }}">
+      <view class="evalEfficiency-star">
+        <text class="evalEfficiency-text">配送时效</text>
+        <template is="evaluateComponent" data="{{ ...effi }}"  />
+      </view>
+      <view class="evalAttitude-star">
+        <text class="evalAttitude-text">服务态度</text>
+        <template is="evaluateComponent" data="{{ ...atti }}"  />
+      </view>
+      <view wx:if = "{{resultData.evaluationInfo.evalComment !== ''}}" class="evalComment">{{ resultData.evaluationInfo.evalComment }}</view>
+    </view>
+  </view>
+</view>
+  

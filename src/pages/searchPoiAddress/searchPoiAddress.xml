@@ -1,0 +1,53 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <view class="content">
+  	<picker bindchange="bindPickerChange" value="{{index}}" range="{{cities}}">
+	   <view class="picker">
+	      <text>{{selectedCity}}</text>
+	      <image class="icon" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/xialajiantou%402x.png"></image>
+	   </view>
+	</picker>
+    <input 
+    	class="poi" 
+    	placeholder="输入收货地址" 
+    	placeholder-style="color:#ccc" 
+    	value="{{keywords}}" 
+    	bindinput="searchDetail"
+    />
+  </view>
+  <view class="refresh_area">
+    <text>当前定位城市：{{city}}</text>
+    <image 
+      src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/shuaxin%402x.png" 
+      class="icon"
+      bindtap="relocate"></image>
+  </view>
+  <scroll-view scroll-y class="place_list" wx:if="{{cityIndex!=-1}}">
+    <view class="empty_result" wx:if="{{tips.length==0}}">
+      <text>暂无结果</text>
+    </view>
+    <view wx:else>
+      <view
+        class="place_name" 
+        wx:for="{{tips}}" 
+        bindtap="handleListItemTap"
+        data-index="{{index}}"
+        >
+          <view 
+            data-name="{{item.name}}"
+            data-adcode="{{item.adcode}}"
+            data-address="{{item.address}}"
+            data-district="{{item.district}}"
+            data-id="{{item.id}}"
+            data-location="{{item.location}}"
+            data-typecode="{{item.typecode}}"
+          >
+            <view class="tip_item">{{item.name}}</view>
+          </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view wx:else>
+  	<view class="invalid-area">您的当前定位的城市暂不支持配送服务</view>
+  </view>
+</view>

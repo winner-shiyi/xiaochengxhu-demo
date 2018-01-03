@@ -1,0 +1,21 @@
+<!-- 自定义模态框 -->
+<template name="customizedModal">
+  <view class="m-customModal">
+    <view class="m-modal-mask" catchtouchmove="preventTouchMove" bindtap="hideModal" wx:if="{{ modalVisible }}"></view>
+    <view class="m-modal-dialog" wx:if="{{ modalVisible }}">
+      <view class="m-modal-head">
+        <view class="modal-title">{{ titile }}</view>
+      </view>
+
+      <view class="m-modal-body">
+        <view class="modal-title">{{ message }}</view>
+      </view>
+
+      <view class="modal-footer">
+        <button class="btn-cancel">{{ cancelText }}</button>
+        <button class="btn-ok">{{ okText }}</button>
+      </view>
+      
+    </view>
+  </view>
+</template>

@@ -1,0 +1,71 @@
+page{
+  height: 100%;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 108rpx 0 35rpx;
+  background-color: #fff;
+}
+.logo{
+  width: 172rpx;
+  height: 300rpx;
+}
+.form-box{
+  width: 520rpx;
+  margin: 40rpx 0 256rpx;
+  .form-item{
+    width: 480rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    margin: 0 auto;
+    padding-top: 40rpx;
+    border-bottom: 2rpx solid #ccc;
+    input{
+      height: 80rpx;
+      line-height: 80rpx;
+      font-size: 40rpx;
+      color: #474747;
+    }
+  }
+  .code-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    input{
+      width: 200rpx;
+    }
+  }
+  .auth-code-btn{
+    width: 160rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    font-size: 26rpx;
+    color: #ccc;
+    &.canSend{
+      border: 1px solid #FFDB08;
+      color: #FFDB08;
+    }
+  }
+
+  .login-btn{
+    width: 520rpx;
+    height: 90rpx;
+    margin-top: 80rpx;
+    line-height: 90rpx;
+    text-align: center;
+    font-size: 32rpx;
+    color: #474747;
+    background-color:#FFDB08;
+    border-radius: 100px;
+    opacity: .5;
+    &.canSubmit{
+      opacity: 1;
+    }
+  }
+  
+}

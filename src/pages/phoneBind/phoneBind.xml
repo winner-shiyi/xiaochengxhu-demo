@@ -1,0 +1,37 @@
+<view class="container">
+  <import src="../../components/customizedToast/customizedToast.wxml" />
+  <template is="customizedToast" data="{{..._toast_ }}" />
+  <image class="logo" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/tubblogo%402x.png" />
+  <view class="form-box">
+    <view class="form-item">
+      <input
+        placeholder="请输入手机号"
+        maxlength="11"
+        type="number"
+        placeholder-style="color:#ccc;font-size: 28rpx;"
+        value="{{phone}}"
+        bindinput="phoneChange"
+        bindblur="phoneBlur"
+        />
+    </view>
+    <view class="form-item code-item">
+      <input
+        placeholder="请输入验证码"
+        maxlength="6"
+        type="number"
+        placeholder-style="color:#ccc;font-size: 28rpx;"
+        value="{{code}}"
+        bindinput="codeChange"
+        bindblur="codeBlur"
+        />
+        <view
+          class="{{isPhone ? 'auth-code-btn.canSend':'auth-code-btn'}}"
+          bindtap="sendVerifyCode"
+          wx:if="{{canSend}}"
+        >获取验证码</view>
+        <view class="count-down" wx:if="{{!canSend}}">{{countDownTime}}秒</view>
+    </view>
+    <view class="{{isPhone && isVerifyCode ? 'login-btn.canSubmit':'login-btn'}}" bindtap="onLoginTap">登录</view>
+  </view>
+
+</view>

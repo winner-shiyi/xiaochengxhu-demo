@@ -1,0 +1,78 @@
+<!-- 预约配送详情页（待取货，待送货，配送中，已完成）模块 -->
+<template name="appointExpressDetail">
+  <view class="m-appointExpressDetail">
+    <!-- 预约配送详情页头部状态样式 -->
+    <view class="m-appoint-header">
+      <!-- 预约配送详情页（待送货，配送中骑手信息）模块 -->
+      <view wx:if = "{{ resultData.taskInfo.distributionStatus === 'PICKUP' || resultData.taskInfo.distributionStatus === 'DISTRIBUTION'}}" class="m-rider">
+        <image class="rider-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/peisongyuan%402x.png"></image>
+        <text class="rider-name">配送员{{resultData.taskInfo.riderName}}</text>
+        <view  bindtap="makeRideCall">
+          <image class="rider-iphone" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dianhua%402x.png"></image>
+        </view>
+      </view>
+      <view class="appoint-status">
+        <!-- 预约配送详情页运单状态样式 -->
+        <view class="detail-status">
+          <view class="detail-text">
+            <image class="detail-img" src="{{ statusIcon }}"></image>
+            <text class="detail-title">{{ statusText }}</text>
+          </view>
+          <image class="process-img" src="{{ processImg }}"></image>
+          <view class="status-time">
+            <view class="accept-time">
+              <view class="{{ acceptStatusText }}">已接单
+                <text wx:if = "{{ resultData.taskInfo.acceptTime !== '' }}" class="acceptTime">{{ resultData.taskInfo.acceptTime }}</text>
+              </view>
+            </view>
+            <view class="pick-time">
+              <view  class="{{ pickStatusText }}">已取货
+                <text wx:if = "{{ resultData.taskInfo.pickTime !== '' }}" class="pickTime">{{ resultData.taskInfo.pickTime }}</text>
+              </view>
+            </view>
+            <view class="finish-time">
+              <view class="{{ finishStatusText }}">已完成
+                <text wx:if = "{{ resultData.taskInfo.finishTime !== '' }}" class="finishTime">{{ resultData.taskInfo.finishTime }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 预约配送详情页(物流信息、预约时间及备注)样式 -->
+    <view class="m-appoint-body">
+      <view class="express-detail">
+        <text class="express-name">{{ resultData.expressInfo.expressCompanyName }}</text>
+        <text class="express-id">{{ resultData.expressInfo.waybillNo }}</text>
+        <text class="express-storeName">{{ resultData.expressInfo.storeName }}</text>
+      </view>
+      <view wx:if = "{{resultData.taskInfo.distributionStatus !== 'FINISH'}}" class="express-detail-code">
+        <text class="express-code-text">收货码：<text class="express-code">{{ resultData.taskInfo.pickupCode }}</text></text>
+      </view>
+      <view class="m-appoint-detail">
+        <view class="appoint-time">
+          <image class="time-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/time%402x.png"></image>
+          <text class="appoint-text">预约时间</text>
+          <text class="appoint-date">{{ resultData.taskInfo.appointTime }}</text>
+        </view>
+        <view class="appoint-address">
+          <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dingwei%402x.png"></image>
+          <view  class="receive-detail">
+            <view class="receive-place">{{ resultData.taskInfo.receiverAddress }}</view>
+            <view class="receive-person">{{ resultData.taskInfo.receiverName }}  {{resultData.taskInfo.receiverPhone}}</view>
+          </view>
+        </view>
+        <view wx:if = "{{resultData.taskInfo.remark !== ''}}" class="appoint-remark">{{ resultData.taskInfo.remark }}</view>
+      </view>
+    </view>
+    <!-- 预约配送详情页按钮样式 -->
+    <view class="m-appoint-footer" >
+      <view wx:if = "{{ resultData.taskInfo.distributionStatus === 'RECEIVE' }}" >
+          <button class="express-btn-cancel" type="default" bindtap="showCancel">取消订单</button>  
+      </view>
+      <view wx:if = "{{ resultData.taskInfo.distributionStatus === 'FINISH' && !resultData.evaluationInfo.evaluationFlag }}" >
+        <button class="btn-evaluate" type="default" bindtap="showEvaluate">立即评价</button>  
+      </view>
+    </view>
+  </view>
+</template>

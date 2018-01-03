@@ -1,0 +1,49 @@
+<template name="pickUpTpl">
+  <view class="pickup-container">
+    <view hidden="{{!orderArr.length}}" class="list-box">
+      <block wx:for="{{orderArr}}" wx:key="{{item.expressId}}">
+        <view class="order-list-item" bindtap="onExpressItemTap" data-id="{{item.expressId}}">
+          <view class="item-box">
+            <view class="item-head">
+              <view class="my-express-info">
+                <view class="company">{{item.expressCompanyName}}</view>
+                <text class="num">{{item.waybillNo}}</text>
+              </view>
+              <text class="order-status">{{item.distributionType === 'SELF' && item.payFlag === '1' ? '待支付' : ''}}</text>
+            </view>
+          </view>
+          <view class="item-box">
+            <view class="item-middle">
+              <view class="txt">{{item.storeName}}已入库</view>
+              <view class="num">自提码：
+                <text class="orange">{{item.areaNum}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="item-box">
+            <view class="item-bottom">
+              <view class="btn order" catchtap="dispatchOrder" 
+                data-id="{{item.expressId}}" 
+                data-waybillNo="{{item.waybillNo}}"
+                data-storeName="{{item.storeName}}"
+                data-expressCompanyName="{{item.expressCompanyName}}"
+                wx:if="{{item.distributionType === 'SELF' && item.dispatchFlag && item.payFlag !== '1' }}"
+              >预约配送</view>
+              <view class="btn order gray" catchtap="noDispatch" wx:if="{{item.distributionType === 'SELF' && !item.dispatchFlag}}">预约配送</view>
+              <view class="btn pay" 
+                catchtap="onExpressItemTap" 
+                data-id="{{item.expressId}}"
+                wx:if="{{item.distributionType === 'SELF' && item.payFlag === '1'}}"
+              >立即支付</view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+    </view>
+    <view hidden="{{orderArr.length}}" class="blank-page">
+      <image class="blank-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/list/dingdankong%402x.png"></image>
+      <text class="blank-txt">您还没有待自提的订单哦~</text>
+    </view>
+  </view>
+</template>

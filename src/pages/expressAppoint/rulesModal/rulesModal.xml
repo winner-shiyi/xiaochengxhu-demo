@@ -1,0 +1,22 @@
+<!-- 自定义计价规则模态框 -->
+<template name="rulesModal">
+  <view class="custom-modal-container">
+    <view class="modal-mask" catchtouchmove="preventTouchMove" bindtap="hideModal" wx:if="{{modalVisible}}"></view>
+    <view class="modal-dialog" wx:if="{{ modalVisible }}">
+      <view class="modal-head">
+        <view class="modal-title">兔快送计价规则</view>
+      </view>
+      <view class="modal-content">
+        <view class="content-title">起送费用:</view>
+        <view class="content">30分钟内立即送达,起送费5元;</view>
+        <view class="content">2小时时效预约配送,起送费1.5元;</view>
+        <view class="content">超过2天后每增加一天增加0.5元。</view>
+        <view class="big-price">大件包裹加价:</view>
+        <view class="content">大件包裹每件配送费增加2元</view>
+      </view>
+      <view class="modal-footer">
+          <button bindtap="hideModal" class="ok-btn" form-type="submit">知道了</button>
+      </view>
+    </view>
+  </view>
+</template>

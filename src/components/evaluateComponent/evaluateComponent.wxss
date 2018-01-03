@@ -1,0 +1,14 @@
+.star {
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-right: 12rpx;
+    vertical-align: middle;
+  }
+  .star image{
+    width: 40rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-right: 12rpx;
+  }

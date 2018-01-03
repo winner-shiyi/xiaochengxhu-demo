@@ -1,0 +1,10 @@
+<template name="evaluateComponent">
+  <block wx:for="{{stars}}" wx:key="key">
+    <view bindtap="clickStar" wx:if="{{!notap}}" data-key="{{key}}" data-index="{{index}}" class="star" wx:key="index">
+      <image src="{{ item >0 ? 'https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/huangxin%402x.png' : 'https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/huixin%402x.png' }}"></image>
+    </view>
+    <view wx:if="{{!!notap}}" data-key="{{key}}" data-index="{{index}}" class="star" wx:key="index">
+      <image src="{{ item >0 ? 'https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/huangxin%402x.png' : 'https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/huixin%402x.png' }}"></image>
+    </view>
+  </block>
+</template>

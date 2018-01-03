@@ -1,0 +1,6 @@
+{
+  // 导航栏标题文字内容
+  "navigationBarTitleText": "提交评价",
+  // 是否开启下拉刷新，详见页面相关事件处理函数。
+  "enablePullDownRefresh": false
+}

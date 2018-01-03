@@ -1,0 +1,16 @@
+// Global style write by less
+// Build to dist/app.wxss
+// 引用customizedToast样式
+@import './components/customizedToast/customizedToast.wxss';
+@import './components/evaluateComponent/evaluateComponent.wxss';
+page {
+  background-color: #f7f7f7;
+  font-family: PingFang-SC-Regular;
+  color: #333;
+}
+
+.container {
+  height: 100%;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}

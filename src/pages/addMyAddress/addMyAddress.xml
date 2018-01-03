@@ -1,0 +1,77 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <import src="../../components/customizedToast/customizedToast.wxml" />
+  <template is="customizedToast" data="{{..._toast_ }}" />
+	<view class="form_container">
+		<form bindsubmit="formSubmit" bindreset="formReset">
+			<view class="form_item">
+				<!-- <text class="icon">icon</text> -->
+				<text class="label">收货人</text>
+				<input 
+					class="inp"
+					type="text" 
+					id="name"
+					maxlength="10"
+					bindblur="validate"
+					bindinput="changeName"
+					bindblur="resetSubmitButton"
+					placeholder="请填写收件人姓名"
+					value="{{form.name}}"
+					placeholder-style="color:#ccc"
+				/>
+				<!-- <label class="clear_icon" hidden="{{!form.name}}" bindtap="clearName" /> -->
+			</view>
+			<view class="form_item">
+				<!-- <text class="icon">icon</text> -->
+				<text class="label">联系电话</text>
+				<input 
+					class="inp"
+					type="number" 
+					id="phone"
+					maxlength="11"
+					bindblur="validate"
+					bindinput="changePhone"
+					bindblur="resetSubmitButton"
+					placeholder="请填写联系电话"
+					value="{{form.phone}}"
+					placeholder-style="color:#ccc"
+				/>
+				<!-- <label class="clear_icon" hidden="{{!form.phone}}" bindtap="clearPhone" /> -->
+			</view>
+			<view class="form_item">
+				<!-- <text class="icon">icon</text> -->
+				<text class="label">收货地址</text>
+				<input 
+					class="inp"
+					type="text" 
+					id="name"
+					disabled="true"
+					placeholder="请填写收货地址"
+					bindtap="searchAddress"
+					value="{{form.detailAddress}}"
+					placeholder-style="color:#ccc"
+				/>
+			</view>
+			<view class="form_item">
+				<!-- <text class="icon">icon</text> -->
+				<!-- <text class="label">门牌号</text> -->
+				<input 
+					class="inp roomNo"
+					type="text" 
+					id="roomNo"
+					maxlength="20"
+					bindblur="validate"
+					bindinput="changeRoomNo"
+					bindblur="resetSubmitButton"
+					placeholder="请详细到门牌号"
+					value="{{form.roomNo}}"
+					placeholder-style="color:#ccc"
+				/>
+				<!-- <label class="clear_icon" hidden="{{!form.roomNo}}" bindtap="clearRoomNo" /> -->
+			</view>
+
+		</form>
+  </view>
+
+	<button class="{{canSave ? 'save' : 'disabled'}}" bindtap="saveAddress">保存</button>
+</view>

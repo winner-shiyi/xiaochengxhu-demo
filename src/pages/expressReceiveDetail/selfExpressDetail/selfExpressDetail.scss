@@ -1,0 +1,215 @@
+page{
+  background-color: #FFFFFF;
+}
+.m-selfExpressDetail{
+  .m-self-header{
+    display: flex;
+    width: 100%;
+    min-height: 320rpx;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: url('https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dabeijing%402x.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-bottom: 20rpx solid #F7F7F7;
+    border-top:1rpx solid #DDD;
+    .detail-status{
+      .detail-text{
+        width: 462rpx;
+        position: relative;
+        .detail-img{
+          width: 40rpx;
+          height: 40rpx;
+          padding-right:22rpx;
+          vertical-align: middle;
+        }
+        .detail-title{
+          font-family: PingFang-SC-Medium;
+          font-size: 40rpx;
+          color: #333333;
+          vertical-align: middle;
+        }
+        .return-img{
+          position: absolute;
+          width: 136rpx;
+          height: 136rpx;
+          right: 40rpx;
+          top: -30rpx;
+        }
+      }
+    }
+    .detail-code{
+      display: block;
+      font-family: PingFang-SC-Regular;
+      font-size: 30rpx;
+      color: #333333;
+      margin-top: 12rpx;
+      .code-text{
+        font-family: PingFang-SC-Medium;
+        font-size: 30rpx;
+        color: #FF8919;
+        line-height: 42rpx;
+      }
+    }
+    .detail-cancel{
+      display: inline;
+      .cancel-text{
+        display: inline;
+        font-family: PingFang-SC-Regular;
+        font-size: 24rpx;
+        line-height: 20rpx;
+        color: #999999;
+        min-width: 386rpx;
+      }
+      .cancel-reason{
+        display: inline;
+        font-family: PingFang-SC-Regular;
+        font-size: 24rpx;
+        line-height: 20rpx;
+        color: #1D61F0;
+      }
+    }
+  }
+
+  .m-self-body{
+    background: #FFFFFF;
+    .express-detail{
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 26rpx;
+      color: #333333;
+      border-bottom: 1rpx solid #EEE;
+      box-shadow: inset 0 0 0 0 #FFFFFF;
+      box-sizing: border-box;
+      .express-name{
+        margin-left: 30rpx;
+        border: 1rpx solid #333333;
+        border-radius: 200rpx;
+        margin-right: 20rpx;
+        text-align: center;
+        padding: 0 12rpx;
+      }
+    }
+    .express-detail-code{
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      .express-code-text{
+        font-family:PingFang-SC-Medium;
+        font-size:30rpx;
+        color:#333333;
+        margin:20rpx 0 20rpx 30rpx;
+        height:60rpx;
+        line-height:60rpx;
+        .express-code{
+          font-family: PingFang-SC-Medium;
+          color: #FF8919;
+          line-height: 21px;
+        }
+      }
+    }
+    .express-track-list{
+      margin: 78rpx 0;
+      .express-track{
+        box-sizing: border-box;
+        position: relative;
+        // width: 100%;
+        min-height: 140rpx;
+        text-align: left;
+        padding-left: 118px;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+        .express-dot-gray{
+          box-sizing: border-box;
+          width: 18rpx;
+          height: 18rpx;
+          background: #ECECEC;
+          border-radius: 9rpx;
+          position: absolute;
+          margin-left: -78rpx;
+          margin-top: 10rpx;
+          display: inline-block;
+          &:after{
+            content: "";
+            position: absolute;
+            height: 140rpx;
+            width: 2rpx;
+            margin-top: 17rpx;
+            margin-left: 8rpx;
+            border-left: 1rpx solid #ECECEC;
+          }
+          
+        }
+        &:first-child{
+          .express-dot-gray{
+            background: #FFDB08;
+          }
+          .express-dec{
+            color: #333333;
+          }
+        }
+        &:last-child{
+          .express-dot-gray:after{
+            display: none;
+          }
+        }
+        .express-dec,
+        .express-time{
+          display: block;
+          color: #999999;
+        }
+      }
+    }
+  }
+
+  .m-self-footer{
+    .btn-appoint{
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      height: 100rpx;
+      background-color: #fff4b5;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: PingFang-SC-Regular;
+      font-size: 32rpx;
+      color: #474747;
+      border-radius: 0;
+      font-weight: 300;
+      &::after{
+        border: none;
+      }
+      &.canAppoint{
+        background-color: #FFDB08;
+      }
+    }
+    .btn-evaluate{
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      height: 100rpx;
+      background-color: #FFDB08;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: PingFang-SC-Regular;
+      font-size: 32rpx;
+      color: #474747;
+      border-radius: 0;
+      font-weight: 300;
+      &::after{
+        border: none;
+      }
+    }
+  }
+}

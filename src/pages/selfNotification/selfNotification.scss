@@ -1,0 +1,70 @@
+.m-notification{
+  width: 100%;
+  background: #f7f7f7;
+  .m-header{
+    width: 100%;
+    height: 320rpx;
+    background: url('https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/express/dabeijing%402x.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-bottom: 20rpx solid #F7F7F7;
+    .notification-text{
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      padding-top: 46rpx;
+      font-size: 36rpx;
+      color: #333333;
+      font-weight: bold;
+    }
+    .notification-dec{
+      display: block;
+      box-sizing: border-box;
+      padding: 26rpx 30rpx 12rpx;
+      font-size: 24rpx;
+      color: #999999;
+      line-height: 34rpx;
+    }
+    .notification-code{
+      display: block;
+      padding-left: 30rpx;
+      font-size: 30rpx;
+      color: #666666;
+      .code-text{
+        font-size: 30rpx;
+        color: #FF8919;
+        line-height: 42rpx;
+        font-weight: bold;
+      }
+    }
+  }
+  .m-body{
+    background: #FFFFFF;
+    .express-detail{
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 26rpx;
+      color: #333333;
+      border-bottom: 1rpx solid #F7F7F7;
+      box-shadow: inset 0 0 0 0 #FFFFFF;
+      box-sizing: border-box;
+      .express-name{
+        margin-left: 30rpx;
+        border: 1rpx solid #333333;
+        border-radius: 200rpx;
+        margin-right: 20rpx;
+        text-align: center;
+        padding: 0 12rpx;
+      }
+    }
+    .express-address{
+      height: 100rpx;
+      line-height: 100rpx;
+      font-size: 28rpx;
+      color: #333333;
+      padding-left: 30rpx;      
+    }
+  }
+}

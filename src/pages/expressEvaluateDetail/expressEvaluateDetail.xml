@@ -1,0 +1,33 @@
+<import src="../../components/customizedToast/customizedToast.wxml" />
+<import src="../../components/evaluateComponent/evaluateComponent.wxml" />
+<!-- 评价详情页 -->
+<view class="container m-evaluate">
+  <template is="customizedToast" data="{{..._toast_ }}" />
+  <view class="evaluate-header">
+    <view class="evalEfficiency-star">
+      <text class="evalEfficiency-text">配送时效</text>
+      <template is="evaluateComponent" data="{{ ...effi }}"  />
+    </view>
+    <view class="evalAttitude-star">
+      <text class="evalAttitude-text">服务态度</text>
+      <template is="evaluateComponent" data="{{ ...atti }}"  />
+    </view>
+  </view>
+  <view class="evaluate-body">
+    <textarea
+      placeholder-style=" font-weight: normal; "
+      bindinput="changeValue"
+      placeholder-class="setcolor" 
+      class="evaluate-content" 
+      maxlength="50"
+      placeholder="您的评价将帮助我们提升服务质量！" 
+    />
+    <view class="value-length">{{evalComment.length}}/50</view>
+  </view>
+  <text class="evaluate-desc">超过三天未评价，系统默认好评！</text>
+  <view class="evaluate-footer">
+    <button bindtap="submitEvaluate" class="{{ canSubmit ? 'btn-evaluate.canSubmit' : 'btn-evaluate'}}">提交</button>
+  </view>
+</view>
+
+

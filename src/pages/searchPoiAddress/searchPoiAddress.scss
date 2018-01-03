@@ -1,0 +1,80 @@
+.container {
+  .content {
+    display: flex;
+    height: 110rpx;
+    align-items: center;
+    padding: 0 30rpx;
+    border-top: 1rpx solid #ddd;
+    background: #fff;
+
+    text {
+      white-space: nowrap;
+    }
+
+    .poi {
+      width: 520rpx;
+      height: 70rpx;
+      padding-left: 20rpx;
+      border-radius: 200rpx;
+      background: #f9f9f9;
+    }
+  }
+
+  .refresh_area {
+    color: #d5d5d5;
+    text {
+      display: inline-block;
+      padding: 30rpx;
+      font-size: 28rpx;
+      color: #666666;
+    }
+
+    .icon {
+      width: 40rpx;
+      height: 40rpx;
+      padding: 30rpx;
+      float: right;
+      cursor: pointer;
+    }
+  }
+  
+  .picker {
+    width: 150rpx;
+
+    image {
+      display: inline-block;
+    }
+
+    .icon {
+      width: 26rpx;
+      height: 26rpx;
+      margin-left: 10rpx;
+    }
+  }
+
+  .place_list {
+    .place_name {
+      padding: 0 30rpx 0 30rpx;
+
+      .tip_item {
+        padding-top: 36rpx;
+        padding-bottom: 34rpx;
+        border-bottom: 1rpx solid #DDDDDD;
+      }
+
+      &:last-child {
+        .tip_item {
+          border-bottom: none;
+        }
+      }
+    }
+
+  }
+
+  .invalid-area,
+  .empty_result {
+    margin-top: 40rpx;
+    text-align: center;
+    color: #666666;
+  }
+}

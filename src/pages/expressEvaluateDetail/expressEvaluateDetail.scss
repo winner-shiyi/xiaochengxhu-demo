@@ -1,0 +1,136 @@
+page {
+  background-color: #f7f7f7;
+}
+.m-evaluate{
+  height: 100%;
+  width: 100%;
+  background: #F7F7F7;
+  .evaluate-header{
+    background: #FFFFFF;
+    .evalEfficiency-star{
+      width: 100%;
+      height: 110rpx;
+      line-height: 110rpx;
+      border-bottom: 1rpx solid #DDD;
+      border-top: 1rpx solid #DDD;
+      margin:0 30rpx;
+      .evalEfficiency-text{
+        margin-right: 30rpx;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+        vertical-align: middle;
+      }
+      .star {
+        display: inline-block;
+        width: 40rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        margin-right: 12rpx;
+        vertical-align: middle;
+      }
+      .star image{
+        width: 40rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        margin-right: 12rpx;
+      }
+    }
+    .evalAttitude-star{
+      width: 100%;
+      height: 110rpx;
+      line-height: 110rpx;
+      border-bottom: 1rpx solid #F7F7F7;
+      .evalAttitude-text{
+        margin: 0 30rpx;
+        font-family: PingFang-SC-Regular;
+        font-size: 28rpx;
+        color: #333333;
+        vertical-align: middle;
+      }
+      .star {
+        display: inline-block;
+        width: 40rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        margin-right: 12rpx;
+        vertical-align: middle;
+      }
+      .star image{
+        width: 40rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        margin-right: 12rpx;
+      }
+    }
+  }
+
+  .evaluate-body{
+    position: relative;
+    background: #FFFFFF;
+    border-top: 10rpx solid #F7F7F7;
+    width: 100%;
+    height: 440rpx;
+    textarea{
+      width: 100%;
+      height: 440rpx;
+      box-sizing: border-box;
+      padding: 30rpx;
+      line-height: 50rpx;
+    }
+    .setcolor{
+      font-size: 28rpx;
+      color: #CCCCCC;
+      font-weight: 500;  
+    }  
+    .evaluate-content{
+      padding-right: 30rpx ;
+      font-family: PingFang-SC-Regular;
+      font-size: 28rpx;
+      line-height: 30rpx;
+      color: #333333;
+    }
+    .value-length{
+      position: absolute;
+      bottom: 30rpx;
+      right: 30rpx;
+      font-family: PingFang-SC-Regular;
+      font-size: 24rpx;
+      color: #CCCCCC;
+    }
+  }
+
+  .evaluate-desc{
+    margin: 30rpx;
+    font-family: PingFang-SC-Regular;
+    font-size: 24rpx;
+    color: #999999;
+    display:inline-block;
+  }
+
+  .evaluate-footer{
+    .btn-evaluate{
+      position: fixed;
+      left:0;
+      bottom:0;
+      width: 100%;
+      height: 100rpx;
+      background-color: #fff4b5;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: PingFang-SC-Regular;
+      font-size: 32rpx;
+      color: #474747;
+      border-radius: 0;
+      font-weight: 300;
+      &::after{
+        border: none;
+      }
+      &.canSubmit{
+        background-color: #FFDB08;
+      }
+    }
+  }
+}
