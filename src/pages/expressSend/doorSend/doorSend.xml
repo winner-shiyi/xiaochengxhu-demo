@@ -5,16 +5,39 @@
       <view wx:if="{{hasStore}}" class="top-item sotre-item" bindtap="selectStore">
         <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/mendian%402x.png"></image>
         <view class="form-box">
-          <text wx:if="{{emptyStoreInDoor}}" class="sel-store">请选择门店</text>
-          <text wx:else class="com-store">兔波波3号店</text>
+          <!-- <view wx:if="{{emptyStoreInStore}}" class="sel-store">请选择门店</view> -->
+          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
+          <view class="store-picker">
+            <picker class="picker"
+              bindchange="storePickerChange"
+              value="{{storeIndex}}"
+              range="{{storeArray}}"
+            >
+            {{storeArray[storeIndex]}}
+            </picker>
+          </view>
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>
       <view class="top-item sotre-item" bindtap="selectTime">
         <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/yuyueshij%402x.png"></image>
         <view class="form-box">
-          <text wx:if="{{emptyTimeInDoor}}" class="sel-store">预约时间</text>
-          <view wx:else class="com-store">预约时间<text class="time">11-18 10:00-12:00</text></view>
+          <!-- <text wx:if="{{emptyTimeInDoor}}" class="sel-store">预约时间</text> -->
+          <!-- <text class="sel-store">预约时间</text> -->
+          <view class="time-picker">
+            <!-- 预约时间<text class="time">11-18 10:00-12:00</text> -->
+            预约时间
+            <picker class="time"
+              mode="multiSelector"
+              bindchange="timePickerChange"
+              bindcolumnchange="timePickerColumnChange"
+              value="{{multiIndex}}"
+              range="{{multiArray}}"
+            >
+            {{multiArrayTime[multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}
+            </picker>
+          </view>
+
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>
@@ -55,8 +78,17 @@
       <view class="middle-item" bindtap="selectGoodType">
         <view class="label">物品类型</view>
         <view class="middle-box">
-          <text wx:if="{{true}}" class="sel-store">请选择物品类型</text>
-          <text wx:else class="com-store">兔波波3号店</text>
+          <!-- <text wx:if="{{true}}" class="sel-store">请选择物品类型</text> -->
+          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
+          <view class="goods-picker">
+            <picker class="picker"
+              bindchange="goodsTypeChange"
+              value="{{goodsTypeIndex}}"
+              range="{{goodsTypeArray}}"
+            >
+            {{goodsTypeArray[goodsTypeIndex]}}
+            </picker>
+          </view>
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>

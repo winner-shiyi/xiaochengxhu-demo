@@ -5,8 +5,17 @@
       <view wx:if="{{hasStore}}" class="top-item sotre-item" bindtap="selectStore">
         <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/mendian%402x.png"></image>
         <view class="form-box">
-          <text wx:if="{{emptySAddressInStore}}" class="sel-store">请选择门店</text>
-          <text wx:else class="com-store">兔波波3号店</text>
+          <!-- <view wx:if="{{emptyStoreInStore}}" class="sel-store">请选择门店</view> -->
+          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
+          <view class="store-picker">
+            <picker class="picker"
+              bindchange="storePickerChange"
+              value="{{storeIndex}}"
+              range="{{storeArray}}"
+            >
+            {{storeArray[storeIndex]}}
+            </picker>
+          </view>
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>
@@ -47,8 +56,17 @@
       <view class="middle-item" bindtap="selectGoodType">
         <view class="label">物品类型</view>
         <view class="middle-box">
-          <text wx:if="{{true}}" class="sel-store">请选择物品类型</text>
-          <text wx:else class="com-store">兔波波3号店</text>
+          <!-- <text wx:if="{{true}}" class="sel-store">请选择物品类型</text> -->
+          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
+          <view class="goods-picker">
+            <picker class="picker"
+              bindchange="goodsTypeChange"
+              value="{{goodsTypeIndex}}"
+              range="{{goodsTypeArray}}"
+            >
+            {{goodsTypeArray[goodsTypeIndex]}}
+            </picker>
+          </view>
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>
@@ -92,7 +110,7 @@
         <text class="price">8.00</text>
       </view>
       <view class="right">
-        <view class="{{ !canSubmit ? 'btn-save.canSubmit' : 'btn-save' }}" bindtap="sumbit">提交订单</view>
+        <view class="{{!canSubmit ? 'btn-save.canSubmit' : 'btn-save'}}" bindtap="sumbit">提交订单</view>
       </view>
     </view>
   </view>

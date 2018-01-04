@@ -10,12 +10,14 @@
     <!-- 去门店寄件 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
       <import src="storeSend/storeSend.wxml" />   
-      <template is="storeSendTpl" data="{{...judgeObject, orderArr:orderList}}" />
+      <template is="storeSendTpl" data="{{...judgeObject, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex}}" />
     </view>
     <!-- 快递员上门 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
       <import src="doorSend/doorSend.wxml" />   
-      <template is="doorSendTpl" data="{{...judgeObject, orderArr:orderList}}" />
+      <template is="doorSendTpl" 
+        data="{{...judgeObject,storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex}}" 
+      />
     </view>
   </view>
 </view>
