@@ -13,7 +13,7 @@ Page({
     code: '',
     isPhone: false,
     isVerifyCode: false,
-    canSend: true
+    canSend: true,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,21 +29,21 @@ Page({
     const { value } = e.detail;
     const pos = e.detail.cursor;
     this.setData({
-      phone: value
+      phone: value,
     });
     const isPhone = validateByRule({
       type: 'isMobile',
       data: {
-        currentValue: value
-      }
+        currentValue: value,
+      },
     }).success;
     if (pos === 11 && isPhone) {
       this.setData({
-        isPhone: true
+        isPhone: true,
       });
     } else {
       this.setData({
-        isPhone: false
+        isPhone: false,
       });
     }
   },
@@ -56,23 +56,22 @@ Page({
     const isPhone = validateByRule({
       type: 'isMobile',
       data: {
-        currentValue: value
-      }
+        currentValue: value,
+      },
     }).success;
     this.setData({
       phone: value,
-      isPhone
+      isPhone,
     });
     this.checkPhone();
   },
   checkPhone () {
     const {
-      isPhone
+      isPhone,
     } = this.data;
     if (!isPhone) {
       this.showToast('请输入正确的手机号');
     }
-    return;
   },
   /**
    * 监听验证码输入
@@ -82,21 +81,21 @@ Page({
     const { value } = e.detail;
     const pos = e.detail.cursor;
     this.setData({
-      code: value
+      code: value,
     });
     const isPhone = validateByRule({
       type: 'isVerifyCode',
       data: {
-        currentValue: value
-      }
+        currentValue: value,
+      },
     }).success;
     if (pos === 6 && isPhone) {
       this.setData({
-        isVerifyCode: true
+        isVerifyCode: true,
       });
     } else {
       this.setData({
-        isVerifyCode: false
+        isVerifyCode: false,
       });
     }
   },
@@ -109,23 +108,22 @@ Page({
     const isVerifyCode = validateByRule({
       type: 'isVerifyCode',
       data: {
-        currentValue: value
-      }
+        currentValue: value,
+      },
     }).success;
     this.setData({
       code: value,
-      isVerifyCode
+      isVerifyCode,
     });
     this.checkCode();
   },
   checkCode () {
     const {
-      isVerifyCode
+      isVerifyCode,
     } = this.data;
     if (!isVerifyCode) {
       this.showToast('请输入正确的验证码');
     }
-    return;
   },
   /**
    * 点击发送验证码
@@ -139,35 +137,35 @@ Page({
         data: {
           phone: this.data.phone,
           openId: wx.getStorageSync('openId'),
-          type: 'XCX'
+          type: 'XCX',
         },
         success: (data) => {
-          const {resultCode, resultDesc} = data;
+          const { resultCode, resultDesc } = data;
           if (that.isResultSuccessful(resultCode)) {
             // console.log('不惑的库data-sendSms=====', data);
             this.setData({
-              canSend: false
+              canSend: false,
             });
             let countDownTime = 60;
             this.setData({
-              countDownTime
+              countDownTime,
             });
-            let timer = setInterval(() => {
+            const timer = setInterval(() => {
               --countDownTime;
               this.setData({
-                countDownTime
+                countDownTime,
               });
               if (!countDownTime) {
                 clearInterval(timer);
                 this.setData({
-                  canSend: true
+                  canSend: true,
                 });
               }
             }, 1000);
           } else {
             that.showToast(resultDesc);
           }
-        }
+        },
       });
     }
   },
@@ -179,7 +177,7 @@ Page({
       isPhone,
       isVerifyCode,
       phone,
-      code
+      code,
     } = this.data;
     if (!isPhone) {
       this.checkPhone();
@@ -196,7 +194,7 @@ Page({
       city,
       province,
       country,
-      avatarUrl
+      avatarUrl,
     } = userInfo;
     const that = this;
     doRequestWithRefreshingToken({
@@ -215,24 +213,24 @@ Page({
         unionId: wx.getStorageSync('unionId'),
         country,
         xcxOpenId: wx.getStorageSync('openId'),
-        avatarUrl
+        avatarUrl,
       },
       success: (data) => {
         // console.log('不惑的库data-绑定手机bindPhone---', data);
-        const {resultData, resultCode, resultDesc} = data;
+        const { resultData, resultCode, resultDesc } = data;
         // 绑定手机成功登录后，把token存到storage中
         if (that.isResultSuccessful(resultCode)) {
           wx.setStorageSync('token', resultData.token);
           wx.switchTab({
-            url: '../index/index'
+            url: '../index/index',
           });
         } else {
           that.showToast(resultDesc);
         }
-      }
+      },
     });
   },
   isResultSuccessful (code) {
     return parseInt(code, 10) === 0;
-  }
+  },
 });

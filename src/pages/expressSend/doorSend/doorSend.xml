@@ -44,14 +44,14 @@
       <view class="top-item address-item" bindtap="selectSendAdd">
         <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/fahuodizhi%402x.png"></image>
         <view class="form-box">
-          <view wx:if="{{emptySAddressInDoor}}" class="empty-box">
+          <view wx:if="{{NoDefaultAddrress}}" class="empty-box">
             <text  class="sel-store">请填写发货地址</text>
             <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
           </view>
           <view wx:else class="address-box">
             <view class="info">
-              <view class="top">月月小<text class="phone">15880274595</text></view>
-              <view class="address">浙江省杭州市上城区近江时代大厦12楼哇哈哈哈或或或</view>
+              <view class="top">{{name}}<text class="phone">{{phone}}</text></view>
+              <view class="address">{{address}}</view>
             </view>
             <view class="edit">编辑</view>
           </view>

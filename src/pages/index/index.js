@@ -11,14 +11,14 @@ const cancelReasonData = {
   PAY_SENDER_CANCEL: '您已取消预约配送任务',
   PICK_RIDER_CANCEL: '很抱歉，由于配送员个人原因，您的预约配送任务已被取消',
   PICK_SENDER_CANCEL: '接单后主动取消',
-  STORE_CANCEL: '由于门店取消'
+  STORE_CANCEL: '由于门店取消',
 };
 
 Page({
   data: {
     myExpressData: {},
     cancelText: '',
-    isEmpty: true
+    isEmpty: true,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,7 +38,7 @@ Page({
     if (wx.getStorageSync('token')) {
       this._loadData();
     } else {
-      app.tokenReadyCallback = data => {
+      app.tokenReadyCallback = (data) => {
         // console.log('token---', data.resultData.token);
         if (data.resultData.token) {
           this._loadData();
@@ -57,31 +57,31 @@ Page({
       url: 'wxcx/search/message',
       success: (data) => {
         // console.log('不惑的库data-message---', data);
-        const {resultData, resultCode, resultDesc} = data;
+        const { resultData, resultCode, resultDesc } = data;
         if (resultCode === '0') {
           let tempData;
           if (resultData.myExpress) {
-            tempData = {...resultData.myExpress};
+            tempData = { ...resultData.myExpress };
             const { inTime, cancelReason } = resultData.myExpress;
             tempData.date = formatDate(inTime, 'MM-dd');
             tempData.cancelText = cancelReasonData[cancelReason];
           }
           if (resultData.myExpress.expressId) {
             this.setData({
-              isEmpty: false
+              isEmpty: false,
             });
           } else {
             this.setData({
-              isEmpty: true
+              isEmpty: true,
             });
           }
           this.setData({
-            myExpressData: tempData
+            myExpressData: tempData,
           }, callback);
         } else {
           that.showToast(resultDesc);
         }
-      }
+      },
     });
   },
   /**
@@ -107,7 +107,7 @@ Page({
     const token = wx.getStorageSync('token');
     if (token) {
       wx.switchTab({
-        url: navigateUrl
+        url: navigateUrl,
       });
     }
   },
@@ -120,7 +120,7 @@ Page({
       if (!token) return;
       const id = event.currentTarget.dataset.id;
       wx.navigateTo({
-        url: `../expressReceiveDetail/expressReceiveDetail?id=${id}`
+        url: `../expressReceiveDetail/expressReceiveDetail?id=${id}`,
       });
     });
   },
@@ -148,8 +148,8 @@ Page({
         } else {
           callback();
         }
-      }
+      },
     });
-  }
+  },
 
 });

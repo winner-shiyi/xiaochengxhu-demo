@@ -22,16 +22,16 @@ Page({
                   success: (userRes) => {
                     console.log('用户信息22222---', userRes);
                     that.doLoginAjax(userRes, code);
-                  }
+                  },
                 });
               }
-            }
+            },
           });
         }
       },
       fail: (err) => {
         console.log('调用wx.login失败', err);
-      }
+      },
     });
   },
   /**
@@ -46,13 +46,15 @@ Page({
       data: {
         encryptedData: userRes.encryptedData,
         iv: userRes.iv,
-        code: code
+        code: code,
       },
       success: (data) => {
         console.log('不惑的库data-授权login----', this);
-        const {resultData, resultCode} = data;
+        const { resultData, resultCode } = data;
         if (resultCode === '0') {
-          const {unionId, openId, newUser, token} = resultData;
+          const {
+            unionId, openId, newUser, token,
+          } = resultData;
           // 第一步：把数据保存到缓存
           wx.setStorageSync('token', token);
           wx.setStorageSync('unionId', unionId);
@@ -68,16 +70,16 @@ Page({
             wx.setStorageSync('userInfo', userRes.userInfo);
             // 重定向这个跳转是异步操作，为了确保成功执行，放在这个success里执行
             wx.redirectTo({
-              url: '/pages/phoneBind/phoneBind'
+              url: '/pages/phoneBind/phoneBind',
             });
           } else {
-            console.log('重新授权登录，我不是新用户')
+            console.log('重新授权登录，我不是新用户');
             wx.switchTab({
-              url: '/pages/index/index'
+              url: '/pages/index/index',
             });
           }
         }
-      }
+      },
     });
-  }
+  },
 });

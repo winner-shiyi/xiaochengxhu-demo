@@ -1,4 +1,4 @@
-import { doRequestWithRefreshingToken } from './utils/RequestUtil.js';
+import { doRequestWithRefreshingToken } from './utils/RequestUtil';
 /**
  * WeChat API 模块
  * @type {Object}
@@ -11,16 +11,13 @@ const infoValidator = require('./utils/InfoValidator');
 const { ToastPanel } = require('./components/customizedToast/customizedToast');
 const RequestUtil = require('./utils/RequestUtil');
 const { HandleStar } = require('./components/evaluateComponent/evaluateComponent');
+
 App({
   /**
    * Global shared
    * 可以定义任何成员，用于在整个应用中共享
    */
-  data: {
-    name: 'Douban Movie',
-    version: '0.1.0',
-    currentCity: '北京'
-  },
+  data: {},
 
   /**
    * WeChat API
@@ -57,7 +54,7 @@ App({
     // 微信授权登录
     wx.login({
       success: (loginRes) => {
-        const code = loginRes.code;
+        const { code } = loginRes;
         if (code) {
           wx.getUserInfo({
             success (userRes) {
@@ -67,15 +64,15 @@ App({
             fail () {
               console.log('用户拒绝微信授权登录');
               wx.redirectTo({
-                url: '/pages/error/error'
+                url: '/pages/error/error',
               });
-            }
+            },
           });
         }
       },
       fail: (err) => {
         console.log('调用wx.login失败', err);
-      }
+      },
     });
   },
   /**
@@ -90,13 +87,18 @@ App({
       data: {
         encryptedData: userRes.encryptedData,
         iv: userRes.iv,
-        code: code
+        code: code,
       },
       success: (data) => {
         console.log('不惑的库data-授权login----', this);
-        const {resultData, resultCode} = data;
+        const { resultData, resultCode } = data;
         if (resultCode === '0') {
-          const {unionId, openId, newUser, token} = resultData;
+          const {
+            unionId,
+            openId,
+            newUser,
+            token,
+          } = resultData;
           // 第一步：把数据保存到缓存
           wx.setStorageSync('token', token);
           wx.setStorageSync('unionId', unionId);
@@ -112,19 +114,19 @@ App({
             wx.setStorageSync('userInfo', userRes.userInfo);
             // 重定向这个跳转是异步操作，为了确保成功执行，放在这个success里执行
             wx.redirectTo({
-              url: '/pages/phoneBind/phoneBind'
+              url: '/pages/phoneBind/phoneBind',
             });
           } else {
-            console.log('重新授权登录，我不是新用户')
+            console.log('重新授权登录，我不是新用户');
             wx.switchTab({
-              url: '/pages/index/index'
+              url: '/pages/index/index',
             });
           }
         }
-      }
+      },
     });
   },
   globalData: {
-    g_token: null
-  }
+    g_token: null,
+  },
 });

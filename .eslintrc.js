@@ -5,7 +5,6 @@ module.exports ={
   },
   "parser": "babel-eslint",
   "plugins": [
-    'standard',
     'promise',
     'json'
   ],
@@ -20,40 +19,22 @@ module.exports ={
     "DEBUG": true,
     "WeixinJSBridge": true
   },
-  "extends": "standard",
+  "extends": "airbnb",
   "parserOptions": {
     "sourceType": "module"
   },
   "rules": {
-    "indent": [
-      "warn",
-      2,
-      {
-          "SwitchCase": 1
-      }
-    ],
-    "quotes": [
-      "warn",
-      "single"
-    ],
-    "semi": [
-      "warn",
-      "always"
-    ],
-    "no-console": [
-      "warn",
-      {
-        "allow": [
-          "log",
-          "warn"
-        ]
-      }
-    ],
-    "no-func-assign": [
-      "off"
-    ],
-    "no-constant-condition": [
-      "off"
-    ]
+    "global-require": "off",
+    "import/no-unresolved": "off",
+    "no-underscore-dangle": "off",
+    "no-new-func": "off",
+    "no-param-reassign": 1,
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+    "no-restricted-syntax": "off",
+    "no-unused-expressions": [2, {"allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true}],
+    "arrow-parens": [2, "always"],
+    "object-shorthand": "off",
+    "func-names": "off",
+    "space-before-function-paren": "off",
   }
 };

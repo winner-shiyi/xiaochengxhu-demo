@@ -12,21 +12,21 @@ Page({
     categoryTypeArr: [ // tab切换标题
       { name: '待自提' },
       { name: '配送中' },
-      { name: '已完成' }
+      { name: '已完成' },
     ],
     statusData: { // 快递订单状态
       RECEIVE: '待接单',
       PICKUP: '待取货',
       DISTRIBUTION: '配送中',
       FINISH: '已完成',
-      CANCEL: '已退回'
+      CANCEL: '已退回',
     },
     currentMenuIndex: 0,
     orderList: [],
     pageNo: 1,
     isShowReload: false, // 是否展示【重新加载】按钮
     isLoadedAll: false, // 没有更多数据
-    isConnectOk: false // 网络状态 或者 服务器返回是否正常
+    isConnectOk: false, // 网络状态 或者 服务器返回是否正常
   },
 
   /**
@@ -39,7 +39,7 @@ Page({
     const params = {
       pageSize: 10,
       pageNo: 1,
-      status: currentMenuIndex
+      status: currentMenuIndex,
     };
     this.doTokenLoadData(params);
   },
@@ -47,7 +47,7 @@ Page({
     const params = {
       pageSize: 10,
       pageNo: 1,
-      status: wx.getStorageSync('currentMenuIndex')
+      status: wx.getStorageSync('currentMenuIndex'),
     };
     this.doTokenLoadData(params);
   },
@@ -58,7 +58,7 @@ Page({
     if (wx.getStorageSync('token')) {
       this.canLoadData(params, 'down');
     } else {
-      app.tokenReadyCallback = data => {
+      app.tokenReadyCallback = (data) => {
         // console.log('token---', data.resultData.token);
         if (data.resultData.token) {
           this.canLoadData(params, 'down');
@@ -76,9 +76,9 @@ Page({
     doRequestWithRefreshingToken({
       mode: 'express',
       url: 'wxcx/express/receive/list',
-      data: {...params},
+      data: { ...params },
       success: (data) => {
-        const {resultData, resultCode, resultDesc} = data;
+        const { resultData, resultCode, resultDesc } = data;
         // console.log('不惑的库-快递列表的list---', data);
         if (resultCode === '0') {
           const { totalSize, pageSize, list } = resultData;
@@ -96,20 +96,20 @@ Page({
             LoadingMore: !flag,
             isConnectOk: true,
             currentMenuIndex: params.status,
-            pageNo: params.pageNo
+            pageNo: params.pageNo,
           }, callback);
         } else {
           this.setData({
             isConnectOk: false,
             LoadingMore: false,
             isLoadedAll: false,
-            isShowReload: true
+            isShowReload: true,
           });
           this.showToast(resultDesc);
         }
       },
       fail: () => {
-      }
+      },
     });
   },
   /**
@@ -125,16 +125,16 @@ Page({
             isConnectOk: false,
             LoadingMore: false,
             isLoadedAll: false,
-            isShowReload: true
+            isShowReload: true,
           });
           that.showToast('网络错误，请重试');
         } else {
           that.setData({
-            isShowReload: false
+            isShowReload: false,
           });
           that._loadData(params, type, callback);
         }
-      }
+      },
     });
   },
   /**
@@ -149,7 +149,7 @@ Page({
       const params = {
         pageSize: 10,
         pageNo: 1,
-        status: index
+        status: index,
       };
       if (!wx.getStorageSync('token')) return;
       this.canLoadData(params, 'down');
@@ -163,7 +163,9 @@ Page({
       content: '预约配送将有快递小哥送货上门并收取一定的配送费哦',
       success: function (res) {
         if (res.confirm) {
-          const { id, waybillno, storename, expresscompanyname } = event.currentTarget.dataset;
+          const {
+            id, waybillno, storename, expresscompanyname,
+          } = event.currentTarget.dataset;
           wx.setStorageSync('waybillNo', waybillno);
           wx.setStorageSync('storeName', storename);
           wx.setStorageSync('expressCompanyName', expresscompanyname);
@@ -171,10 +173,10 @@ Page({
           wx.removeStorageSync('remark');
           wx.removeStorageSync('multiIndex');
           wx.navigateTo({
-            url: `../expressAppoint/expressAppoint?id=${id}`
+            url: `../expressAppoint/expressAppoint?id=${id}`,
           });
         }
-      }
+      },
     });
   },
   /**
@@ -184,7 +186,7 @@ Page({
     wx.showModal({
       content: '该门店暂不支持预约配送哦',
       showCancel: false,
-      confirmText: '知道了'
+      confirmText: '知道了',
     });
   },
   /**
@@ -193,7 +195,7 @@ Page({
   onExpressItemTap (event) {
     const id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `../expressReceiveDetail/expressReceiveDetail?id=${id}`
+      url: `../expressReceiveDetail/expressReceiveDetail?id=${id}`,
     });
   },
   /**
@@ -205,12 +207,12 @@ Page({
     this.setData({
       pageNo: 1,
       LoadingMore: false,
-      isLoadedAll: false
+      isLoadedAll: false,
     });
     const params = {
       pageSize: 10,
       pageNo: 1,
-      status: currentMenuIndex
+      status: currentMenuIndex,
     };
 
     this.canLoadData(params, 'down', () => {
@@ -225,15 +227,15 @@ Page({
     const { currentMenuIndex } = this.data;
     if (!this.data.isLoadedAll) {
       this.setData({
-        pageNo: this.data.pageNo += 1
+        pageNo: this.data.pageNo += 1,
       });
       const params = {
         pageSize: 10,
         pageNo: this.data.pageNo,
-        status: currentMenuIndex
+        status: currentMenuIndex,
       };
       this.canLoadData(params, 'up');
     }
-  }
+  },
 
 });

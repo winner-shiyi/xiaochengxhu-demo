@@ -1,42 +1,42 @@
 module.exports = {
   current: 'dev',
   apiUrl: {
-    'local': {
-      'addr': 'https://test.toobob.com/tbbadminqafc/',
-      'express': 'https://test.toobob.com/tbbexpressqafc/',
-      'fast': 'http://sjyxtest.yiqiguang.com/legwork/',
-      'wxserver': 'https://test.toobob.com/tbbwxserverqafc/'
+    local: {
+      addr: 'https://test.toobob.com/tbbadminqafc/',
+      express: 'https://test.toobob.com/tbbexpressqafc/',
+      fast: 'http://sjyxtest.yiqiguang.com/legwork/',
+      wxserver: 'https://test.toobob.com/tbbwxserverqafc/',
     },
-    'dev': {
-      'addr': 'https://test.toobob.com/tbbadminqafc/',
-      'express': 'https://test.toobob.com/tbbexpressqafc/',
-      'fast': 'http://sjyxtest.yiqiguang.com/legwork/',
-      'wxserver': 'https://test.toobob.com/tbbwxserverqafc/'
+    dev: {
+      addr: 'https://test.toobob.com/tbbadminqafc/',
+      express: 'https://test.toobob.com/tbbexpressqafc/',
+      fast: 'http://sjyxtest.yiqiguang.com/legwork/',
+      wxserver: 'https://test.toobob.com/tbbwxserverqafc/',
     },
     pre: {
-      'addr': 'https://adminuat.toobob.com/',
-      'express': 'https://expressuat.toobob.com/',
-      'fast': 'https://legworkuat.toobob.com/',
-      'wxserver': 'https://wxbackuat.toobob.com/'
+      addr: 'https://adminuat.toobob.com/',
+      express: 'https://expressuat.toobob.com/',
+      fast: 'https://legworkuat.toobob.com/',
+      wxserver: 'https://wxbackuat.toobob.com/',
     },
-    'qaif': {
-      'addr': 'http://sjyxtest.yiqiguang.com/adminqaif/',
-      'express': 'http://sjyxtest.yiqiguang.com/expressqaif/',
-      'fast': 'http://sjyxtest.yiqiguang.com/legworkqaif/',
-      'wxserver': 'http://sjyxtest.yiqiguang.com/wxqaif/'
+    qaif: {
+      addr: 'http://sjyxtest.yiqiguang.com/adminqaif/',
+      express: 'http://sjyxtest.yiqiguang.com/expressqaif/',
+      fast: 'http://sjyxtest.yiqiguang.com/legworkqaif/',
+      wxserver: 'http://sjyxtest.yiqiguang.com/wxqaif/',
     },
-    'qafc': {
-      'addr': 'https://test.toobob.com/tbbadminqafc/ ',
-      'express': 'https://test.toobob.com/tbbexpressqafc/',
-      'fast': 'http://sjyxtest.yiqiguang.com/legwork/',
-      'wxserver': 'https://test.toobob.com/tbbwxserverqafc/'
+    qafc: {
+      addr: 'https://test.toobob.com/tbbadminqafc/ ',
+      express: 'https://test.toobob.com/tbbexpressqafc/',
+      fast: 'http://sjyxtest.yiqiguang.com/legwork/',
+      wxserver: 'https://test.toobob.com/tbbwxserverqafc/',
     },
-    'online': {
-      'addr': 'https://admin.toobob.com/',
-      'express': 'https://express.toobob.com/',
-      'fast': 'https://legwork.toobob.com/',
-      'wxserver': 'https://wxback.toobob.com/'
-    }
+    online: {
+      addr: 'https://admin.toobob.com/',
+      express: 'https://express.toobob.com/',
+      fast: 'https://legwork.toobob.com/',
+      wxserver: 'https://wxback.toobob.com/',
+    },
   },
 
   pageUrl: {
@@ -81,7 +81,7 @@ module.exports = {
     online: {
       name: ' MP_verify_K1A5wGSof2fHcbF8',
       content: 'K1A5wGSof2fHcbF8',
-    }
+    },
   },
   countly: {
     sdk: {
@@ -107,6 +107,6 @@ module.exports = {
       qafc: 'http://countly.toobob.com',
       pre: 'http://countly.toobob.com',
       online: 'http://countly.toobob.com',
-    }
-  }
-}
+    },
+  },
+};

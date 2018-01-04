@@ -1,7 +1,7 @@
 <view class="container">
   <view class="navigation-box">
     <block wx:for="{{categoryTypeArr}}" wx:key="{{index}}">
-      <view class="navigation-item {{currentMenuIndex === index ? 'navigation-select' : ''}}" bindtap="changeOrderList" data-index="{{index}}">
+      <view class="navigation-item {{currentMenuIndex === index ? 'navigation-select' : ''}}" bindtap="changeTab" data-index="{{index}}">
         <view class="item-title">{{item.name}}</view>
       </view>
     </block>
@@ -10,13 +10,13 @@
     <!-- 去门店寄件 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
       <import src="storeSend/storeSend.wxml" />   
-      <template is="storeSendTpl" data="{{...judgeObject, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex}}" />
+      <template is="storeSendTpl" data="{{...judgeObject, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex,emptyAddressInStore,...sendAddr}}" />
     </view>
     <!-- 快递员上门 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
       <import src="doorSend/doorSend.wxml" />   
       <template is="doorSendTpl" 
-        data="{{...judgeObject,storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex}}" 
+        data="{{...judgeObject,storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex,...defaultAddr}}" 
       />
     </view>
   </view>

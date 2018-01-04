@@ -19,23 +19,23 @@
           <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
         </view>
       </view>
-      <view class="top-item address-item" bindtap="selectSendAdd">
+      <view class="top-item address-item">
         <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/fahuodizhi%402x.png"></image>
         <view class="form-box">
-          <view wx:if="{{emptySAddressInStore}}" class="empty-box">
+          <view wx:if="{{emptyAddressInStore}}" class="empty-box" bindtap="selectSendAddress">
             <text  class="sel-store">请填写发货地址</text>
             <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
           </view>
           <view wx:else class="address-box">
-            <view class="info">
-              <view class="top">月月小<text class="phone">15880274595</text></view>
-              <view class="address">浙江省杭州市上城区近江时代大厦12楼哇哈哈哈或或或</view>
+            <view class="info" bindtap="selectSendAddress">
+              <view class="top">{{name}}<text class="phone">{{phone}}</text></view>
+              <view class="address">{{detailAddress}}</view>
             </view>
-            <view class="edit">编辑</view>
+            <view class="edit" bindtap="editSendAddress">编辑</view>
           </view>
         </view>
       </view>
-      <view class="top-item address-item" bindtap="selectReceiveAdd">
+      <view class="top-item address-item">
         <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/shouhuodizhi%402x.png"></image>
         <view class="form-box">
           <view wx:if="{{emptyRSAddressInStore}}" class="empty-box">

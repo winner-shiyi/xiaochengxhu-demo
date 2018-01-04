@@ -12,7 +12,7 @@ Page({
     modalVisible: false,
     userInfoData: {},
     userName: '',
-    canSubmit: true
+    canSubmit: true,
   },
 
   /**
@@ -32,7 +32,7 @@ Page({
     if (wx.getStorageSync('token')) {
       this._loadData();
     } else {
-      app.tokenReadyCallback = data => {
+      app.tokenReadyCallback = (data) => {
         // console.log('token---', data.resultData.token);
         if (data.resultData.token) {
           this._loadData();
@@ -50,16 +50,16 @@ Page({
       url: 'wx/tuboboUser/userInfo',
       success: (data) => {
         console.log('不惑的库data-userinfo---', data);
-        const {resultData, resultCode, resultDesc} = data;
+        const { resultData, resultCode, resultDesc } = data;
         if (resultCode === '0') {
           this.setData({
             userInfoData: resultData,
-            userName: resultData.nickName
+            userName: resultData.nickName,
           });
         } else {
           that.showToast(resultDesc);
         }
-      }
+      },
     });
   },
   /**
@@ -69,7 +69,7 @@ Page({
     this.getNetWorkFn(() => {
       if (!wx.getStorageSync('token')) return;
       this.setData({
-        modalVisible: true
+        modalVisible: true,
       });
     });
   },
@@ -79,7 +79,7 @@ Page({
   hideModal () {
     this.setData({
       modalVisible: false,
-      canSubmit: true
+      canSubmit: true,
     });
   },
   /**
@@ -91,17 +91,17 @@ Page({
    * 修改昵称，监听输入变化
    */
   changeName (event) {
-    let newName = event.detail.value;
+    const newName = event.detail.value;
     this.setData({
-      userName: newName
+      userName: newName,
     });
     if (!newName.length) {
       this.setData({
-        canSubmit: false
+        canSubmit: false,
       });
     } else {
       this.setData({
-        canSubmit: true
+        canSubmit: true,
       });
     }
   },
@@ -113,7 +113,7 @@ Page({
       const newName = event.detail.value.textarea;
       if (!utilTrim(newName)) {
         this.setData({
-          canSubmit: false
+          canSubmit: false,
         });
         this.showToast('修改失败，请输入昵称');
       } else {
@@ -124,10 +124,10 @@ Page({
           success: (data) => {
             console.log('不惑的库data-updateNickName---', data);
             this.setData({
-              modalVisible: false
+              modalVisible: false,
             });
             this._loadData();
-          }
+          },
         });
       }
     });
@@ -151,8 +151,8 @@ Page({
         } else {
           callback();
         }
-      }
+      },
     });
-  }
+  },
 
 });

@@ -13,8 +13,8 @@
     "pages/selfNotification/selfNotification",
     "pages/searchPoiAddress/searchPoiAddress",
     "pages/expressReceiveList/expressReceiveList",
-    "pages/myProfile/myProfile"
-    
+    "pages/myProfile/myProfile",
+    "pages/addressbox/addressbox"
     // Dont remove this comment
   ],
   // Window configuration
