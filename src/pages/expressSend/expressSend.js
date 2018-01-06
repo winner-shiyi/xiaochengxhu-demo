@@ -1,5 +1,5 @@
 import { doRequestWithRefreshingToken } from '../../utils/RequestUtil';
-import { isEmptyObject } from '../../utils/util';
+import { isEmptyObject, throttle } from '../../utils/util';
 
 // 获取全局应用程序实例对象
 const app = getApp();
@@ -15,12 +15,10 @@ Page({
       { name: '快递员上门' },
     ],
     currentMenuIndex: 0,
-    judgeObject: {
-      hasStore: true, // 3km内是否有门店
-      NoDefaultAddrress: false, // 是否有默认发货地址
-      emptyAddressInStore: true, // 去门店寄件：收获地址是否有值
-      emptyAddressInDoor: true, // 快递员上门：收获地址是否有值
-    },
+    hasStore: true, // 3km内是否有门店
+    emptySendAddr: true, // 发货地址是否有值
+    emptyReceiveAddr: true, // 收货地址是否有值
+    emptyWeight: true, // 物品重量是否有值
     storeArray: ['兔波波1号店  0.3km', '兔波波2号店  0.3km', '兔波波3号店  0.3km', '兔波波4号店  0.3km'],
     storeIndex: 0,
     multiIndex: [0, 0],
@@ -31,7 +29,7 @@ Page({
       `${new Date().getMonth() + 1}月${new Date().getDate() + 1}日`,
       `${new Date().getMonth() + 1}月${new Date().getDate() + 2}日`,
     ],
-    goodsTypeArray: ['电子设备', '生活用品', '珍贵物品'],
+    goodsTypeArray: [],
     goodsTypeIndex: 0,
     defaultAddr: {
       name: '月月小',
@@ -40,6 +38,9 @@ Page({
     },
     sendAddr: {}, // 发货地址信息
     receiveAddr: {}, // 收货地址信息
+    weight: null, // 物品重量
+    remark: '', // 备注信息
+    totalVaule: '',
     canSubmit: false,
   },
   /**
@@ -52,16 +53,9 @@ Page({
       this.getAppointTime(this.data.multiIndex[0]);
     });
     app.ToastPanel();
-    // const { currentMenuIndex } = this.data;
     wx.setStorageSync('EScurrentMenuIndex', 0);
     this.getDefaultAddress();
-
-    // const params = {
-    //   pageSize: 10,
-    //   pageNo: 1,
-    //   status: currentMenuIndex
-    // };
-    // this.doTokenLoadData(params);
+    this.getStdmodeData();
   },
   /**
    * 模拟tab切换
@@ -72,13 +66,6 @@ Page({
 
     if (index !== currentMenuIndex) {
       wx.setStorageSync('EScurrentMenuIndex', index);
-      // const params = {
-      //   pageSize: 10,
-      //   pageNo: 1,
-      //   status: index
-      // };
-      // if (!wx.getStorageSync('token')) return;
-      // this.canLoadData(params, 'down');
       this.setData({
         currentMenuIndex: index,
       });
@@ -91,6 +78,8 @@ Page({
    */
   onShow () {
     const sendAddressObj = wx.getStorageSync('sendAddressData');
+    const receiveAddressObj = wx.getStorageSync('receiveAddressData');
+
     if (!sendAddressObj || isEmptyObject(sendAddressObj)) {
       // 从后台请求默认发货地址
       this.getDefaultAddress();
@@ -102,6 +91,7 @@ Page({
         latitude,
         longitude,
         name,
+        pcdCode,
         city,
         district,
         roomNo,
@@ -116,13 +106,42 @@ Page({
           latitude,
           longitude,
           name,
+          pcdCode,
           phone,
         },
+        emptySendAddr: false,
       });
     }
     // 从缓存读取收货地址
-
-
+    if (receiveAddressObj && !isEmptyObject(receiveAddressObj)) {
+      const {
+        id,
+        pcdCode,
+        detailAddress,
+        latitude,
+        longitude,
+        name,
+        city,
+        district,
+        roomNo,
+        street,
+        phone,
+        province,
+      } = receiveAddressObj;
+      this.setData({
+        receiveAddr: {
+          id,
+          detailAddress: province + city + district + street + detailAddress + roomNo,
+          latitude,
+          longitude,
+          name,
+          pcdCode,
+          phone,
+        },
+        emptyReceiveAddr: false,
+      });
+    }
+    this.validateSumbitButton();
   },
   /**
    * 加载一进入页面请求数据
@@ -176,6 +195,7 @@ Page({
             latitude,
             longitude,
             name,
+            pcdCode,
             city,
             district,
             roomNo,
@@ -191,12 +211,13 @@ Page({
               latitude,
               longitude,
               name,
+              pcdCode,
               phone,
             },
           }, () => {
             if (!isEmptyObject(that.data.sendAddr)) {
               that.setData({
-                emptyAddressInStore: false,
+                emptySendAddr: false,
               });
             }
           });
@@ -223,9 +244,9 @@ Page({
         if (result.resultCode === '0') {
           const { list } = result.resultData;
           // goodsTypeArray: ['电子设备', '生活用品', '珍贵物品']
-          // that.setData({
-          //   goodsTypeArray: goodsTypeArray,
-          // });
+          that.setData({
+            goodsTypeArray: list.map((item) => item.label),
+          });
         }
       },
       fail: () => {
@@ -353,8 +374,227 @@ Page({
       url: `../addressbox/addressbox?sendAddrId=${id}`,
     });
   },
-  
+  /**
+   * 选择收货地址列表
+   */
+  selectReceiveAddress () {
+    wx.navigateTo({
+      url: '../addressbox/addressbox?mode=receive',
+    });
+  },
+  /**
+   * 编辑收货地址
+   */
+  editReceiveAddress () {
+    const {
+      id,
+    } = this.data.sendAddr;
+    wx.setStorageSync('receiveAddrId', id);
+    wx.navigateTo({
+      url: `../addressbox/addressbox?receiveAddrId=${id}`,
+    });
+  },
+  /**
+   * 获取物品重量
+   * @param {*} e
+   */
+  weightChange (e) {
+    const { value } = e.detail;
+    this.setData({
+      weight: Number(value),
+    });
+    if (Number(value) !== 0) {
+      this.setData({
+        emptyWeight: false,
+      });
+    } else {
+      this.setData({
+        emptyWeight: true,
+      });
+    }
+    this.validateSumbitButton();
+  },
+  weightBlur (e) {
+    const { value } = e.detail;
+    if (Number(value) === 0) {
+      this.showToast('请输入有效的重量');
+      this.setData({
+        emptyWeight: true,
+      });
+    } else {
+      this.setData({
+        emptyWeight: false,
+        weight: Number(value),
+      });
+    }
+    this.validateSumbitButton();
+  },
 
+  /**
+   * 获取备注信息
+   * @param {*} e
+   */
+  remarkChange (e) {
+    const remarkValue = e.detail.value;
+    this.setData({
+      remark: remarkValue,
+    });
+  },
+
+  /**
+   * 更新预估价格
+   */
+  updateTotalPrice () {
+    const that = this;
+    const { weight, currentMenuIndex } = this.data;
+    doRequestWithRefreshingToken({
+      // mode: 'express',
+      // url: 'wxcx/express/send/assessValue',
+      isAbsolute: true,
+      absUrl: 'http://172.16.2.71:8068/mockjsdata/24/wxcx/express/send/assessValue',
+      data: {
+        sendType: currentMenuIndex === 0 ? 'STORE' : 'DOOR',
+        weight,
+        senderPcdCode: that.data.sendAddr.pcdCode,
+        receiverPcdCode: that.data.receiveAddr.pcdCode,
+      },
+      success: (result) => {
+        if (result.resultCode === '0') {
+          const {
+            totalVaule,
+          } = result.resultData;
+          that.setData({
+            totalVaule,
+          });
+        } else {
+          that.showToast('获取价格失败，请稍后再试');
+        }
+      },
+    });
+  },
+  /**
+   * 校验按钮是否能提交
+   */
+  validateSumbitButton () {
+    const that = this;
+    const {
+      hasStore,
+      emptySendAddr,
+      emptyReceiveAddr,
+      emptyWeight,
+    } = that.data;
+    if (hasStore && !emptySendAddr && !emptyReceiveAddr && !emptyWeight) {
+      that.setData({
+        canSubmit: true,
+      }, () => {
+        that.updateTotalPrice();
+      });
+    } else {
+      that.setData({
+        canSubmit: false,
+      });
+    }
+  },
+  /**
+   * 提交订单
+   */
+  doSumbit () {
+    const that = this;
+    const {
+      multiArray,
+      multiIndex,
+      addressId,
+      remark,
+      totalPrice,
+    } = that.data;
+    const expressId = wx.getStorageSync('expressId');
+    const params = {
+      mode: 'express',
+      url: 'wxcx/express/appoint',
+      method: 'POST',
+      data: {
+        appointTime: multiArray[1][multiIndex[1]],
+        addressId,
+        remark,
+        totalPrice,
+        appointType: that.getAppointType(),
+        expressId: expressId
+      },
+
+    };
+    doRequestWithRefreshingToken({
+      // mode: 'express',
+      // url: 'wxcx/express/send/assessValue',
+      isAbsolute: true,
+      absUrl: 'http://172.16.2.71:8068/mockjsdata/24/wxcx/express/send/appoint',
+      data: {
+        senderAddressProvince,	
+        receiverAddressProvince,
+        senderPhone,
+        receiverName,
+        shipment,
+        receiverAddressCity,	
+        receiverAddress,	
+        sendType,
+        totalVaule,	
+        senderAddress,	
+        senderAddressDistrict,
+        remark,	
+        appointType,	
+        appointTime,	
+        senderName,	
+        receiverPhone,	
+        weight,	
+        receiverAddressDistrict,	
+        storeId,	
+        receiverProvinceCode,	
+        senderAddressCity,	
+        senderProvinceCode,
+      },
+      success: (result) => {
+        if (result.resultCode === '0') {
+          wx.removeStorageSync('remark');
+          wx.removeStorageSync('multiIndex');
+          wx.removeStorageSync('addressId');
+          wx.redirectTo({
+            url: `../expressReceiveDetail/expressReceiveDetail?id=${expressId}`,
+          });
+        } else {
+          // if (result.resultCode === '10025') {
+          //   that.showToast('门店未开启预约配送功能');
+          // } else {
+          //   that.showToast('任务订单已存在，请勿重复下单');
+          // }
+        }
+      }
+
+    });
+  },
+  /**
+   * 提交校验通过后，提交订单
+   */
+  sumbit () {
+    const that = this;
+    const {
+      hasStore,
+      emptySendAddr,
+      emptyReceiveAddr,
+      emptyWeight,
+    } = that.data;
+    if (!hasStore) {
+      that.showToast('附近无门店，暂不支持寄件服务');
+    } else if (emptySendAddr) {
+      that.showToast('请填写发货地址');
+    } else if (emptyReceiveAddr) {
+      that.showToast('请填写收货地址');
+    } else if (emptyWeight) {
+      that.showToast('请填写物品重量');
+    } else {
+      throttle(() => {
+        that.doSumbit();
+      }, that, 300);
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

@@ -5,8 +5,6 @@
       <view wx:if="{{hasStore}}" class="top-item sotre-item" bindtap="selectStore">
         <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/mendian%402x.png"></image>
         <view class="form-box">
-          <!-- <view wx:if="{{emptyStoreInStore}}" class="sel-store">请选择门店</view> -->
-          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
           <view class="store-picker">
             <picker class="picker"
               bindchange="storePickerChange"
@@ -22,14 +20,14 @@
       <view class="top-item address-item">
         <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/fahuodizhi%402x.png"></image>
         <view class="form-box">
-          <view wx:if="{{emptyAddressInStore}}" class="empty-box" bindtap="selectSendAddress">
+          <view wx:if="{{emptySendAddr}}" class="empty-box" bindtap="selectSendAddress" data-type="send">
             <text  class="sel-store">请填写发货地址</text>
             <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
           </view>
           <view wx:else class="address-box">
             <view class="info" bindtap="selectSendAddress">
-              <view class="top">{{name}}<text class="phone">{{phone}}</text></view>
-              <view class="address">{{detailAddress}}</view>
+              <view class="top">{{sendAddr.name}}<text class="phone">{{sendAddr.phone}}</text></view>
+              <view class="address">{{sendAddr.detailAddress}}</view>
             </view>
             <view class="edit" bindtap="editSendAddress">编辑</view>
           </view>
@@ -38,16 +36,16 @@
       <view class="top-item address-item">
         <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/shouhuodizhi%402x.png"></image>
         <view class="form-box">
-          <view wx:if="{{emptyRSAddressInStore}}" class="empty-box">
+          <view wx:if="{{emptyReceiveAddr}}" class="empty-box" bindtap="selectReceiveAddress">
             <text  class="sel-store">请填写收货地址</text>
             <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
           </view>
           <view wx:else class="address-box">
-            <view class="info">
-              <view class="top">大大八<text class="phone">15880274595</text></view>
-              <view class="address">浙江省杭州市上城区近江时代大厦12楼哇哈哈哈或或或</view>
+            <view class="info" bindtap="selectReceiveAddress">
+              <view class="top">{{receiveAddr.name}}<text class="phone">{{receiveAddr.phone}}</text></view>
+              <view class="address">{{receiveAddr.detailAddress}}</view>
             </view>
-            <view class="edit">编辑</view>
+            <view class="edit" bindtap="editReceiveAddress">编辑</view>
           </view>
         </view>
       </view>
@@ -56,8 +54,6 @@
       <view class="middle-item" bindtap="selectGoodType">
         <view class="label">物品类型</view>
         <view class="middle-box">
-          <!-- <text wx:if="{{true}}" class="sel-store">请选择物品类型</text> -->
-          <!-- <text wx:else class="com-store">兔波波3号店</text> -->
           <view class="goods-picker">
             <picker class="picker"
               bindchange="goodsTypeChange"
@@ -73,14 +69,14 @@
       <view class="middle-item" bindtap="selectGoodType">
         <view class="label">物品重量</view>
         <view class="middle-box">
-          <input
-            placeholder="请填写您的物品重量"
-            maxlength="4"
-            type="text"
+          <input class="weight-inp"
+            placeholder="请预估您的物品重量"
+            maxlength="2"
+            type="number"
             placeholder-style="color:#ccc;font-size: 28rpx;"
-            value="{{good}}"
-            bindinput="goodChange"
-            bindblur="goodeBlur"
+            value="{{weight}}"
+            bindinput="weightChange"
+            bindblur="weightBlur"
           />
           <view>公斤</view>
         </view>
@@ -93,8 +89,7 @@
             placeholder="备注(选填)"
             name="textarea"
             maxlength="50"
-            bindinput="changeMark"
-            bindblur="getRemarkValue"
+            bindinput="remarkChange"
             value="{{remark}}"
           />
         </view>
@@ -107,10 +102,11 @@
       <view class="left">
         <text>运费预估</text>
         <text class="price-icon">¥</text>
-        <text class="price">8.00</text>
+        <text wx:if="{{canSubmit}}" class="price">{{totalVaule}}</text>
+        <text wx:else class="price">8.00<text class="small">起</text></text>
       </view>
       <view class="right">
-        <view class="{{!canSubmit ? 'btn-save.canSubmit' : 'btn-save'}}" bindtap="sumbit">提交订单</view>
+        <view class="{{canSubmit ? 'btn-save.canSubmit' : 'btn-save'}}" bindtap="sumbit">提交订单</view>
       </view>
     </view>
   </view>

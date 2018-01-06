@@ -1,4 +1,4 @@
-import { doRequestWithRefreshingToken } from '../../utils/RequestUtil.js';
+import { doRequestWithRefreshingToken } from '../../utils/RequestUtil';
 // 获取全局应用程序实例对象
 const app = getApp();
 const { validateByRule } = app.infoValidator;

@@ -19,25 +19,27 @@ Page({
       wx.setStorageSync('sendAddressData', {
         id: '111588',
         detailAddress: '黄墩',
-        name: '魏娜',
+        name: '发货魏娜',
         city: '南平市',
         district: '建阳区',
         roomNo: '12',
         street: '莒口',
         phone: '15990245677',
         province: '福建省',
+        pcdCode: '456',
       });
     } else if (options.mode === 'receive') {
       wx.setStorageSync('receiveAddressData', {
         id: '111588',
         detailAddress: '黄墩',
-        name: '魏娜',
+        name: '收货魏娜',
         city: '南平市',
         district: '建阳区',
         roomNo: '12',
         street: '莒口',
         phone: '15990245677',
         province: '福建省',
+        pcdCode: '456',
       });
     }
 
@@ -46,24 +48,26 @@ Page({
       // 把编辑保存后的地址先更新缓存
       wx.setStorageSync('sendAddressData', {
         detailAddress: '黄墩',
-        name: '严小飞',
+        name: '编辑发货严小飞',
         city: '上饶市',
         district: '建阳区',
         roomNo: '12',
         street: '莒口',
         phone: '15990245677',
         province: '江西省',
+        pcdCode: '456',
       });
-    } else if ( options.receiveAddrId === '111588' ) {
-      wx.setStorageSync('sendAddressData', {
+    } else if (options.receiveAddrId === '111588' ) {
+      wx.setStorageSync('receiveAddressData', {
         detailAddress: '黄墩',
-        name: '严小飞',
+        name: '编辑收货严小飞',
         city: '上饶市',
         district: '建阳区',
         roomNo: '12',
         street: '莒口',
         phone: '15990245677',
         province: '江西省',
+        pcdCode: '456',
       });
     }
   },

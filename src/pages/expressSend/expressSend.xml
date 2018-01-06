@@ -1,4 +1,6 @@
 <view class="container">
+  <import src="../../components/customizedToast/customizedToast.wxml" />
+  <template is="customizedToast" data="{{..._toast_ }}" />
   <view class="navigation-box">
     <block wx:for="{{categoryTypeArr}}" wx:key="{{index}}">
       <view class="navigation-item {{currentMenuIndex === index ? 'navigation-select' : ''}}" bindtap="changeTab" data-index="{{index}}">
@@ -10,13 +12,13 @@
     <!-- 去门店寄件 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
       <import src="storeSend/storeSend.wxml" />   
-      <template is="storeSendTpl" data="{{...judgeObject, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex,emptyAddressInStore,...sendAddr}}" />
+      <template is="storeSendTpl" data="{{hasStore, emptySendAddr, emptyReceiveAddr, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex,sendAddr,receiveAddr, totalVaule, canSubmit}}" />
     </view>
     <!-- 快递员上门 -->
     <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
       <import src="doorSend/doorSend.wxml" />   
       <template is="doorSendTpl" 
-        data="{{...judgeObject,storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex,...defaultAddr}}" 
+        data="{{hasStore, emptySendAddr, emptyReceiveAddr, storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex,...defaultAddr}}" 
       />
     </view>
   </view>

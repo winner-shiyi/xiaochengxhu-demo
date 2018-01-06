@@ -5,7 +5,7 @@
   "scripts": {
     "gulp": "gulp watch",
     "lint": "gulp lint",
-    "lintFix": "eslint src/**/*.js --fix",
+    "lintFix": "eslint src/pages/expressSend/expressSend.js --fix",
     "watch": "gulp watch",
     "generate": "gulp generate",
     "build": "cross-env NODE_ENV=production gulp build"

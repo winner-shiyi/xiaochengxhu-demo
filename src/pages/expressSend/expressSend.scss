@@ -206,6 +206,9 @@
       top: 36rpx;
       right: 30rpx;
     }
+    .weight-inp{
+      width: 400rpx;
+    }
   }
   .mark-item{
     .remark-box{
@@ -255,8 +258,11 @@
     .price{
       font-size: 44rpx;
       color: #474747;
-      font-weight: bold;
       vertical-align: middle;
+    }
+    .small{
+      font-size: 28rpx;
+      margin-left: 4rpx;
     }
   }
   .btn-save{
