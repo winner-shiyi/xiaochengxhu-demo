@@ -1,6 +1,7 @@
+import { doRequestWithRefreshingToken } from '../../utils/RequestUtil';
 // 获取全局应用程序实例对象
 const app = getApp();
-import { doRequestWithRefreshingToken } from '../../utils/RequestUtil.js';
+
 
 // 创建页面实例对象
 Page({

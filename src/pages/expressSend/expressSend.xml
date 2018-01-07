@@ -10,16 +10,147 @@
   </view>
   <view class="send-body">
     <!-- 去门店寄件 -->
-    <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
+    <!-- <view class="tpl-box" wx:if="{{currentMenuIndex === 0}}">  
       <import src="storeSend/storeSend.wxml" />   
       <template is="storeSendTpl" data="{{hasStore, emptySendAddr, emptyReceiveAddr, storeArray, storeIndex, goodsTypeArray, goodsTypeIndex,sendAddr,receiveAddr, totalVaule, canSubmit}}" />
-    </view>
+    </view> -->
     <!-- 快递员上门 -->
-    <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
+    <!-- <view class="tpl-box" wx:if="{{currentMenuIndex === 1}}">  
       <import src="doorSend/doorSend.wxml" />   
       <template is="doorSendTpl" 
         data="{{hasStore, emptySendAddr, emptyReceiveAddr, storeArray,storeIndex,goodsTypeArray,goodsTypeIndex,multiArray,multiArrayTime,multiIndex,...defaultAddr}}" 
       />
+    </view> -->
+    <view class="storeSend-container">
+      <view hidden="{{hasStore}}" class="no-store">附近没有兔波波门店，暂不支持寄件服务哦</view>
+      <view class="form-top">
+        <view wx:if="{{hasStore}}" class="top-item sotre-item" bindtap="selectStore">
+          <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/mendian%402x.png"></image>
+          <view class="form-box">
+            <view class="store-picker">
+              <picker class="picker"
+                bindchange="storePickerChange"
+                value="{{storeIndex}}"
+                range="{{storeArray}}"
+              >
+              {{storeArray[storeIndex]}}
+              </picker>
+            </view>
+            <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
+          </view>
+        </view>
+        <view  wx:if="{{currentMenuIndex === 1}}" class="top-item sotre-item" bindtap="selectTime">
+          <image class="store-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/yuyueshij%402x.png"></image>
+          <view class="form-box">
+            <view class="time-picker">
+              预约时间
+              <picker class="time"
+                mode="multiSelector"
+                bindchange="timePickerChange"
+                bindcolumnchange="timePickerColumnChange"
+                value="{{multiIndex}}"
+                range="{{multiArray}}"
+              >
+              {{multiArrayTime[multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}
+              </picker>
+            </view>
+
+            <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
+          </view>
+        </view>
+        <view class="top-item address-item">
+          <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/fahuodizhi%402x.png"></image>
+          <view class="form-box">
+            <view wx:if="{{emptySendAddr}}" class="empty-box" bindtap="selectSendAddress" data-type="send">
+              <text  class="sel-store">请填写发货地址</text>
+              <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
+            </view>
+            <view wx:else class="address-box">
+              <view class="info" bindtap="selectSendAddress">
+                <view class="top">{{sendAddr.name}}<text class="phone">{{sendAddr.phone}}</text></view>
+                <view class="address">{{sendAddr.detailAddress}}</view>
+              </view>
+              <view class="edit" bindtap="editSendAddress">编辑</view>
+            </view>
+          </view>
+        </view>
+        <view class="top-item address-item">
+          <image class="address-img" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/shouhuodizhi%402x.png"></image>
+          <view class="form-box">
+            <view wx:if="{{emptyReceiveAddr}}" class="empty-box" bindtap="selectReceiveAddress">
+              <text  class="sel-store">请填写收货地址</text>
+              <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
+            </view>
+            <view wx:else class="address-box">
+              <view class="info" bindtap="selectReceiveAddress">
+                <view class="top">{{receiveAddr.name}}<text class="phone">{{receiveAddr.phone}}</text></view>
+                <view class="address">{{receiveAddr.detailAddress}}</view>
+              </view>
+              <view class="edit" bindtap="editReceiveAddress">编辑</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="form-middle">
+        <view class="middle-item" bindtap="selectGoodType">
+          <view class="label">物品类型</view>
+          <view class="middle-box">
+            <view class="goods-picker">
+              <picker class="picker"
+                bindchange="goodsTypeChange"
+                value="{{goodsTypeIndex}}"
+                range="{{goodsTypeArray}}"
+              >
+              {{goodsTypeArray[goodsTypeIndex]}}
+              </picker>
+            </view>
+            <image class="arrow" src="https://tubobo-qd.oss-cn-shanghai.aliyuncs.com/jipei-wxxcx/expressSend/youjiantou%402x.png"></image>
+          </view>
+        </view>
+        <view class="middle-item" bindtap="selectGoodType">
+          <view class="label">物品重量</view>
+          <view class="middle-box">
+            <input class="weight-inp"
+              placeholder="请预估您的物品重量"
+              maxlength="2"
+              type="number"
+              placeholder-style="color:#ccc;font-size: 28rpx;"
+              value="{{weight}}"
+              bindinput="weightChange"
+              bindblur="weightBlur"
+            />
+            <view>公斤</view>
+          </view>
+        </view>
+        <view class="mark-item" bindtap="selectGoodType">
+          <view class="remark-box">
+            <textarea
+              class="remark"
+              placeholder-class="setcolor"
+              placeholder="备注(选填)"
+              name="textarea"
+              maxlength="50"
+              bindinput="remarkChange"
+              value="{{remark}}"
+            />
+          </view>
+            
+        </view>
+      </view>
+      <view class="rule">《快件运单契约条款》</view>
+      <view class="margin"></view>
+      <view class="form-bottom">
+        <view class="left">
+          <text>运费预估</text>
+          <text class="price-icon">¥</text>
+          <text wx:if="{{canSubmit}}" class="price">{{totalVaule}}</text>
+          <text wx:else class="price">8.00<text class="small">起</text></text>
+        </view>
+        <view class="right">
+          <view class="{{canSubmit ? 'btn-save.canSubmit' : 'btn-save'}}" bindtap="sumbit">提交订单</view>
+        </view>
+      </view>
     </view>
+
   </view>
 </view>

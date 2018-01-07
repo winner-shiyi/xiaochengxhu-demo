@@ -17,7 +17,7 @@ Page({
     console.log('地址簿----', options);
     if (options.mode === 'send') {
       wx.setStorageSync('sendAddressData', {
-        id: '111588',
+        id: '发货id111588',
         detailAddress: '黄墩',
         name: '发货魏娜',
         city: '南平市',
@@ -30,7 +30,7 @@ Page({
       });
     } else if (options.mode === 'receive') {
       wx.setStorageSync('receiveAddressData', {
-        id: '111588',
+        id: '收货id111588',
         detailAddress: '黄墩',
         name: '收货魏娜',
         city: '南平市',
@@ -44,9 +44,10 @@ Page({
     }
 
     // 路由传过来的id 命中 缓存中的
-    if (options.sendAddrId === '111588') {
+    if (options.sendAddrId === '发货id111588') {
       // 把编辑保存后的地址先更新缓存
       wx.setStorageSync('sendAddressData', {
+        id: '发货id111588',
         detailAddress: '黄墩',
         name: '编辑发货严小飞',
         city: '上饶市',
@@ -57,8 +58,9 @@ Page({
         province: '江西省',
         pcdCode: '456',
       });
-    } else if (options.receiveAddrId === '111588' ) {
+    } else if (options.receiveAddrId === '收货id111588' ) {
       wx.setStorageSync('receiveAddressData', {
+        id: '收货id111588',
         detailAddress: '黄墩',
         name: '编辑收货严小飞',
         city: '上饶市',

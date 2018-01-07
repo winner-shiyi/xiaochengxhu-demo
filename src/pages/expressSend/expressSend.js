@@ -1,5 +1,5 @@
 import { doRequestWithRefreshingToken } from '../../utils/RequestUtil';
-import { isEmptyObject, throttle } from '../../utils/util';
+import { isEmptyObject, throttle, setDate } from '../../utils/util';
 
 // 获取全局应用程序实例对象
 const app = getApp();
@@ -19,23 +19,19 @@ Page({
     emptySendAddr: true, // 发货地址是否有值
     emptyReceiveAddr: true, // 收货地址是否有值
     emptyWeight: true, // 物品重量是否有值
-    storeArray: ['兔波波1号店  0.3km', '兔波波2号店  0.3km', '兔波波3号店  0.3km', '兔波波4号店  0.3km'],
+    storeIds: [], // 保存所有门店的id
+    storeArray: [], // 所有门店名称
     storeIndex: 0,
     multiIndex: [0, 0],
     multiArray: [['今天', '明天', '后天']],
     multiArraylist: [],
     multiArrayTime: [
-      `${new Date().getMonth() + 1}月${new Date().getDate()}日`,
-      `${new Date().getMonth() + 1}月${new Date().getDate() + 1}日`,
-      `${new Date().getMonth() + 1}月${new Date().getDate() + 2}日`,
+      setDate(new Date(), 0),
+      setDate(new Date(), 1),
+      setDate(new Date(), 2),
     ],
     goodsTypeArray: [],
     goodsTypeIndex: 0,
-    defaultAddr: {
-      name: '月月小',
-      phone: '15880274595',
-      address: '浙江省杭州市上城区近江时代大厦12楼哇哈哈哈或或或',
-    },
     sendAddr: {}, // 发货地址信息
     receiveAddr: {}, // 收货地址信息
     weight: null, // 物品重量
@@ -47,13 +43,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    app.ToastPanel();
     this.setData({
       multiArraylist: this.getUsableTime(),
     }, () => {
       this.getAppointTime(this.data.multiIndex[0]);
     });
-    app.ToastPanel();
     wx.setStorageSync('EScurrentMenuIndex', 0);
+    this.getLocation();
     this.getDefaultAddress();
     this.getStdmodeData();
   },
@@ -68,17 +65,18 @@ Page({
       wx.setStorageSync('EScurrentMenuIndex', index);
       this.setData({
         currentMenuIndex: index,
+      }, () => {
+        this.getLocation();
       });
     }
   },
-
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow () {
     const sendAddressObj = wx.getStorageSync('sendAddressData');
     const receiveAddressObj = wx.getStorageSync('receiveAddressData');
+    this.getLocation();
 
     if (!sendAddressObj || isEmptyObject(sendAddressObj)) {
       // 从后台请求默认发货地址
@@ -144,15 +142,49 @@ Page({
     this.validateSumbitButton();
   },
   /**
-   * 加载一进入页面请求数据
+   * 获取用户地理位置，返回经纬度信息给服务器确认3km内是否有门店
    */
-  _loadData () {
-
+  getLocation () {
+    const that = this;
+    wx.getLocation({
+      success: (res) => {
+        const { latitude, longitude } = res;
+        that.getSotreData(longitude, latitude);
+      },
+      fail: () => {
+        wx.showModal({
+          title: '微信授权',
+          content: '为了让您获得更好的体验，需要获取您的地理位置',
+          confirmText: '前往授权',
+          showCancel: false,
+          success: (res) => {
+            if (res.confirm) {
+              // 引导用户打开定位权限，且用户确定要打开
+              wx.openSetting({
+                success: (settingRes) => {
+                  if (settingRes.authSetting['scope.userLocation']) {
+                    wx.getLocation({
+                      success: (locationRes) => {
+                        const { latitude, longitude } = locationRes;
+                        that.getSotreData(longitude, latitude);
+                      },
+                    });
+                  } else {
+                    // 停留在原页面，不做处理
+                  }
+                },
+              });
+            }
+          },
+        });
+      },
+    });
   },
+
   /**
    * 获取门店信息
    */
-  getSotreData () {
+  getSotreData (longitude, latitude) {
     const that = this;
     doRequestWithRefreshingToken({
       // mode: 'express',
@@ -160,16 +192,25 @@ Page({
       isAbsolute: true,
       absUrl: 'http://172.16.2.71:8068/mockjsdata/24/wxcx/express/send/nearStore',
       data: {
-        longitude: '',
-        latitude: '',
+        longitude,
+        latitude,
       },
       success: (result) => {
         if (result.resultCode === '0') {
           const { hasStore, list } = result.resultData;
-          // storeArray: ['兔波波1号店  0.3km', '兔波波2号店  0.3km', '兔波波3号店  0.3km', '兔波波4号店  0.3km']
-          // that.setData({
-          //   storeArray: storeArray,
-          // });
+          if (hasStore) {
+            that.setData({
+              hasStore,
+              storeArray: list.map((item) => `${item.storeName  }${item.storeDistance}`),
+              storeIds: list.map((item) => item.storeId),
+            });
+          } else {
+            that.setData({
+              hasStore,
+              storeArray: [],
+              storeIds: [],
+            });
+          }
         }
       },
       fail: () => {
@@ -254,14 +295,10 @@ Page({
       },
     });
   },
-
-
   /**
-   * 获取用户地理位置，返回经纬度信息给服务器确认3km内是否有门店
+   * 选择门店
+   * @param {*} e
    */
-  hasStoreFn () {
-
-  },
   storePickerChange (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
     this.setData({
@@ -269,7 +306,7 @@ Page({
     });
   },
   /**
-   * 预约时间
+   * 选择预约时间
    * @param {*} e
    */
   timePickerChange (e) {
@@ -293,11 +330,19 @@ Page({
       multiIndex,
     });
   },
+  /**
+   * 选择物品类型
+   * @param {*} e
+   */
   goodsTypeChange (e) {
     this.setData({
       goodsTypeIndex: e.detail.value,
     });
   },
+  /**
+   * 填充预约时间picker数据
+   * @param {*} day 当天选择的是哪一天
+   */
   getAppointTime (day) {
     const {
       multiArray,
@@ -305,8 +350,6 @@ Page({
     } = this.data;
     switch (multiArray[0][day]) {
       case '今天':
-        // const newArr = [multiArray[0],[...multiArraylist]]
-        // multiArray[1] = multiArraylist[0];
         multiArray[1] = [...multiArraylist];
         break;
       case '明天':
@@ -323,6 +366,9 @@ Page({
       multiArraylist,
     });
   },
+  /**
+   * 计算当前可选择的时间段
+   */
   getUsableTime () {
     // 获取当前时间点
     const hour = new Date().getHours();
@@ -344,15 +390,41 @@ Page({
     if (hour >= 16) {
       const multiArray = [['明天', '后天'], ['10:00-12:00', '12:00-14:00', '14:00-16:00', '16:00-18:00']];
       const multiArrayTime = [
-        `${new Date().getMonth() + 1}月${new Date().getDate() + 1}日`,
-        `${new Date().getMonth() + 1}月${new Date().getDate() + 2}日`,
+        setDate(new Date(), 1),
+        setDate(new Date(), 2),
       ];
+
       this.setData({
         multiArray: multiArray,
         multiArrayTime: multiArrayTime,
       });
     }
     return multiArraylist;
+  },
+  /**
+   * 获取弹框的预约时间类型，是今天、明天、后天中哪种
+   */
+  getAppointType () {
+    const that = this;
+    const {
+      multiArray,
+      multiIndex,
+    } = that.data;
+    let appointType;
+    switch (multiArray[0][multiIndex[0]]) {
+      case '今天':
+        appointType = '1';
+        break;
+      case '明天':
+        appointType = '2';
+        break;
+      case '后天':
+        appointType = '3';
+        break;
+      default:
+        break;
+    }
+    return appointType;
   },
   /**
    * 选择发货地址列表
@@ -414,6 +486,10 @@ Page({
     }
     this.validateSumbitButton();
   },
+  /**
+   * 输入物品重量，失焦验证
+   * @param {*} e
+   */
   weightBlur (e) {
     const { value } = e.detail;
     if (Number(value) === 0) {
@@ -496,82 +572,60 @@ Page({
     }
   },
   /**
-   * 提交订单
+   * 发送请求，提交订单
    */
   doSumbit () {
     const that = this;
     const {
+      currentMenuIndex,
+      storeIds,
+      storeIndex,
+      sendAddr,
+      receiveAddr,
       multiArray,
       multiIndex,
-      addressId,
+      goodsTypeArray,
+      goodsTypeIndex,
+      weight,
       remark,
-      totalPrice,
+      totalVaule,
     } = that.data;
-    const expressId = wx.getStorageSync('expressId');
-    const params = {
-      mode: 'express',
-      url: 'wxcx/express/appoint',
-      method: 'POST',
-      data: {
-        appointTime: multiArray[1][multiIndex[1]],
-        addressId,
-        remark,
-        totalPrice,
-        appointType: that.getAppointType(),
-        expressId: expressId
-      },
-
-    };
     doRequestWithRefreshingToken({
       // mode: 'express',
       // url: 'wxcx/express/send/assessValue',
       isAbsolute: true,
       absUrl: 'http://172.16.2.71:8068/mockjsdata/24/wxcx/express/send/appoint',
       data: {
-        senderAddressProvince,	
-        receiverAddressProvince,
-        senderPhone,
-        receiverName,
-        shipment,
-        receiverAddressCity,	
-        receiverAddress,	
-        sendType,
-        totalVaule,	
-        senderAddress,	
-        senderAddressDistrict,
-        remark,	
-        appointType,	
-        appointTime,	
-        senderName,	
-        receiverPhone,	
-        weight,	
-        receiverAddressDistrict,	
-        storeId,	
-        receiverProvinceCode,	
-        senderAddressCity,	
-        senderProvinceCode,
+        sendType: currentMenuIndex === 0 ? 'STORE' : 'DOOR',
+        storeId: storeIds[storeIndex],
+        senderAddressId: sendAddr.id,
+        receiverAddressId: receiveAddr.id,
+        shipment: goodsTypeArray[goodsTypeIndex],
+        weight,
+        remark,
+        totalVaule,
+        appointType: currentMenuIndex === 1 ? that.getAppointType() : '',
+        appointTime: currentMenuIndex === 1 ? multiArray[1][multiIndex[1]] : '',
       },
       success: (result) => {
         if (result.resultCode === '0') {
-          wx.removeStorageSync('remark');
-          wx.removeStorageSync('multiIndex');
-          wx.removeStorageSync('addressId');
+          const { appointTaskId } = result.resultData;
+          // 清除缓存
+          wx.removeStorageSync('sendAddressData');
+          wx.removeStorageSync('sendAddrId');
+          wx.removeStorageSync('receiveAddressData');
+          wx.removeStorageSync('receiveAddrId');
+          // 跳转到订单详情页
           wx.redirectTo({
-            url: `../expressReceiveDetail/expressReceiveDetail?id=${expressId}`,
+            url: `../expressReceiveDetail/expressReceiveDetail?id=${appointTaskId}`,
+            // url: `../expressSendDetail/expressSendDetail?id=${appointTaskId}`,
           });
-        } else {
-          // if (result.resultCode === '10025') {
-          //   that.showToast('门店未开启预约配送功能');
-          // } else {
-          //   that.showToast('任务订单已存在，请勿重复下单');
-          // }
         }
-      }
-
+      },
     });
   },
   /**
-   * 提交校验通过后，提交订单
+   * 提交校验通过后，最后提交订单
    */
   sumbit () {
     const that = this;
@@ -595,25 +649,14 @@ Page({
       }, that, 300);
     }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide () {
-    // TODO: onHide
-  },
-
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload () {
-    // TODO: onUnload
+    wx.removeStorageSync('sendAddressData');
+    wx.removeStorageSync('sendAddrId');
+    wx.removeStorageSync('receiveAddressData');
+    wx.removeStorageSync('receiveAddrId');
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh () {
-    // TODO: onPullDownRefresh
-  },
 });

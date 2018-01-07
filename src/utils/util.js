@@ -431,4 +431,21 @@ export function formatDate (value, format) {
 export function utilTrim (str) {
   return str.replace(/^(\s|\u00A0)+/, '').replace(/(\s|\u00A0)+$/, '');
 }
+/**
+ * 日期加减函数
+ * @param {Date} date 当前日期
+ * @param {Number} days 加、减天数
+ */
+export function setDate(date,days){ 
+  const d = new Date(date); 
+  d.setDate(d.getDate()+days); 
+  let month = d.getMonth()+1; 
+  month = month < 10 ? (`0${month}`) : month;
+  let day = d.getDate();
+  day = day < 10 ? (`0${day}`) : day;
+  
+  // 项目需要，不用返回年
+  // return d.getFullYear()+'-'+m+'-'+d.getDate(); 
+  return `${month}-${day}`; 
+} 
 
